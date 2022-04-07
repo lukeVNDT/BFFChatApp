@@ -30,4 +30,9 @@ window.Echo = new Echo({
     cluster: 'ap1',
     forceTLS: true,
     authEndpoint: "/broadcasting/auth",
+    auth: {
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        }
+    }
 });
