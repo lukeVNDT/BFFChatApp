@@ -28,5 +28,6 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: 'c8e0d71f42cd8a71b2b8',
     cluster: 'ap1',
-    forceTLS: true
+    forceTLS: true,
+    authEndpoint: "/broadcasting/auth",
 });
