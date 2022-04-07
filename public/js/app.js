@@ -68399,16 +68399,6 @@ var render = function () {
                             "div",
                             { staticClass: "text-gray-600 text-xs sm:text-sm" },
                             [
-                              _vm._v(
-                                "\n                    " +
-                                  _vm._s(
-                                    _vm.userchoose.shortDescription.substring(
-                                      0,
-                                      40
-                                    ) + "..."
-                                  ) +
-                                  "\n                    "
-                              ),
                               _c("span", { staticClass: "mx-1" }, [
                                 _vm._v("•"),
                               ]),

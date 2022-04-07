@@ -17,6 +17,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta name="description" content="Midone admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
         <meta name="keywords" content="admin template, Midone admin template, dashboard template, flat admin template, responsive admin template, web app">
         <meta name="author" content="LEFT4CODE">
+        <meta name="csrf-token" content="{{csrf_token()}}">
         <title>BFFChat</title>
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="../dist2/css/app.css" />
