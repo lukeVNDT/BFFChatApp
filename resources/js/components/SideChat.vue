@@ -811,22 +811,27 @@ export default {
       .error((error) => {
         console.error(error);
       });
-    this.getUserProfile();
-    this.fetchUser();
-    this.getnotify();
-    Echo.private("privatebffchat." + this.currentuser.id).listen(
-      "PrivateMessageSent",
+
+       Echo.private('privatebffchat.'+this.currentuser.id).listen(
+      '.myneweventname',
       (e) => {
+        console.log(e);
         this.activeuser = e.message.user_id;
+        
         this.allmessage.push(e.message);
         setTimeout(this.scrollToEnd, 100);
       }
     );
+   
 
     Echo.private("bffchatnotify").listen("NotifyEvent", (e) => {
       this.notify.push(e.message);
     });
+    this.getUserProfile();
+    this.fetchUser();
+    this.getnotify();
   },
+
   watch: {
     activeuser(val) {
       this.fetchmessage();
@@ -1055,6 +1060,7 @@ export default {
       axios
         .post("/private-message/" + this.activeuser, msg)
         .then((res) => {
+          
           this.message = null;
           this.allmessage.push(res.data.message);
           setTimeout(this.scrollToMessage, 10);

@@ -39,4 +39,10 @@ class MessageSent implements ShouldBroadcast
     {
         return new PrivateChannel('bffchat');
     }
+
+    public function broadcastAs()
+{
+return 'my-event';
+}
+    
 }

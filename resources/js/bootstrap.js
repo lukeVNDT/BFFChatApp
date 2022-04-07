@@ -24,9 +24,12 @@ import Echo from 'laravel-echo';
 
 window.Pusher = require('pusher-js');
 
+
+
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: 'c8e0d71f42cd8a71b2b8',
     cluster: 'ap1',
     forceTLS: true
 });
+Pusher.logToConsole = true;

@@ -22,6 +22,8 @@ Vue.filter('formatDate', function(value) {
     }
 });
 
+
+
 import Swal from 'sweetalert2';
 import Vue from 'vue';
 window.Swal = Swal;
@@ -38,6 +40,8 @@ const Toast = Swal.mixin({
   });
 
 window.Toast = Toast;
+
+
 
 import VueRouter from 'vue-router';
 import routes from './routes';
