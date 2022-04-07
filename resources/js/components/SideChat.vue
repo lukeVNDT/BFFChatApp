@@ -501,7 +501,7 @@
                     {{ userchoose.displayName }}
                   </div>
                   <div class="text-gray-600 text-xs sm:text-sm">
-                    {{ userchoose.shortDescription.substring(0, 40) + "..." }}
+                    <!-- {{ userchoose.shortDescription.substring(0, 40) + "..." }} -->
                     <span class="mx-1">•</span>
                     {{
                       onlineuser.find(
