@@ -173,7 +173,8 @@ class MessageController extends Controller
         $activeId = $req->activeuser;
         return view('layouts.masterlayout')->with('activeId', $activeId);
     }
-    public function deletemessage($id){
+    public function deletemessage(){
+       
         $msg = auth()->user()->message()->where('id', $id)->delete();
 
         return response(['status' => 'message delete successfully']);
@@ -189,7 +190,9 @@ class MessageController extends Controller
             $inputdata
         );
 
-        broadcast(new PrivateMessageSent($message->load('user')))->toOthers();
+     
+            broadcast(new PrivateMessageSent($message->load('user')))->toOthers();
+    
 
         return response(['status' => 'message send successfully','message' => $message]);
     }
@@ -256,11 +259,10 @@ class MessageController extends Controller
            
             }
         else if($checkfriend1 == null && $checkfriend2 == null){
-            $data = Notify::create([
-                'content' => 'Send you a friend request',
-                'user_id' => Auth::user()->id,
-                'receiver_id' => $id
-            ]);
+
+            $input['receiver_id'] = $id;
+            $input['content'] = 'Send you a friend request';
+            $data = auth()->user()->notify()->create($input);
     
             Friend::create([
                 'user_id'=> Auth::user()->id,
@@ -269,7 +271,7 @@ class MessageController extends Controller
 
            
     
-            broadcast(new NotifyEvent(auth()->user(), $data->load('user')))->toOthers();
+            broadcast(new NotifyEvent($data->load('user')))->toOthers();
     
             return response(['status' => 'friend request send successfully']);
            
@@ -331,8 +333,19 @@ class MessageController extends Controller
        
         return response()->json($friend);
     }
-    public function remove($id){
-        $noti = Notify::where('id', $id)->delete();       
+    public function remove(Request $req){
+
+        $noti = $req->noti;
+        $uid = $req->uid;
+        $noti = Notify::where('id',$noti)->delete();
+        
+        $delete = Friend::where(function($query) use($uid){
+            $query->where('user_id', Auth::user()->id)
+                ->Where('friend_id', $uid);
+        })->orWhere(function($query) use($uid){
+            $query->where('user_id', $uid)
+                ->Where('friend_id', Auth::user()->id);
+        })->delete();
     }
     public function getnotify(){
         $notify = Notify::with('user')->where('receiver_id', Auth::user()->id)->where('status', 0)->get();

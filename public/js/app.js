@@ -6238,16 +6238,15 @@ __webpack_require__.r(__webpack_exports__);
     }).error(function (error) {
       console.error(error);
     });
-    Echo["private"]('privatebffchat.' + this.currentuser.id).listen('.myneweventname', function (e) {
-      console.log(e);
-      _this.activeuser = e.message.user_id;
-
+    Echo["private"]("privatebffchat.".concat(UserAuth.id)).listen('PrivateMessageSent', function (e) {
       _this.allmessage.push(e.message);
 
-      setTimeout(_this.scrollToEnd, 100);
+      setTimeout(function () {
+        _this.scrollToEnd();
+      }, 50);
     });
-    Echo["private"]("bffchatnotify").listen("NotifyEvent", function (e) {
-      _this.notify.push(e.message);
+    Echo["private"]("bffchatnotify.".concat(UserAuth.id)).listen("NotifyEvent", function (e) {
+      _this.notify.push(e.notify);
     });
     this.getUserProfile();
     this.fetchUser();
@@ -6287,10 +6286,10 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err);
       });
     },
-    removeRequest: function removeRequest(id, index) {
+    removeRequest: function removeRequest(id, userid, index) {
       var _this3 = this;
 
-      axios["delete"]("/remove-request/" + id).then(function (res) {
+      axios["delete"]("/remove-request?noti=".concat(id, "&uid=").concat(userid)).then(function (res) {
         Toast.fire({
           icon: "success",
           title: "Friend request successfully removed!"
@@ -6586,7 +6585,10 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   cluster: 'ap1',
   forceTLS: true
 });
-Pusher.logToConsole = true;
+Pusher.logToConsole = true; // var channels = Echo.channel('privatebffchat.10');
+// channels.listen('.myneweventname', (data) =>{
+//     console.log(data);
+// });
 
 /***/ }),
 
@@ -72635,7 +72637,11 @@ var render = function () {
                                       "\n                          flex\n                          items-center\n                          block\n                          p-2\n                          transition\n                          duration-300\n                          ease-in-out\n                          bg-white\n                          dark:bg-dark-1\n                          hover:bg-gray-200\n                          dark:hover:bg-dark-2\n                          rounded-md\n                        ",
                                     on: {
                                       click: function ($event) {
-                                        return _vm.removeRequest(noti.id, index)
+                                        return _vm.removeRequest(
+                                          noti.id,
+                                          noti.user_id,
+                                          index
+                                        )
                                       },
                                     },
                                   },

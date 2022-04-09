@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Message;
 use App\Models\Profile;
+use App\Models\Notify;
 use App\Models\Friend;
 
 class User extends Authenticatable
@@ -42,7 +43,11 @@ class User extends Authenticatable
     ];
 
     public function message(){
-        return $this->hasMany(Message::class);
+        return $this->hasMany(Message::class, 'user_id');
+    }
+
+    public function notify(){
+        return $this->hasMany(Notify::class, 'user_id');
     }
 
     public function profile(){

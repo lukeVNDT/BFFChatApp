@@ -28,7 +28,7 @@ Route::get('/otherprofile/{id}', [App\Http\Controllers\ProfileController::class,
 Route::get('/getotherprofile/{id}', [App\Http\Controllers\ProfileController::class, 'getotherprofile']);
 Route::get('/logout', [App\Http\Controllers\MessageController::class, 'logout']);
 Route::post('/accept-request/{id}', [App\Http\Controllers\MessageController::class, 'accept']);
-Route::delete('/remove-request/{id}', [App\Http\Controllers\MessageController::class, 'remove']);
+Route::delete('/remove-request', [App\Http\Controllers\MessageController::class, 'remove']);
 Route::delete('/delete-friend/{id}', [App\Http\Controllers\MessageController::class, 'deletefriend']);
 Route::get('/getallnotify',  [App\Http\Controllers\MessageController::class, 'getnotify']);
 Route::get('/search',  [App\Http\Controllers\MessageController::class, 'search']);

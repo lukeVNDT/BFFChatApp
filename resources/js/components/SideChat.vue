@@ -395,7 +395,7 @@
                         Accept
                       </a>
                       <a
-                        @click="removeRequest(noti.id, index)"
+                        @click="removeRequest(noti.id,noti.user_id, index)"
                         class="
                           flex
                           items-center
@@ -773,10 +773,12 @@
 
 <script>
 import { Picker } from "emoji-mart-vue";
+
 export default {
   components: {
     Picker,
-  },
+  }
+  ,
   data() {
     return {
       users: [],
@@ -812,26 +814,21 @@ export default {
         console.error(error);
       });
 
-       Echo.private('privatebffchat.'+this.currentuser.id).listen(
-      '.myneweventname',
-      (e) => {
-        console.log(e);
-        this.activeuser = e.message.user_id;
-        
-        this.allmessage.push(e.message);
-        setTimeout(this.scrollToEnd, 100);
-      }
-    );
-   
-
-    Echo.private("bffchatnotify").listen("NotifyEvent", (e) => {
-      this.notify.push(e.message);
+       Echo.private(`privatebffchat.${UserAuth.id}`)
+  .listen('PrivateMessageSent', (e)=>{
+    this.allmessage.push(e.message);
+    setTimeout(()=>{
+      this.scrollToEnd();
+    },50);
+  });
+  
+    Echo.private(`bffchatnotify.${UserAuth.id}`).listen("NotifyEvent", (e) => {
+      this.notify.push(e.notify);
     });
     this.getUserProfile();
     this.fetchUser();
     this.getnotify();
   },
-
   watch: {
     activeuser(val) {
       this.fetchmessage();
@@ -867,9 +864,9 @@ export default {
           console.log(err);
         });
     },
-    removeRequest(id, index) {
+    removeRequest(id,userid, index) {
       axios
-        .delete("/remove-request/" + id)
+        .delete(`/remove-request?noti=${id}&uid=${userid}`)
         .then((res) => {
           Toast.fire({
             icon: "success",
@@ -1060,9 +1057,9 @@ export default {
       axios
         .post("/private-message/" + this.activeuser, msg)
         .then((res) => {
-          
           this.message = null;
           this.allmessage.push(res.data.message);
+          
           setTimeout(this.scrollToMessage, 10);
           //   console.log(res.data);
         })

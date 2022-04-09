@@ -15,7 +15,6 @@ use App\Models\User;
 class NotifyEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $user;
     public $notify;
 
     /**
@@ -23,9 +22,8 @@ class NotifyEvent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(User $user, Notify $notify)
+    public function __construct(Notify $notify)
     {
-        $this->user = $user;
         $this->notify = $notify;
     }
 
@@ -36,6 +34,10 @@ class NotifyEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('bffchatnotify');
+        return new PrivateChannel('bffchatnotify.'.$this->notify->receiver_id);
     }
+
+    public function broadcastWith(){
+        return ["notify" => $this->notify];
+        }
 }

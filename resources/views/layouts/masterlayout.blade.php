@@ -2,7 +2,7 @@
 
 @section('chatcontent')
                 <!-- <master-layout> -->
-                <side-chat></side-chat>
+                <side-chat v-bind:auth="{{Auth::user()->id}}"></side-chat>
 
      
 
@@ -13,5 +13,11 @@
 
                    
 @endsection
+
+@if(auth()->check())
+<script>
+    window.UserAuth = {!! auth()->user()  !!}
+</script>
+@endif
 
 

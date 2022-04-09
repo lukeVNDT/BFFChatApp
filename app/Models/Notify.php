@@ -11,9 +11,9 @@ class Notify extends Model
 
     protected $table = 'notify';
 
-    protected $fillable = ['content', 'user_id', 'receiver_id', 'created_at', 'updated_at'];
+    protected $guarded = [];
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
