@@ -20,7 +20,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <title>BFFChat</title>
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="../dist2/css/app.css" />
-        
+        <link rel="stylesheet" href="../dist/css/custom.css" />
         <!-- END: CSS Assets-->
     </head>
     <!-- END: Head -->

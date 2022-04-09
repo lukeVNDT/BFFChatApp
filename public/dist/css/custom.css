@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap');
 
 body{
-    font-family: 'K2D', sans-serif;
+    font-family: 'K2D', sans-serif !important;
 }
 /* 
 .conversion {
@@ -17,8 +17,43 @@ body{
 } */
 
 .floating-div{
-    z-index: 9999;
-    position: fixed;
+    z-index: 9999 !important;
+    position: fixed !important;
+    right: 100px;
+    bottom: 80px;
+    
 }
 
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .floating-div{
+        z-index: 9999 !important;
+        position: fixed !important;
+        right: 1px !important;
+        bottom: 80px;
+        
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .floating-div{
+        z-index: 9999 !important;
+        position: fixed !important;
+        right: 1px !important;
+        bottom: 80px;
+        
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .floating-div{
+        z-index: 9999 !important;
+        position: fixed !important;
+        right: 1px !important;
+        bottom: 80px;
+        
+    }
+}
 

@@ -6202,6 +6202,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -6240,10 +6252,6 @@ __webpack_require__.r(__webpack_exports__);
     });
     Echo["private"]("privatebffchat.".concat(UserAuth.id)).listen('PrivateMessageSent', function (e) {
       _this.allmessage.push(e.message);
-
-      setTimeout(function () {
-        _this.scrollToEnd();
-      }, 50);
     });
     Echo["private"]("bffchatnotify.".concat(UserAuth.id)).listen("NotifyEvent", function (e) {
       _this.notify.push(e.notify);
@@ -11718,7 +11726,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.chat .chat__tabs a.active[data-v-33fd918c] {\r\n  background-color: #3e94da !important;\n}\n.bg-theme-1[data-v-33fd918c] {\r\n  background-color: #1d90f4 !important;\n}\r\n\r\n/* .emoji-mart[data-v-7bc71df8] {\r\n    font-family: -apple-system, BlinkMacSystemFont, \"Helvetica Neue\", sans-serif;\r\n    font-size: 16px;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -ms-flex-direction: column;\r\n    flex-direction: column;\r\n    height: 420px;\r\n    color: #222427;\r\n    border: 1px solid #232a3b;\r\n    border-radius: 5px;\r\n    background: #293145;\r\n}\r\n\r\n.emoji-mart-category-label span[data-v-376cda0e] {\r\n    display: block !important;\r\n    width: 100% !important;\r\n    font-weight: 500 !important;\r\n    color: #fff !important;\r\n    padding: 5px 6px !important;\r\n    background-color: rgb(49 58 85) !important;\r\n}\r\n\r\n.emoji-mart-search input[data-v-4ad41bb8] {\r\n\r\n    color: #fff !important;\r\n  \r\n    background-color: #293145 !important;\r\n \r\n} */\n.box.active[data-v-33fd918c] {\r\n  border-left: 6px solid #02de6b !important;\n}\n.box[data-v-33fd918c] {\r\n  border-radius: 20px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.chat .chat__tabs a.active[data-v-33fd918c] {\r\n  background-color: #3e94da !important;\n}\n.bg-theme-1[data-v-33fd918c] {\r\n  background-color: #1d90f4 !important;\n}\n.box.active[data-v-33fd918c] {\r\n  border-left: 6px solid #02de6b !important;\n}\n.box[data-v-33fd918c] {\r\n  border-radius: 20px;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -72719,29 +72727,76 @@ var render = function () {
                             ),
                           ]),
                           _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "text-gray-600 text-xs sm:text-sm" },
-                            [
-                              _c("span", { staticClass: "mx-1" }, [
-                                _vm._v("•"),
-                              ]),
-                              _vm._v(
-                                "\n                    " +
-                                  _vm._s(
-                                    _vm.onlineuser.find(function (onlineusers) {
-                                      return (
-                                        onlineusers.id ===
-                                        _vm.userchoose.user_id
-                                      )
-                                    })
-                                      ? "Online"
-                                      : "Offline"
-                                  ) +
-                                  "\n                  "
+                          _vm.userchoose.shortDescription != null
+                            ? _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "text-gray-600 text-xs sm:text-sm",
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    " +
+                                      _vm._s(
+                                        _vm.userchoose.shortDescription.substring(
+                                          0,
+                                          40
+                                        ) + "..."
+                                      ) +
+                                      "\n                    "
+                                  ),
+                                  _c("span", { staticClass: "mx-1" }, [
+                                    _vm._v("•"),
+                                  ]),
+                                  _vm._v(
+                                    "\n                    " +
+                                      _vm._s(
+                                        _vm.onlineuser.find(function (
+                                          onlineusers
+                                        ) {
+                                          return (
+                                            onlineusers.id ===
+                                            _vm.userchoose.user_id
+                                          )
+                                        })
+                                          ? "Online"
+                                          : "Offline"
+                                      ) +
+                                      "\n                  "
+                                  ),
+                                ]
+                              )
+                            : _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "text-gray-600 text-xs sm:text-sm",
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    Some quotes...\n                    "
+                                  ),
+                                  _c("span", { staticClass: "mx-1" }, [
+                                    _vm._v("•"),
+                                  ]),
+                                  _vm._v(
+                                    "\n                    " +
+                                      _vm._s(
+                                        _vm.onlineuser.find(function (
+                                          onlineusers
+                                        ) {
+                                          return (
+                                            onlineusers.id ===
+                                            _vm.userchoose.user_id
+                                          )
+                                        })
+                                          ? "Online"
+                                          : "Offline"
+                                      ) +
+                                      "\n                  "
+                                  ),
+                                ]
                               ),
-                            ]
-                          ),
                         ]),
                       ]),
                       _vm._v(" "),
@@ -72944,27 +72999,15 @@ var render = function () {
                             _vm._v(" "),
                             _c(
                               "div",
-                              { staticClass: "chat-dropdown dropdown-menu" },
+                              { staticClass: "floating-div" },
                               [
-                                _c(
-                                  "div",
-                                  { staticClass: "dropdown-menu__content" },
-                                  [
-                                    _c(
-                                      "div",
-                                      { staticClass: "floating-div" },
-                                      [
-                                        _vm.emoStatus
-                                          ? _c("picker", {
-                                              on: { select: _vm.addEmoji },
-                                            })
-                                          : _vm._e(),
-                                      ],
-                                      1
-                                    ),
-                                  ]
-                                ),
-                              ]
+                                _vm.emoStatus
+                                  ? _c("picker", {
+                                      on: { select: _vm.addEmoji },
+                                    })
+                                  : _vm._e(),
+                              ],
+                              1
                             ),
                           ]),
                         ]

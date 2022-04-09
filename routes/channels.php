@@ -25,6 +25,8 @@ Broadcast::channel('privatebffchat.{receiverid}', function ($user, $receiverid) 
     return auth()->check();
 });
 Broadcast::channel('bffchat', function ($user) {
-   return auth()->check();
+    if(auth()->check()){
+        return $user;
+    }
 });
 

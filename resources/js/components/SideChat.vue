@@ -500,8 +500,19 @@
                   <div class="font-medium text-base">
                     {{ userchoose.displayName }}
                   </div>
-                  <div class="text-gray-600 text-xs sm:text-sm">
-                    <!-- {{ userchoose.shortDescription.substring(0, 40) + "..." }} -->
+                  <div v-if="userchoose.shortDescription != null" class="text-gray-600 text-xs sm:text-sm">
+                    {{ userchoose.shortDescription.substring(0, 40) + "..." }}
+                    <span class="mx-1">•</span>
+                    {{
+                      onlineuser.find(
+                        (onlineusers) => onlineusers.id === userchoose.user_id
+                      )
+                        ? "Online"
+                        : "Offline"
+                    }}
+                  </div>
+                  <div v-else class="text-gray-600 text-xs sm:text-sm">
+                    Some quotes...
                     <span class="mx-1">•</span>
                     {{
                       onlineuser.find(
@@ -709,13 +720,12 @@
                   >
                     <i class="fas fa-laugh fa-lg"></i>
                   </a>
-                  <div class="chat-dropdown dropdown-menu">
-                    <div class="dropdown-menu__content">
+                  
                       <div class="floating-div">
                         <picker v-if="emoStatus" @select="addEmoji" />
                       </div>
-                    </div>
-                  </div>
+                     
+                  
                 </div>
 
                 <!-- <div class="w-4 h-4 sm:w-5 sm:h-5 relative text-gray-600 mr-3 sm:mr-5">
@@ -723,6 +733,7 @@
                                             <input type="file" class="w-full h-full top-0 left-0 absolute opacity-0">
                                         </div> -->
               </div>
+              
               <a
                 @click="sendMessage"
                 type="button"
@@ -767,6 +778,7 @@
         </div>
       </div>
       <!-- END: Chat Content -->
+      
     </div>
   </div>
 </template>
@@ -817,9 +829,6 @@ export default {
        Echo.private(`privatebffchat.${UserAuth.id}`)
   .listen('PrivateMessageSent', (e)=>{
     this.allmessage.push(e.message);
-    setTimeout(()=>{
-      this.scrollToEnd();
-    },50);
   });
   
     Echo.private(`bffchatnotify.${UserAuth.id}`).listen("NotifyEvent", (e) => {
@@ -1079,41 +1088,11 @@ export default {
   background-color: #1d90f4 !important;
 }
 
-/* .emoji-mart[data-v-7bc71df8] {
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-    font-size: 16px;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    height: 420px;
-    color: #222427;
-    border: 1px solid #232a3b;
-    border-radius: 5px;
-    background: #293145;
-}
-
-.emoji-mart-category-label span[data-v-376cda0e] {
-    display: block !important;
-    width: 100% !important;
-    font-weight: 500 !important;
-    color: #fff !important;
-    padding: 5px 6px !important;
-    background-color: rgb(49 58 85) !important;
-}
-
-.emoji-mart-search input[data-v-4ad41bb8] {
-
-    color: #fff !important;
-  
-    background-color: #293145 !important;
- 
-} */
-
 .box.active {
   border-left: 6px solid #02de6b !important;
 }
 .box {
   border-radius: 20px;
 }
+
 </style>
