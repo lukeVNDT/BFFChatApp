@@ -44,7 +44,7 @@
 										</div>
                                         <button type="submit" class="btn button">Sign In</button>
 										<div class="callout">
-											<span>Don't have account? <a href="sign-up.html">Create Account</a></span>
+											<span>Don't have account? <a href="{{URL::to('/register')}}">Create Account</a></span>
 										</div>
 									</form>
 								</div>
