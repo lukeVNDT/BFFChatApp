@@ -1095,4 +1095,23 @@ export default {
   border-radius: 20px;
 }
 
+
+.emoji-mart[data-v-7bc71df8] {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    display: -ms-flexbox;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 420px;
+    color: #222427;
+    border: 1px solid #293145;
+    border-radius: 20px;
+    background-color: #293145;
+}
+
+.emoji-mart-category-label{
+  border-radius: 20px !important;
+}
 </style>

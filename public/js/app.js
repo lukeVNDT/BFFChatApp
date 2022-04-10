@@ -11726,7 +11726,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.chat .chat__tabs a.active[data-v-33fd918c] {\r\n  background-color: #3e94da !important;\n}\n.bg-theme-1[data-v-33fd918c] {\r\n  background-color: #1d90f4 !important;\n}\n.box.active[data-v-33fd918c] {\r\n  border-left: 6px solid #02de6b !important;\n}\n.box[data-v-33fd918c] {\r\n  border-radius: 20px;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.chat .chat__tabs a.active[data-v-33fd918c] {\r\n  background-color: #3e94da !important;\n}\n.bg-theme-1[data-v-33fd918c] {\r\n  background-color: #1d90f4 !important;\n}\n.box.active[data-v-33fd918c] {\r\n  border-left: 6px solid #02de6b !important;\n}\n.box[data-v-33fd918c] {\r\n  border-radius: 20px;\n}\n.emoji-mart[data-v-7bc71df8][data-v-33fd918c] {\r\n    font-family: -apple-system, BlinkMacSystemFont, \"Helvetica Neue\", sans-serif;\r\n    font-size: 16px;\r\n    display: -ms-flexbox;\r\n    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;\r\n    display: flex;\r\n    flex-direction: column;\r\n    height: 420px;\r\n    color: #222427;\r\n    border: 1px solid #293145;\r\n    border-radius: 20px;\r\n    background-color: #293145;\n}\n.emoji-mart-category-label[data-v-33fd918c]{\r\n  border-radius: 20px !important;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
