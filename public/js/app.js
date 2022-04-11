@@ -6322,7 +6322,7 @@ __webpack_require__.r(__webpack_exports__);
           title: "Friend successfully added!"
         });
 
-        _this4.users.unshift(res.data[0]);
+        _this4.users.push(res.data[0]);
 
         _this4.notify.splice(index, 1); // console.log(this.users);
 

@@ -201,7 +201,7 @@
               >
                 <div
                   v-for="person in users"
-                  :key="person.user_id"
+                  :key="person.id"
                   class="chatloop"
                   @click="activeuser = person.user_id"
                 >
@@ -900,7 +900,7 @@ export default {
             icon: "success",
             title: "Friend successfully added!",
           });
-          this.users.unshift(res.data[0]);
+          this.users.push(res.data[0]);
           this.notify.splice(index, 1);
           // console.log(this.users);
         })
