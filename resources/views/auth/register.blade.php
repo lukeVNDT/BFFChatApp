@@ -61,7 +61,7 @@
                                        
 										<button type="submit" class="btn button">Sign Up</button>
 										<div class="callout">
-											<span>Already a member? <a href="sign-in.html">Sign In</a></span>
+											<span>Already a member? <a href="{{URL::to('/login')}}">Sign In</a></span>
 										</div>
 									</form>
 								</div>
