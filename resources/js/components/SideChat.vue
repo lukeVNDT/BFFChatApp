@@ -201,7 +201,7 @@
               >
                 <div
                   v-for="person in users"
-                  :key="person.id"
+                  :key="person.user_id"
                   class="chatloop"
                   @click="activeuser = person.user_id"
                 >
