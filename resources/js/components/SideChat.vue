@@ -833,6 +833,10 @@ export default {
   
     Echo.private(`bffchatnotify.${UserAuth.id}`).listen("NotifyEvent", (e) => {
       this.notify.push(e.notify);
+      Toast.fire({
+            icon: "info",
+            title: "You have a friend request!",
+          });
     });
     this.getUserProfile();
     this.fetchUser();
