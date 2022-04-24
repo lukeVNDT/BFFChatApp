@@ -46,7 +46,7 @@ class ProfileController extends Controller
         if($user->count() > 0)
         {
             if($req->avatar){
-                if($req->avatar->getClientOriginalName() != $oldimg){
+                if($req->avatar != $oldimg){
           
                 cloudinary()->destroy($oldimg);
                 $result = $req->file('avatar')->storeOnCloudinary('avatarchatproject');
