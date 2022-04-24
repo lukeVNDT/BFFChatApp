@@ -46,7 +46,7 @@ class ProfileController extends Controller
         if($user->count() > 0)
         {
             if($req->avatar){
-                if($req->avatar != $oldimg){
+                // if($req->avatar != $oldimg){
           
                 cloudinary()->destroy($oldimg);
                 $result = $req->file('avatar')->storeOnCloudinary('avatarchatproject');
@@ -63,25 +63,25 @@ class ProfileController extends Controller
                     User::where('id', $id)->update([
                         'name' => $req->displayName
                     ]);
-                }
-                else{
-                    cloudinary()->destroy($oldimg);
-                    $result = $req->file('avatar')->storeOnCloudinary('avatarchatproject');
-                    $name = $result->getFileName();
-                     Profile::where('user_id', $id)->update([
-                        'user_id' => $id,
-                        'displayName' => $req->displayName,
-                        'address' => $req->address,
-                        'country' => $req->country,
-                        'phoneNumber' =>  $req->phoneNumber,
-                        'shortDescription' => $req->shortDescription,
-                        'avatar' => $name
-                    ]);
-                    User::where('id', $id)->update([
-                        'name' => $req->displayName
-                    ]);
+                // }
+                // else{
+                //     cloudinary()->destroy($oldimg);
+                //     $result = $req->file('avatar')->storeOnCloudinary('avatarchatproject');
+                //     $name = $result->getFileName();
+                //      Profile::where('user_id', $id)->update([
+                //         'user_id' => $id,
+                //         'displayName' => $req->displayName,
+                //         'address' => $req->address,
+                //         'country' => $req->country,
+                //         'phoneNumber' =>  $req->phoneNumber,
+                //         'shortDescription' => $req->shortDescription,
+                //         'avatar' => $name
+                //     ]);
+                //     User::where('id', $id)->update([
+                //         'name' => $req->displayName
+                //     ]);
                 
-                }
+                // }
             }
 
             Profile::where('user_id', $id)->update([
