@@ -46,7 +46,7 @@ class ProfileController extends Controller
         if($user->count() > 0)
         {
             if($req->avatar){
-                if($req->avatar != $oldimg){
+                if($req->avatar != $oldimg && $oldimg != null){
           
                 cloudinary()->destroy($oldimg);
                 $result = $req->file('avatar')->storeOnCloudinary('avatarchatproject');
@@ -64,7 +64,7 @@ class ProfileController extends Controller
                         'name' => $req->displayName
                     ]);
                 }
-                else if($req->avatar == null){
+                if(empty($oldimg)){
                     $result = $req->file('avatar')->storeOnCloudinary('avatarchatproject');
                     $name = $result->getFileName();
                      Profile::where('user_id', $id)->update([
@@ -96,38 +96,38 @@ class ProfileController extends Controller
             ]);
             
         }
-        else{
-            if($req->avatar){
+        // else{
+        //     if($req->avatar){
       
-                $result = $req->file('avatar')->storeOnCloudinary('avatarchatproject');
-                $name = $result->getFileName();
-                    Profile::create([
-                        'user_id' => $id,
-                        'displayName' => $req->displayName,
-                        'address' => $req->address,
-                        'country' => $req->country,
-                        'phoneNumber' =>  $req->phoneNumber,
-                        'shortDescription' => $req->shortDescription,
-                        'avatar' => $name
-                    ]);
-                    User::where('id', $id)->update([
-                        'name' => $req->displayName
-                    ]);
-            }
-            else{
-                Profile::create([
-                    'user_id' => $id,
-                    'displayName' => $req->displayName,
-                    'address' => $req->address,
-                    'country' => $req->country,
-                    'phoneNumber' =>  $req->phoneNumber,
-                    'shortDescription' => $req->shortDescription
-                ]);
-                User::where('id', $id)->update([
-                    'name' => $req->displayName
-                ]);
-            }
-        }
+        //         $result = $req->file('avatar')->storeOnCloudinary('avatarchatproject');
+        //         $name = $result->getFileName();
+        //             Profile::create([
+        //                 'user_id' => $id,
+        //                 'displayName' => $req->displayName,
+        //                 'address' => $req->address,
+        //                 'country' => $req->country,
+        //                 'phoneNumber' =>  $req->phoneNumber,
+        //                 'shortDescription' => $req->shortDescription,
+        //                 'avatar' => $name
+        //             ]);
+        //             User::where('id', $id)->update([
+        //                 'name' => $req->displayName
+        //             ]);
+        //     }
+        //     else{
+        //         Profile::create([
+        //             'user_id' => $id,
+        //             'displayName' => $req->displayName,
+        //             'address' => $req->address,
+        //             'country' => $req->country,
+        //             'phoneNumber' =>  $req->phoneNumber,
+        //             'shortDescription' => $req->shortDescription
+        //         ]);
+        //         User::where('id', $id)->update([
+        //             'name' => $req->displayName
+        //         ]);
+        //     }
+        // }
 
        
         
