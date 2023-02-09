@@ -202,8 +202,8 @@ export default {
     border-radius: 20px;
 }
 .btn-primary{
-    background-color: #edf2f7 !important;
-    border-color: #edf2f7 !important;
-    color: #8d9aac;
+    background-color: #e3175b !important;
+    border-color: #e3175b !important;
+    color: #fff;
 }
 </style>

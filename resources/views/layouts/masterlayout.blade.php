@@ -2,7 +2,7 @@
 
 @section('chatcontent')
                 <!-- <master-layout> -->
-                <side-chat v-bind:auth="{{Auth::user()->id}}"></side-chat>
+                <side-message v-bind:auth="{{Auth::user()->id}}"></side-message>
 
      
 

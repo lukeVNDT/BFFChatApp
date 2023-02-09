@@ -12,7 +12,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- BEGIN: Head -->
     <head>
         <meta charset="utf-8">
-        <link href="../dist2/images/chat-bubble.svg" rel="shortcut icon">
+        <link href="../dist2/images/msg-bubble.svg" rel="shortcut icon">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Midone admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
         <meta name="keywords" content="admin template, Midone admin template, dashboard template, flat admin template, responsive admin template, web app">
@@ -30,7 +30,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="mobile-menu md:hidden">
             <div class="mobile-menu-bar">
                 <a href="" class="flex mr-auto">
-                    <img alt="Midone Tailwind HTML Admin Template" class="w-6" src="../dist2/images/chat-bubble.svg">
+                    <img alt="Midone Tailwind HTML Admin Template" class="w-6" src="../dist2/images/msg-bubble.svg">
                 </a>
                 <!-- <a href="javascript:;" id="mobile-menu-toggler"> <i data-feather="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a> -->
             </div>
@@ -50,7 +50,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- BEGIN: Simple Menu -->
             <nav class="side-nav side-nav--simple">
                 <a href="" class="intro-x flex items-center pl-5 pt-4">
-                    <img alt="Midone Tailwind HTML Admin Template" class="w-6" src="../dist2/images/chat-bubble.svg">
+                    <img alt="Midone Tailwind HTML Admin Template" class="w-6" src="../dist2/images/msg-bubble.svg">
                 </a>
                 <div class="side-nav__devider my-6"></div>
                 <ul>

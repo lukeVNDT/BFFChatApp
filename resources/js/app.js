@@ -7,7 +7,7 @@ window.Vue = require('vue').default;
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 // Vue.component('chat-section', require('./components/ChatSection.vue').default);
 // Vue.component('layout-component', require('./layout/LayoutComponent').default);
-Vue.component('side-chat', require('./components/SideChat.vue').default);
+Vue.component('side-message', require('./components/SideMessage.vue').default);
 // Vue.component('chat-component', require('./components/ChatComponent.vue').default);
 // Vue.component('master-layout', require('./components/MasterLayout.vue').default);
 Vue.component('profile-component', require('./components/ProfileComponent.vue').default);

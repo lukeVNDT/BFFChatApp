@@ -1,5 +1,5 @@
 import Profile from './components/ProfileComponent';
-import SideChat from './components/SideChat';
+import SideMessage from './components/SideMessage';
 import OtherProfile from './components/OtherProfile';
 
 const routes = [
@@ -10,7 +10,7 @@ const routes = [
     },
     {
         path: '/',
-        component: SideChat,
+        component: SideMessage,
         name: 'chat'
     },
     {

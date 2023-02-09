@@ -141,6 +141,9 @@
                 aria-selected="false"
                 ><i class="fas fa-bell mr-1"></i>Notification</a
               >
+              <button class="btn btn-sm btn-rounded-danger friendNotyf">
+                {{ notify.length }}
+              </button>
             </div>
           </div>
         </div>
@@ -189,7 +192,7 @@
             </div>
 
             <div class="parent__loop">
-              <div
+              <!-- <div
                 class="
                   chat__chat-list
                   overflow-y-auto
@@ -198,17 +201,18 @@
                   pt-1
                   mt-4
                 "
-              >
+              > -->
+              <div v-if="users != ''">
                 <div
-                  v-for="person in users"
+                  v-for="person in sortUnreadContact"
                   :key="person.id"
                   class="chatloop"
-                  @click="activeuser = person.user_id"
+                  @click="activeuser = person"
                 >
                   <div
                     v-if="currentuser.id != person.user_id"
-                    :class="activeuser == person.user_id ? 'active' : ''"
-                    style="border-radius: 5px !important"
+                    :class="activeuser.id == person.user_id ? 'active' : ''"
+                    style="border-radius: 20px !important"
                     class="
                       intro-x
                       cursor-pointer
@@ -217,7 +221,7 @@
                       flex
                       items-center
                       p-5
-                      mt-3
+                      mt-5
                     "
                   >
                     <div class="w-12 h-12 flex-none image-fit mr-1">
@@ -242,7 +246,7 @@
                             (onlineusers) => onlineusers.id === person.user_id
                           )
                             ? 'w-3 h-3 bg-theme-9 absolute right-0 bottom-0 rounded-full border-2 border-white'
-                            : 'w-3 h-3 bg-theme-6 absolute right-0 bottom-0 rounded-full border-2 border-white'
+                            : 'w-3 h-3 absolute right-0 bottom-0 rounded-full border-2 border-white disable-user'
                         "
                       ></div>
                     </div>
@@ -253,35 +257,67 @@
                         }}</a>
                       </div>
                       <div class="mt-1 text-xs text-theme-21">
-                        User
-                        {{
-                          onlineuser.find(
-                            (onlineusers) =>
-                              onlineusers.id === userchoose.user_id
-                          )
-                            ? "Online"
-                            : "Offline"
-                        }}
+                        <div
+                          v-for="(latestMsg, index) in allmessage"
+                          :key="latestMsg.id"
+                        >
+                          <div v-if="index == allmessage.length - 1">
+                            {{
+                              latestMsg.receiver_id !== currentuser.id
+                                ? "You: " + latestMsg.message
+                                : latestMsg.user.name +
+                                  ": " +
+                                  latestMsg.message.substring(0, 25) +
+                                  " ..."
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ml-2">
+                      <button
+                        class="btn btn-sm btn-rounded-danger messageNotyf"
+                        v-if="person.unread"
+                      >
+                        {{ person.unread }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div v-else>
+                <div>
+                  <div
+                    style="border-radius: 20px !important"
+                    class="
+                      intro-x
+                      cursor-pointer
+                      box
+                      relative
+                      flex
+                      items-center
+                      p-5
+                      mt-5
+                      no-user-found
+                    "
+                  >
+                    <div class="w-12 h-12 flex-none image-fit mr-1">
+                      <i
+                        class="fa fa-exclamation-triangle"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                    <div class="ml-2 overflow-hidden">
+                      <div class="flex items-center">
+                        <a href="javascript:;" class="font-medium"
+                          >Sorry! No user found.</a
+                        >
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <!-- <div v-else class="chat__chat-list overflow-y-auto scrollbar-hidden pr-1 pt-1 mt-4">
-									<div class="chatloop" >
-                                    <div style="border-left: 6px solid #fcca00; border-radius: 5px !important" class="intro-x cursor-pointer box relative flex items-center p-5 mt-3">
-                                        <i style="color: #fcca00" class="fas fa-exclamation-triangle fa-lg"></i>
-                                        <div class="ml-2 overflow-hidden">
-                                            <div class="flex items-center">
-                                                <a  href="javascript:;" class="font-medium">you don't have friends yet, make friends to have interesting conversations</a>  
-                                            </div>
-                                           
-                                        </div>
-										
-									</div>
-								    </div>
-                                </div> -->
+              <!-- </div> -->
             </div>
           </div>
           <div
@@ -344,10 +380,11 @@
             role="tabpanel"
             aria-labelledby="profile-tab"
           >
-            <div
+            <!-- <div
               class="chat__user-list overflow-y-auto scrollbar-hidden pr-1 pt-1"
-            >
-              <div class="mt-4 text-gray-600">Notification</div>
+            > -->
+            <div class="mt-4 text-gray-600">Notification</div>
+            <div v-if="notify != ''">
               <div
                 style="
                   border-left: 6px solid #02de6b;
@@ -360,7 +397,12 @@
                 <div class="ml-2 overflow-hidden">
                   <div class="flex items-center">
                     <a href="" class="font-medium"
-                      >{{ noti.user.name }} {{ noti.content }}</a
+                      ><i
+                        id="user-plus"
+                        class="fa fa-user-plus"
+                        aria-hidden="true"
+                      ></i>
+                      {{ noti.user.name }} {{ noti.content }}</a
                     >
                   </div>
                 </div>
@@ -372,7 +414,7 @@
                   >
                     <i class="fas fa-ellipsis-v"></i
                   ></a>
-                  <div class="dropdown-menu w-40">
+                  <div class="dropdown-menu w-40 dropdown-action">
                     <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
                       <a
                         @click="acceptRequest(noti, index)"
@@ -395,7 +437,7 @@
                         Accept
                       </a>
                       <a
-                        @click="removeRequest(noti.id,noti.user_id, index)"
+                        @click="removeRequest(noti.id, noti.user_id, index)"
                         class="
                           flex
                           items-center
@@ -418,44 +460,27 @@
                 </div>
               </div>
             </div>
+            <div v-else>
+              <div
+                style="
+                  border-left: 6px solid #6e6d7a;
+                  border-radius: 5px !important;
+                "
+                class="cursor-pointer box relative flex items-center p-5 mt-5"
+              >
+                <div class="ml-2 overflow-hidden">
+                  <div class="flex items-center">
+                    <a href="" class="font-medium"
+                      ><i class="fa fa-bell-o" aria-hidden="true"></i> No
+                      Notification</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- </div> -->
           </div>
-          <!-- <div v-else id="profile" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
-                                <div class="pr-1">
-                                    <div class="box px-5 py-10 mt-5">
-                                        <div class="w-20 h-20 flex-none image-fit rounded-full overflow-hidden mx-auto">
-                                            <img alt="Avatar" >
-                                        </div>
-                                        <div class="text-center mt-3">
-                                            <div class="font-medium text-lg"></div>
-                                             <div class="text-gray-600 mt-1"></div>
-                                        </div>
-                                    </div>
-                                    <div class="box p-5 mt-5">
-                                        <div class="flex items-center border-b border-gray-200 dark:border-dark-5 py-5">
-                                            <div>
-                                                <div class="text-gray-600">Phone</div>
-                                                <div class="mt-1"></div>
-                                            </div>
-                                            <i data-feather="mic" class="w-4 h-4 text-gray-600 ml-auto"></i> 
-                                        </div>
-                                         <div class="flex items-center border-b border-gray-200 dark:border-dark-5 pb-5">
-                                            <div>
-                                                <div class="text-gray-600">Country</div>
-                                                <div class="mt-1"></div>
-                                            </div>
-                                            <i data-feather="globe" class="w-4 h-4 text-gray-600 ml-auto"></i> 
-                                        </div>
-                                        <div class="flex items-center border-b border-gray-200 dark:border-dark-5 py-5">
-                                            <div>
-                                                <div class="text-gray-600">Address</div>
-                                                <div class="mt-1"></div>
-                                            </div>
-                                            <i data-feather="mail" class="w-4 h-4 text-gray-600 ml-auto"></i> 
-                                        </div>
-                                       
-                                    </div>
-                                </div>
-                            </div> -->
         </div>
       </div>
       <!-- END: Chat Side Menu -->
@@ -465,7 +490,7 @@
         <div class="chat__box box">
           <!-- BEGIN: Chat Active -->
 
-          <div v-if="activeuser != null" class="h-full flex flex-col">
+          <div v-if="activeuser.length !== 0" class="h-full flex flex-col">
             <div
               class="
                 flex flex-col
@@ -500,16 +525,30 @@
                   <div class="font-medium text-base">
                     {{ userchoose.displayName }}
                   </div>
-                  <div v-if="userchoose.shortDescription != null" class="text-gray-600 text-xs sm:text-sm">
-                    {{ userchoose.shortDescription.substring(0, 40) + "..." }}
-                    <span class="mx-1">•</span>
-                    {{
-                      onlineuser.find(
-                        (onlineusers) => onlineusers.id === userchoose.user_id
-                      )
-                        ? "Online"
-                        : "Offline"
-                    }}
+                  <div
+                    v-if="userchoose.shortDescription != null"
+                    class="text-gray-600 text-xs sm:text-sm"
+                  >
+                    {{ userchoose.shortDescription.substring(0, 50) + "..." }}
+
+                    <div
+                      :class="
+                        onlineuser.find(
+                          (onlineusers) => onlineusers.id === userchoose.user_id
+                        )
+                          ? 'w-3 h-3 bg-theme-9 absolute rounded-full mt-1'
+                          : 'w-3 h-3 absolute rounded-full mt-1 disable-user'
+                      "
+                    ></div>
+                    <div class="ml-4">
+                      {{
+                        onlineuser.find(
+                          (onlineusers) => onlineusers.id === userchoose.user_id
+                        )
+                          ? "User Online"
+                          : "User Offline"
+                      }}
+                    </div>
                   </div>
                   <div v-else class="text-gray-600 text-xs sm:text-sm">
                     Some quotes...
@@ -606,7 +645,7 @@
               >
                 <div
                   :class="
-                    activeuser !== message.user_id
+                    activeuser.id !== message.user_id
                       ? 'chat__box__text-box flex items-end float-right mb-5'
                       : 'chat__box__text-box flex items-end float-left mb-5'
                   "
@@ -647,7 +686,7 @@
                   </div>
                   <div
                     :class="
-                      activeuser !== message.user_id
+                      activeuser.id !== message.user_id
                         ? 'bg-theme-1 px-4 py-3 text-white rounded-l-md rounded-t-md'
                         : 'bg-gray-200 dark:bg-dark-5 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-r-md rounded-t-md'
                     "
@@ -656,6 +695,18 @@
                     <div class="mt-1 text-xs text-theme-21">
                       {{ message.created_at | formatDate }}
                     </div>
+                    <!-- <div v-if="activeuser.id !== message.user_id">
+                      <i
+                        :class="
+                          message.read == true
+                            ? 'fa fa-eye mt-2'
+                            : 'fa fa-check mt-2'
+                        "
+                        aria-hidden="true"
+                      >
+                      </i>
+                      {{ message.read == true ? "seen" : "received" }}
+                    </div> -->
                   </div>
                 </div>
 
@@ -720,12 +771,10 @@
                   >
                     <i class="fas fa-laugh fa-lg"></i>
                   </a>
-                  
-                      <div class="floating-div">
-                        <picker v-if="emoStatus" @select="addEmoji" />
-                      </div>
-                     
-                  
+
+                  <div class="floating-div">
+                    <picker v-if="emoStatus" @select="addEmoji" />
+                  </div>
                 </div>
 
                 <!-- <div class="w-4 h-4 sm:w-5 sm:h-5 relative text-gray-600 mr-3 sm:mr-5">
@@ -733,7 +782,7 @@
                                             <input type="file" class="w-full h-full top-0 left-0 absolute opacity-0">
                                         </div> -->
               </div>
-              
+
               <a
                 @click="sendMessage"
                 type="button"
@@ -778,7 +827,6 @@
         </div>
       </div>
       <!-- END: Chat Content -->
-      
     </div>
   </div>
 </template>
@@ -789,12 +837,11 @@ import { Picker } from "emoji-mart-vue";
 export default {
   components: {
     Picker,
-  }
-  ,
+  },
   data() {
     return {
       users: [],
-      activeuser: null,
+      activeuser: [],
       allmessage: [],
       loading: false,
       message: null,
@@ -806,38 +853,73 @@ export default {
       onlineuser: [],
       notify: [],
       keywords: "",
+      unreadCount: "",
     };
   },
   created() {
     Echo.join("bffchat")
       .here((users) => {
         this.onlineuser = users;
-        // console.log(this.onlineuser);
       })
       .joining((user) => {
         this.onlineuser.push(user);
-        // console.log(this.onlineuser);
       })
       .leaving((user) => {
         this.onlineuser.splice(this.onlineuser.indexOf(user), 1);
-        // console.log(this.onlineuser);
       })
       .error((error) => {
         console.error(error);
       });
 
-       Echo.private(`privatebffchat.${UserAuth.id}`)
-  .listen('PrivateMessageSent', (e)=>{
-    this.allmessage.push(e.message);
-  });
-  
+    Echo.private(`privatebffchat.${UserAuth.id}`).listen(
+      "PrivateMessageSent",
+      (e) => {
+        this.handleMessage(e.message);
+        // this.allmessage.push(e.message);
+      }
+    );
+
     Echo.private(`bffchatnotify.${UserAuth.id}`).listen("NotifyEvent", (e) => {
-      this.notify.push(e.notify);
+      this.notify.unshift(e.notify);
       Toast.fire({
-            icon: "info",
-            title: "You have a friend request!",
-          });
+        icon: "info",
+        title: "You have a friend request!",
+      });
     });
+
+    Echo.private(`bffchatacceptuser.${UserAuth.id}`).listen(
+      "AcceptUser",
+      (e) => {
+        this.users.unshift(e.acceptuser);
+        let notifyTab = document.getElementById("profile-tab");
+        notifyTab.classList.remove("active");
+        let notifyTabPane = document.getElementById("profile");
+        notifyTabPane.classList.remove("active");
+        let chatTab = document.getElementById("chats-tab");
+        chatTab.classList.add("active");
+        let chatTabPane = document.getElementById("chats");
+        chatTabPane.classList.add("active");
+      }
+    );
+
+    Echo.private(`bffchatacceptsubuser.${UserAuth.id}`).listen(
+      "AcceptSubUser",
+      (e) => {
+        this.users.unshift(e.acceptsubuser);
+        Toast.fire({
+          icon: "success",
+          title: "Friend request accepted, let's start chatting.",
+        });
+        let notifyTab = document.getElementById("profile-tab");
+        notifyTab.classList.remove("active");
+        let notifyTabPane = document.getElementById("profile");
+        notifyTabPane.classList.remove("active");
+        let chatTab = document.getElementById("chats-tab");
+        chatTab.classList.add("active");
+        let chatTabPane = document.getElementById("chats");
+        chatTabPane.classList.add("active");
+      }
+    );
     this.getUserProfile();
     this.fetchUser();
     this.getnotify();
@@ -851,9 +933,22 @@ export default {
     },
     allmessage(val) {
       this.scrollToEnd();
+      // this.fetchmessage();
     },
   },
   methods: {
+    saveMessage(message) {
+      this.allmessage.push(message);
+    },
+    handleMessage(message) {
+      if (this.activeuser && message.user_id == this.activeuser.id) {
+        this.saveMessage(message);
+        return;
+      }
+
+      // toast new quantity of unread message
+      this.updateStateUnread(message.user, false);
+    },
     logout() {
       axios
         .get("/logout")
@@ -869,18 +964,20 @@ export default {
         .get("/search", { params: { keywords: this.keywords } })
         .then((res) => {
           // let data = Object.assign({},res.data);
-
           this.users = res.data;
-          console.log(this.users);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    removeRequest(id,userid, index) {
+    removeRequest(id, userid, index) {
       axios
         .delete(`/remove-request?noti=${id}&uid=${userid}`)
         .then((res) => {
+          let actionDropdown = document.querySelector(
+            ".dropdown-menu.w-40.dropdown-action.show"
+          );
+          actionDropdown.classList.remove("show");
           Toast.fire({
             icon: "success",
             title: "Friend request successfully removed!",
@@ -900,13 +997,13 @@ export default {
       axios
         .post("/accept-request/" + id, data)
         .then((res) => {
+          let actionDropdown = document.querySelector(".dropdown-action");
+          actionDropdown.classList.remove("show");
           Toast.fire({
             icon: "success",
-            title: "Friend successfully added!",
+            title: "You have a new friend, Start a conversation!",
           });
-          this.users.push(res.data[0]);
           this.notify.splice(index, 1);
-          // console.log(this.users);
         })
         .catch((err) => {
           console.log(err);
@@ -933,26 +1030,33 @@ export default {
                 this.loading = !this.loading;
                 Toast.fire({
                   icon: "error",
-                  title: "Sorry! No user found.",
+                  title: res.data.error,
+                });
+              } else if (res.data.selferror) {
+                this.loading = !this.loading;
+                Toast.fire({
+                  icon: "error",
+                  title: res.data.selferror,
                 });
               } else if (res.data.exist) {
                 this.loading = !this.loading;
                 Toast.fire({
                   icon: "warning",
-                  title: "You guys have been friends, please check again",
+                  title: res.data.exist,
                 });
               } else if (res.data.waiting) {
                 this.loading = !this.loading;
                 Toast.fire({
                   icon: "warning",
-                  title: "Please wait for the user accept your friend request",
+                  title: res.data.waiting,
                 });
               } else {
                 this.loading = !this.loading;
                 Toast.fire({
                   icon: "success",
-                  title: "Request successfully sent!",
+                  title: res.data.status,
                 });
+                this.friendemail = "";
               }
             })
             .catch((err) => {
@@ -975,13 +1079,13 @@ export default {
       }
     },
     fetchmessage() {
+      this.updateStateUnread(this.activeuser, true);
       axios
-        .get(`/private-message/${this.activeuser}`)
+        .get(`/private-message/${this.activeuser.id}`)
         .then((res) => {
           this.allmessage = res.data.messages;
-          console.log(this.allmessage);
+          this.unread = res.data.countunread;
           this.userchoose = res.data.userchat[0];
-          // console.log(this.userchoose);
         })
         .catch((err) => {
           Toast.fire({
@@ -1014,7 +1118,6 @@ export default {
         .then((res) => {
           this.profile = res.data.user[0];
           this.currentuser = res.data.currentUser[0];
-          console.log(this.currentuser);
         })
         .catch((err) => {
           Toast.fire({
@@ -1033,25 +1136,25 @@ export default {
           console.log(err);
         });
     },
-    fetchData() {
+    fetchDataMessage() {
       axios
         .get("/messages")
         .then((res) => {
-          this.allmessage = res.data;
+          this.initialMessage = res.data;
         })
         .catch((err) => {
-          Toast.fire({
-            icon: "error",
-            title: "Something went wrong!",
-          });
+          // Toast.fire({
+          //   icon: "error",
+          //   title: "Something went wrong!",
+          // });
+          console.log(err);
         });
     },
     getnotify() {
       axios
         .get("/getallnotify")
         .then((res) => {
-          this.notify = res.data;
-          // console.log(this.notify);
+          this.notify = res.data.reverse();
         })
         .catch((err) => {
           console.log(err);
@@ -1068,17 +1171,38 @@ export default {
         message: this.message,
       };
       axios
-        .post("/private-message/" + this.activeuser, msg)
+        .post("/private-message/" + this.activeuser.id, msg)
         .then((res) => {
           this.message = null;
           this.allmessage.push(res.data.message);
-          
+
           setTimeout(this.scrollToMessage, 10);
-          //   console.log(res.data);
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+    updateStateUnread(user, reset) {
+      this.users = this.users.map((singleUser) => {
+        if (singleUser.id !== user.id) {
+          return singleUser;
+        }
+        if (reset) {
+          singleUser.unread = 0;
+        } else {
+          singleUser.unread += 1;
+        }
+        return singleUser;
+      });
+    },
+  },
+  computed: {
+    sortUnreadContact() {
+      return _.sortBy(this.users, [
+        (contact) => {
+          return contact.unread;
+        },
+      ]).reverse();
     },
   },
 };
@@ -1095,27 +1219,63 @@ export default {
 .box.active {
   border-left: 6px solid #02de6b !important;
 }
+.no-user-found {
+  border-left: 6px solid #e3175b !important;
+}
 .box {
   border-radius: 20px;
 }
 
-
 .emoji-mart[data-v-7bc71df8] {
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-    font-size: 16px;
-    display: -ms-flexbox;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
-    display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    height: 420px;
-    color: #222427;
-    border: 1px solid #293145;
-    border-radius: 20px;
-    background-color: #293145;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  display: -ms-flexbox;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
+    rgba(0, 0, 0, 0.05) 0px 5px 10px;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 420px;
+  color: #222427;
+  border: 1px solid #293145;
+  border-radius: 20px;
+  background-color: #293145;
 }
 
-.emoji-mart-category-label{
+.emoji-mart-category-label {
   border-radius: 20px !important;
+}
+/* .emoji-mart-category-label span {
+    background-color: #3e94da !important;
+    color: #293145 !important;
+    border-radius: 10px !important;
+} */
+.friendNotyf {
+  height: 20px;
+  position: relative;
+  right: 5px;
+  background-color: #e3175b;
+  border-color: #e3175b;
+}
+.messageNotyf {
+  height: 20px;
+  background-color: #e3175b;
+  border-color: #e3175b;
+}
+#user-plus {
+  color: #02dc6b;
+}
+.disable-user {
+  background-color: #6e6d7a;
+}
+.fa-exclamation-triangle {
+  font-size: 50px;
+  color: #e3175b;
+}
+.fa-check {
+  font-size: 10px;
+}
+.fa-eye {
+  font-size: 10px;
 }
 </style>

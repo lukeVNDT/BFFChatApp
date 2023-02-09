@@ -5343,11 +5343,187 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       profile: [],
-      avatar: '',
+      avatar: "",
       loading: false
     };
   },
@@ -5358,7 +5534,7 @@ __webpack_require__.r(__webpack_exports__);
     getUserProfile: function getUserProfile() {
       var _this = this;
 
-      axios.get('/getuserprofile').then(function (res) {
+      axios.get("/getuserprofile").then(function (res) {
         _this.profile = res.data.user[0];
         console.log(res.data);
       })["catch"](function (err) {
@@ -5370,7 +5546,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     uploadAndReset: function uploadAndReset(e) {
       // Update/reset user image of account page
-      var accountUserImage = document.getElementById('uploadedAvatar');
+      var accountUserImage = document.getElementById("uploadedAvatar");
 
       if (e.target.files[0]) {
         accountUserImage.src = window.URL.createObjectURL(e.target.files[0]);
@@ -5381,31 +5557,38 @@ __webpack_require__.r(__webpack_exports__);
     saveProfile: function saveProfile() {
       var _this2 = this;
 
-      var form = new FormData();
-      form.append('displayName', this.profile.displayName);
-      form.append('phoneNumber', this.profile.phoneNumber);
-      form.append('address', this.profile.address);
-      form.append('country', this.profile.country);
-      form.append('shortDescription', this.profile.shortDescription);
-      form.append('avatar', this.avatar);
-      this.loading = !this.loading;
-      setTimeout(function () {
-        axios.post('/save-profile', form).then(function (res) {
-          _this2.loading = !_this2.loading;
-          Toast.fire({
-            icon: "success",
-            title: "Profile saved successfully!"
-          });
-        })["catch"](function (err) {
-          Toast.fire({
-            icon: "error",
-            title: "Opps! something went wrong"
-          });
+      if (this.profile.displayName == "") {
+        Toast.fire({
+          icon: "error",
+          title: "This field can not empty! Please fill your Display name"
         });
-      }, 2000);
+      } else {
+        var form = new FormData();
+        form.append("displayName", this.profile.displayName);
+        form.append("phoneNumber", this.profile.phoneNumber);
+        form.append("address", this.profile.address);
+        form.append("country", this.profile.country);
+        form.append("shortDescription", this.profile.shortDescription);
+        form.append("avatar", this.avatar);
+        this.loading = !this.loading;
+        setTimeout(function () {
+          axios.post("/save-profile", form).then(function (res) {
+            _this2.loading = !_this2.loading;
+            Toast.fire({
+              icon: "success",
+              title: "Profile saved successfully!"
+            });
+          })["catch"](function (err) {
+            Toast.fire({
+              icon: "error",
+              title: "Opps! something went wrong"
+            });
+          });
+        }, 2000);
+      }
     },
     logout: function logout() {
-      axios.get('/logout').then(function (res) {
+      axios.get("/logout").then(function (res) {
         window.location.reload();
       })["catch"](function (err) {
         console.log(err);
@@ -5416,10 +5599,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideChat.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideChat.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideMessage.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideMessage.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6214,6 +6397,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -6222,7 +6453,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       users: [],
-      activeuser: null,
+      activeuser: [],
       allmessage: [],
       loading: false,
       message: null,
@@ -6233,28 +6464,61 @@ __webpack_require__.r(__webpack_exports__);
       emoStatus: false,
       onlineuser: [],
       notify: [],
-      keywords: ""
+      keywords: "",
+      unreadCount: ""
     };
   },
   created: function created() {
     var _this = this;
 
     Echo.join("bffchat").here(function (users) {
-      _this.onlineuser = users; // console.log(this.onlineuser);
+      _this.onlineuser = users;
     }).joining(function (user) {
-      _this.onlineuser.push(user); // console.log(this.onlineuser);
-
+      _this.onlineuser.push(user);
     }).leaving(function (user) {
-      _this.onlineuser.splice(_this.onlineuser.indexOf(user), 1); // console.log(this.onlineuser);
-
+      _this.onlineuser.splice(_this.onlineuser.indexOf(user), 1);
     }).error(function (error) {
       console.error(error);
     });
-    Echo["private"]("privatebffchat.".concat(UserAuth.id)).listen('PrivateMessageSent', function (e) {
-      _this.allmessage.push(e.message);
+    Echo["private"]("privatebffchat.".concat(UserAuth.id)).listen("PrivateMessageSent", function (e) {
+      _this.handleMessage(e.message); // this.allmessage.push(e.message);
+
     });
     Echo["private"]("bffchatnotify.".concat(UserAuth.id)).listen("NotifyEvent", function (e) {
-      _this.notify.push(e.notify);
+      _this.notify.unshift(e.notify);
+
+      Toast.fire({
+        icon: "info",
+        title: "You have a friend request!"
+      });
+    });
+    Echo["private"]("bffchatacceptuser.".concat(UserAuth.id)).listen("AcceptUser", function (e) {
+      _this.users.unshift(e.acceptuser);
+
+      var notifyTab = document.getElementById("profile-tab");
+      notifyTab.classList.remove("active");
+      var notifyTabPane = document.getElementById("profile");
+      notifyTabPane.classList.remove("active");
+      var chatTab = document.getElementById("chats-tab");
+      chatTab.classList.add("active");
+      var chatTabPane = document.getElementById("chats");
+      chatTabPane.classList.add("active");
+    });
+    Echo["private"]("bffchatacceptsubuser.".concat(UserAuth.id)).listen("AcceptSubUser", function (e) {
+      _this.users.unshift(e.acceptsubuser);
+
+      Toast.fire({
+        icon: "success",
+        title: "Friend request accepted, let's start chatting."
+      });
+      var notifyTab = document.getElementById("profile-tab");
+      notifyTab.classList.remove("active");
+      var notifyTabPane = document.getElementById("profile");
+      notifyTabPane.classList.remove("active");
+      var chatTab = document.getElementById("chats-tab");
+      chatTab.classList.add("active");
+      var chatTabPane = document.getElementById("chats");
+      chatTabPane.classList.add("active");
     });
     this.getUserProfile();
     this.fetchUser();
@@ -6268,10 +6532,22 @@ __webpack_require__.r(__webpack_exports__);
       this.searchuser();
     },
     allmessage: function allmessage(val) {
-      this.scrollToEnd();
+      this.scrollToEnd(); // this.fetchmessage();
     }
   },
   methods: {
+    saveMessage: function saveMessage(message) {
+      this.allmessage.push(message);
+    },
+    handleMessage: function handleMessage(message) {
+      if (this.activeuser && message.user_id == this.activeuser.id) {
+        this.saveMessage(message);
+        return;
+      } // toast new quantity of unread message
+
+
+      this.updateStateUnread(message.user, false);
+    },
     logout: function logout() {
       axios.get("/logout").then(function (res) {
         window.location.reload();
@@ -6289,7 +6565,6 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         // let data = Object.assign({},res.data);
         _this2.users = res.data;
-        console.log(_this2.users);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -6298,6 +6573,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       axios["delete"]("/remove-request?noti=".concat(id, "&uid=").concat(userid)).then(function (res) {
+        var actionDropdown = document.querySelector(".dropdown-menu.w-40.dropdown-action.show");
+        actionDropdown.classList.remove("show");
         Toast.fire({
           icon: "success",
           title: "Friend request successfully removed!"
@@ -6317,15 +6594,14 @@ __webpack_require__.r(__webpack_exports__);
         userid: userid
       };
       axios.post("/accept-request/" + id, data).then(function (res) {
+        var actionDropdown = document.querySelector(".dropdown-action");
+        actionDropdown.classList.remove("show");
         Toast.fire({
           icon: "success",
-          title: "Friend successfully added!"
+          title: "You have a new friend, Start a conversation!"
         });
 
-        _this4.users.push(res.data[0]);
-
-        _this4.notify.splice(index, 1); // console.log(this.users);
-
+        _this4.notify.splice(index, 1);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -6349,26 +6625,33 @@ __webpack_require__.r(__webpack_exports__);
               _this5.loading = !_this5.loading;
               Toast.fire({
                 icon: "error",
-                title: "Sorry! No user found."
+                title: res.data.error
+              });
+            } else if (res.data.selferror) {
+              _this5.loading = !_this5.loading;
+              Toast.fire({
+                icon: "error",
+                title: res.data.selferror
               });
             } else if (res.data.exist) {
               _this5.loading = !_this5.loading;
               Toast.fire({
                 icon: "warning",
-                title: "You guys have been friends, please check again"
+                title: res.data.exist
               });
             } else if (res.data.waiting) {
               _this5.loading = !_this5.loading;
               Toast.fire({
                 icon: "warning",
-                title: "Please wait for the user accept your friend request"
+                title: res.data.waiting
               });
             } else {
               _this5.loading = !_this5.loading;
               Toast.fire({
                 icon: "success",
-                title: "Request successfully sent!"
+                title: res.data.status
               });
+              _this5.friendemail = "";
             }
           })["catch"](function (err) {
             console.log(err);
@@ -6393,10 +6676,11 @@ __webpack_require__.r(__webpack_exports__);
     fetchmessage: function fetchmessage() {
       var _this6 = this;
 
-      axios.get("/private-message/".concat(this.activeuser)).then(function (res) {
+      this.updateStateUnread(this.activeuser, true);
+      axios.get("/private-message/".concat(this.activeuser.id)).then(function (res) {
         _this6.allmessage = res.data.messages;
-        console.log(_this6.allmessage);
-        _this6.userchoose = res.data.userchat[0]; // console.log(this.userchoose);
+        _this6.unread = res.data.countunread;
+        _this6.userchoose = res.data.userchat[0];
       })["catch"](function (err) {
         Toast.fire({
           icon: "error",
@@ -6427,7 +6711,6 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/getuserprofile").then(function (res) {
         _this9.profile = res.data.user[0];
         _this9.currentuser = res.data.currentUser[0];
-        console.log(_this9.currentuser);
       })["catch"](function (err) {
         Toast.fire({
           icon: "error",
@@ -6444,23 +6727,24 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err);
       });
     },
-    fetchData: function fetchData() {
+    fetchDataMessage: function fetchDataMessage() {
       var _this11 = this;
 
       axios.get("/messages").then(function (res) {
-        _this11.allmessage = res.data;
+        _this11.initialMessage = res.data;
       })["catch"](function (err) {
-        Toast.fire({
-          icon: "error",
-          title: "Something went wrong!"
-        });
+        // Toast.fire({
+        //   icon: "error",
+        //   title: "Something went wrong!",
+        // });
+        console.log(err);
       });
     },
     getnotify: function getnotify() {
       var _this12 = this;
 
       axios.get("/getallnotify").then(function (res) {
-        _this12.notify = res.data; // console.log(this.notify);
+        _this12.notify = res.data.reverse();
       })["catch"](function (err) {
         console.log(err);
       });
@@ -6478,15 +6762,37 @@ __webpack_require__.r(__webpack_exports__);
       var msg = {
         message: this.message
       };
-      axios.post("/private-message/" + this.activeuser, msg).then(function (res) {
+      axios.post("/private-message/" + this.activeuser.id, msg).then(function (res) {
         _this13.message = null;
 
         _this13.allmessage.push(res.data.message);
 
-        setTimeout(_this13.scrollToMessage, 10); //   console.log(res.data);
+        setTimeout(_this13.scrollToMessage, 10);
       })["catch"](function (err) {
         console.log(err);
       });
+    },
+    updateStateUnread: function updateStateUnread(user, reset) {
+      this.users = this.users.map(function (singleUser) {
+        if (singleUser.id !== user.id) {
+          return singleUser;
+        }
+
+        if (reset) {
+          singleUser.unread = 0;
+        } else {
+          singleUser.unread += 1;
+        }
+
+        return singleUser;
+      });
+    }
+  },
+  computed: {
+    sortUnreadContact: function sortUnreadContact() {
+      return _.sortBy(this.users, [function (contact) {
+        return contact.unread;
+      }]).reverse();
     }
   }
 });
@@ -6514,7 +6820,7 @@ window.Vue = (__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js
 // Vue.component('chat-section', require('./components/ChatSection.vue').default);
 // Vue.component('layout-component', require('./layout/LayoutComponent').default);
 
-vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('side-chat', (__webpack_require__(/*! ./components/SideChat.vue */ "./resources/js/components/SideChat.vue")["default"])); // Vue.component('chat-component', require('./components/ChatComponent.vue').default);
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('side-message', (__webpack_require__(/*! ./components/SideMessage.vue */ "./resources/js/components/SideMessage.vue")["default"])); // Vue.component('chat-component', require('./components/ChatComponent.vue').default);
 // Vue.component('master-layout', require('./components/MasterLayout.vue').default);
 
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('profile-component', (__webpack_require__(/*! ./components/ProfileComponent.vue */ "./resources/js/components/ProfileComponent.vue")["default"]));
@@ -6612,7 +6918,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_ProfileComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/ProfileComponent */ "./resources/js/components/ProfileComponent.vue");
-/* harmony import */ var _components_SideChat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/SideChat */ "./resources/js/components/SideChat.vue");
+/* harmony import */ var _components_SideMessage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/SideMessage */ "./resources/js/components/SideMessage.vue");
 /* harmony import */ var _components_OtherProfile__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/OtherProfile */ "./resources/js/components/OtherProfile.vue");
 
 
@@ -6623,7 +6929,7 @@ var routes = [{
   name: 'profile'
 }, {
   path: '/',
-  component: _components_SideChat__WEBPACK_IMPORTED_MODULE_1__["default"],
+  component: _components_SideMessage__WEBPACK_IMPORTED_MODULE_1__["default"],
   name: 'chat'
 }, {
   path: '/otherprofile/:id',
@@ -11678,7 +11984,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.line[data-v-b141c038]{\r\n    display: inline-block !important;\r\n    white-space: nowrap !important;\n}\n.box[data-v-b141c038]{\r\n    border-radius: 20px;\n}\n.btn-primary[data-v-b141c038]{\r\n    background-color: #edf2f7 !important;\r\n    border-color: #edf2f7 !important;\r\n    color: #8d9aac;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.line[data-v-b141c038]{\r\n    display: inline-block !important;\r\n    white-space: nowrap !important;\n}\n.box[data-v-b141c038]{\r\n    border-radius: 20px;\n}\n.btn-primary[data-v-b141c038]{\r\n    background-color: #e3175b !important;\r\n    border-color: #e3175b !important;\r\n    color: #fff;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -11702,17 +12008,17 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.btn-primary[data-v-a8276c82]{\r\n    background-color: rgb(82, 78, 238) !important;\n}\n.box[data-v-a8276c82]{\r\n    border-radius: 20px !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.btn-primary[data-v-a8276c82] {\r\n  background-color: rgb(82, 78, 238) !important;\n}\n.box[data-v-a8276c82] {\r\n  border-radius: 20px !important;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideChat.vue?vue&type=style&index=0&id=33fd918c&scoped=true&lang=css&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideChat.vue?vue&type=style&index=0&id=33fd918c&scoped=true&lang=css& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideMessage.vue?vue&type=style&index=0&id=4fc77d95&scoped=true&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideMessage.vue?vue&type=style&index=0&id=4fc77d95&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11726,7 +12032,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.chat .chat__tabs a.active[data-v-33fd918c] {\r\n  background-color: #3e94da !important;\n}\n.bg-theme-1[data-v-33fd918c] {\r\n  background-color: #1d90f4 !important;\n}\n.box.active[data-v-33fd918c] {\r\n  border-left: 6px solid #02de6b !important;\n}\n.box[data-v-33fd918c] {\r\n  border-radius: 20px;\n}\n.emoji-mart[data-v-7bc71df8][data-v-33fd918c] {\r\n    font-family: -apple-system, BlinkMacSystemFont, \"Helvetica Neue\", sans-serif;\r\n    font-size: 16px;\r\n    display: -ms-flexbox;\r\n    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;\r\n    display: flex;\r\n    flex-direction: column;\r\n    height: 420px;\r\n    color: #222427;\r\n    border: 1px solid #293145;\r\n    border-radius: 20px;\r\n    background-color: #293145;\n}\n.emoji-mart-category-label[data-v-33fd918c]{\r\n  border-radius: 20px !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.chat .chat__tabs a.active[data-v-4fc77d95] {\r\n  background-color: #3e94da !important;\n}\n.bg-theme-1[data-v-4fc77d95] {\r\n  background-color: #1d90f4 !important;\n}\n.box.active[data-v-4fc77d95] {\r\n  border-left: 6px solid #02de6b !important;\n}\n.no-user-found[data-v-4fc77d95] {\r\n  border-left: 6px solid #e3175b !important;\n}\n.box[data-v-4fc77d95] {\r\n  border-radius: 20px;\n}\n.emoji-mart[data-v-7bc71df8][data-v-4fc77d95] {\r\n  font-family: -apple-system, BlinkMacSystemFont, \"Helvetica Neue\", sans-serif;\r\n  font-size: 16px;\r\n  display: -ms-flexbox;\r\n  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,\r\n    rgba(0, 0, 0, 0.05) 0px 5px 10px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 420px;\r\n  color: #222427;\r\n  border: 1px solid #293145;\r\n  border-radius: 20px;\r\n  background-color: #293145;\n}\n.emoji-mart-category-label[data-v-4fc77d95] {\r\n  border-radius: 20px !important;\n}\r\n/* .emoji-mart-category-label span {\r\n    background-color: #3e94da !important;\r\n    color: #293145 !important;\r\n    border-radius: 10px !important;\r\n} */\n.friendNotyf[data-v-4fc77d95] {\r\n  height: 20px;\r\n  position: relative;\r\n  right: 5px;\r\n  background-color: #e3175b;\r\n  border-color: #e3175b;\n}\n.messageNotyf[data-v-4fc77d95] {\r\n  height: 20px;\r\n  background-color: #e3175b;\r\n  border-color: #e3175b;\n}\n#user-plus[data-v-4fc77d95] {\r\n  color: #02dc6b;\n}\n.disable-user[data-v-4fc77d95] {\r\n  background-color: #6e6d7a;\n}\n.fa-exclamation-triangle[data-v-4fc77d95] {\r\n  font-size: 50px;\r\n  color: #e3175b;\n}\n.fa-check[data-v-4fc77d95] {\r\n  font-size: 10px;\n}\n.fa-eye[data-v-4fc77d95] {\r\n  font-size: 10px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -67156,10 +67462,10 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideChat.vue?vue&type=style&index=0&id=33fd918c&scoped=true&lang=css&":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideChat.vue?vue&type=style&index=0&id=33fd918c&scoped=true&lang=css& ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideMessage.vue?vue&type=style&index=0&id=4fc77d95&scoped=true&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideMessage.vue?vue&type=style&index=0&id=4fc77d95&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67169,7 +67475,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SideChat_vue_vue_type_style_index_0_id_33fd918c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SideChat.vue?vue&type=style&index=0&id=33fd918c&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideChat.vue?vue&type=style&index=0&id=33fd918c&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SideMessage_vue_vue_type_style_index_0_id_4fc77d95_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SideMessage.vue?vue&type=style&index=0&id=4fc77d95&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideMessage.vue?vue&type=style&index=0&id=4fc77d95&scoped=true&lang=css&");
 
             
 
@@ -67178,11 +67484,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SideChat_vue_vue_type_style_index_0_id_33fd918c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SideMessage_vue_vue_type_style_index_0_id_4fc77d95_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SideChat_vue_vue_type_style_index_0_id_33fd918c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SideMessage_vue_vue_type_style_index_0_id_4fc77d95_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -70970,10 +71276,10 @@ component.options.__file = "resources/js/components/ProfileComponent.vue"
 
 /***/ }),
 
-/***/ "./resources/js/components/SideChat.vue":
-/*!**********************************************!*\
-  !*** ./resources/js/components/SideChat.vue ***!
-  \**********************************************/
+/***/ "./resources/js/components/SideMessage.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/SideMessage.vue ***!
+  \*************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -70981,9 +71287,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _SideChat_vue_vue_type_template_id_33fd918c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SideChat.vue?vue&type=template&id=33fd918c&scoped=true& */ "./resources/js/components/SideChat.vue?vue&type=template&id=33fd918c&scoped=true&");
-/* harmony import */ var _SideChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SideChat.vue?vue&type=script&lang=js& */ "./resources/js/components/SideChat.vue?vue&type=script&lang=js&");
-/* harmony import */ var _SideChat_vue_vue_type_style_index_0_id_33fd918c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SideChat.vue?vue&type=style&index=0&id=33fd918c&scoped=true&lang=css& */ "./resources/js/components/SideChat.vue?vue&type=style&index=0&id=33fd918c&scoped=true&lang=css&");
+/* harmony import */ var _SideMessage_vue_vue_type_template_id_4fc77d95_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SideMessage.vue?vue&type=template&id=4fc77d95&scoped=true& */ "./resources/js/components/SideMessage.vue?vue&type=template&id=4fc77d95&scoped=true&");
+/* harmony import */ var _SideMessage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SideMessage.vue?vue&type=script&lang=js& */ "./resources/js/components/SideMessage.vue?vue&type=script&lang=js&");
+/* harmony import */ var _SideMessage_vue_vue_type_style_index_0_id_4fc77d95_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SideMessage.vue?vue&type=style&index=0&id=4fc77d95&scoped=true&lang=css& */ "./resources/js/components/SideMessage.vue?vue&type=style&index=0&id=4fc77d95&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -70994,19 +71300,19 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _SideChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _SideChat_vue_vue_type_template_id_33fd918c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
-  _SideChat_vue_vue_type_template_id_33fd918c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _SideMessage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SideMessage_vue_vue_type_template_id_4fc77d95_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _SideMessage_vue_vue_type_template_id_4fc77d95_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  "33fd918c",
+  "4fc77d95",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/SideChat.vue"
+component.options.__file = "resources/js/components/SideMessage.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -71043,10 +71349,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/SideChat.vue?vue&type=script&lang=js&":
-/*!***********************************************************************!*\
-  !*** ./resources/js/components/SideChat.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************/
+/***/ "./resources/js/components/SideMessage.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/SideMessage.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -71054,8 +71360,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SideChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SideChat.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideChat.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SideChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SideMessage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SideMessage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideMessage.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SideMessage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -71085,15 +71391,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/SideChat.vue?vue&type=style&index=0&id=33fd918c&scoped=true&lang=css&":
-/*!*******************************************************************************************************!*\
-  !*** ./resources/js/components/SideChat.vue?vue&type=style&index=0&id=33fd918c&scoped=true&lang=css& ***!
-  \*******************************************************************************************************/
+/***/ "./resources/js/components/SideMessage.vue?vue&type=style&index=0&id=4fc77d95&scoped=true&lang=css&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/components/SideMessage.vue?vue&type=style&index=0&id=4fc77d95&scoped=true&lang=css& ***!
+  \**********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SideChat_vue_vue_type_style_index_0_id_33fd918c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SideChat.vue?vue&type=style&index=0&id=33fd918c&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideChat.vue?vue&type=style&index=0&id=33fd918c&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SideMessage_vue_vue_type_style_index_0_id_4fc77d95_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SideMessage.vue?vue&type=style&index=0&id=4fc77d95&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideMessage.vue?vue&type=style&index=0&id=4fc77d95&scoped=true&lang=css&");
 
 
 /***/ }),
@@ -71132,19 +71438,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/SideChat.vue?vue&type=template&id=33fd918c&scoped=true&":
-/*!*****************************************************************************************!*\
-  !*** ./resources/js/components/SideChat.vue?vue&type=template&id=33fd918c&scoped=true& ***!
-  \*****************************************************************************************/
+/***/ "./resources/js/components/SideMessage.vue?vue&type=template&id=4fc77d95&scoped=true&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/SideMessage.vue?vue&type=template&id=4fc77d95&scoped=true& ***!
+  \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SideChat_vue_vue_type_template_id_33fd918c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SideChat_vue_vue_type_template_id_33fd918c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SideMessage_vue_vue_type_template_id_4fc77d95_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SideMessage_vue_vue_type_template_id_4fc77d95_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SideChat_vue_vue_type_template_id_33fd918c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SideChat.vue?vue&type=template&id=33fd918c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideChat.vue?vue&type=template&id=33fd918c&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SideMessage_vue_vue_type_template_id_4fc77d95_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SideMessage.vue?vue&type=template&id=4fc77d95&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideMessage.vue?vue&type=template&id=4fc77d95&scoped=true&");
 
 
 /***/ }),
@@ -71579,7 +71885,7 @@ var render = function () {
           "div",
           {
             staticClass:
-              "dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in",
+              "\n          dropdown-toggle\n          w-8\n          h-8\n          rounded-full\n          overflow-hidden\n          shadow-lg\n          image-fit\n          zoom-in\n        ",
             attrs: { role: "button", "aria-expanded": "false" },
           },
           [
@@ -71608,7 +71914,7 @@ var render = function () {
             "div",
             {
               staticClass:
-                "dropdown-menu__content box bg-theme-26 dark:bg-dark-6 text-white",
+                "\n            dropdown-menu__content\n            box\n            bg-theme-26\n            dark:bg-dark-6\n            text-white\n          ",
             },
             [
               _c(
@@ -71632,12 +71938,12 @@ var render = function () {
                     "router-link",
                     {
                       staticClass:
-                        "flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md",
+                        "\n                flex\n                items-center\n                block\n                p-2\n                transition\n                duration-300\n                ease-in-out\n                hover:bg-theme-1\n                dark:hover:bg-dark-3\n                rounded-md\n              ",
                       attrs: { to: "/profile" },
                     },
                     [
                       _c("i", { staticClass: "fas fa-user mr-2" }),
-                      _vm._v(" Profile "),
+                      _vm._v(" Profile\n            "),
                     ]
                   ),
                   _vm._v(" "),
@@ -71645,12 +71951,12 @@ var render = function () {
                     "router-link",
                     {
                       staticClass:
-                        "flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md",
+                        "\n                flex\n                items-center\n                block\n                p-2\n                transition\n                duration-300\n                ease-in-out\n                hover:bg-theme-1\n                dark:hover:bg-dark-3\n                rounded-md\n              ",
                       attrs: { to: "/" },
                     },
                     [
                       _c("i", { staticClass: "fab fa-rocketchat mr-2" }),
-                      _vm._v(" Return to Chats "),
+                      _vm._v(" Return to Chats\n            "),
                     ]
                   ),
                 ],
@@ -71668,12 +71974,12 @@ var render = function () {
                     "a",
                     {
                       staticClass:
-                        "flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md",
+                        "\n                flex\n                items-center\n                block\n                p-2\n                transition\n                duration-300\n                ease-in-out\n                hover:bg-theme-1\n                dark:hover:bg-dark-3\n                rounded-md\n              ",
                       on: { click: _vm.logout },
                     },
                     [
                       _c("i", { staticClass: "fas fa-sign-out-alt mr-2" }),
-                      _vm._v(" Logout "),
+                      _vm._v(" Logout\n            "),
                     ]
                   ),
                 ]
@@ -71702,7 +72008,7 @@ var render = function () {
             "div",
             {
               staticClass:
-                "col-span-12 lg:col-span-9 xxl:col-span-10 flex lg:block flex-col-reverse",
+                "\n          col-span-12\n          lg:col-span-9\n          xxl:col-span-10\n          flex\n          lg:block\n          flex-col-reverse\n        ",
             },
             [
               _c("div", { staticClass: "intro-y box lg:mt-5" }, [
@@ -71773,7 +72079,7 @@ var render = function () {
                               "div",
                               { staticClass: "col-span-12 xxl:col-span-6" },
                               [
-                                _c("div", { staticClass: "mt-3" }, [
+                                _c("div", [
                                   _c(
                                     "label",
                                     {
@@ -71959,14 +72265,14 @@ var render = function () {
                             "div",
                             {
                               staticClass:
-                                "border-2 border-dashed shadow-sm border-gray-200 dark:border-dark-5 rounded-md p-5",
+                                "\n                    border-2 border-dashed\n                    shadow-sm\n                    border-gray-200\n                    dark:border-dark-5\n                    rounded-md\n                    p-5\n                  ",
                             },
                             [
                               _c(
                                 "div",
                                 {
                                   staticClass:
-                                    "h-40 relative image-fit cursor-pointer zoom-in mx-auto",
+                                    "\n                      h-40\n                      relative\n                      image-fit\n                      cursor-pointer\n                      zoom-in\n                      mx-auto\n                    ",
                                 },
                                 [
                                   _vm.profile.avatar != null
@@ -72004,7 +72310,11 @@ var render = function () {
                                       staticClass: "btn btn-primary w-full",
                                       attrs: { type: "button" },
                                     },
-                                    [_vm._v("Change Photo")]
+                                    [
+                                      _vm._v(
+                                        "\n                      Change Photo\n                    "
+                                      ),
+                                    ]
                                   ),
                                   _vm._v(" "),
                                   _c("input", {
@@ -72055,7 +72365,7 @@ var render = function () {
                                 })
                               : _vm._e(),
                             _vm._v(
-                              "\n                                        Save\n                                        "
+                              "\n                  Save\n                "
                             ),
                           ]
                         ),
@@ -72099,7 +72409,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "intro-y flex items-center mt-8" }, [
       _c("h2", { staticClass: "text-lg font-medium mr-auto" }, [
-        _vm._v("\n                    Update Profile\n                "),
+        _vm._v("Update Profile"),
       ]),
     ])
   },
@@ -72111,13 +72421,11 @@ var staticRenderFns = [
       "div",
       {
         staticClass:
-          "flex items-center p-5 border-b border-gray-200 dark:border-dark-5",
+          "\n              flex\n              items-center\n              p-5\n              border-b border-gray-200\n              dark:border-dark-5\n            ",
       },
       [
         _c("h2", { staticClass: "font-medium text-base mr-auto" }, [
-          _vm._v(
-            "\n                                Display Information\n                            "
-          ),
+          _vm._v("Display Information"),
         ]),
       ]
     )
@@ -72130,13 +72438,11 @@ var staticRenderFns = [
       "div",
       {
         staticClass:
-          "flex items-center p-5 border-b border-gray-200 dark:border-dark-5",
+          "\n              flex\n              items-center\n              p-5\n              border-b border-gray-200\n              dark:border-dark-5\n            ",
       },
       [
         _c("h2", { staticClass: "font-medium text-base mr-auto" }, [
-          _vm._v(
-            "\n                                Action\n                            "
-          ),
+          _vm._v("Action"),
         ]),
       ]
     )
@@ -72148,10 +72454,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideChat.vue?vue&type=template&id=33fd918c&scoped=true&":
-/*!********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideChat.vue?vue&type=template&id=33fd918c&scoped=true& ***!
-  \********************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideMessage.vue?vue&type=template&id=4fc77d95&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SideMessage.vue?vue&type=template&id=4fc77d95&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -72173,7 +72479,7 @@ var render = function () {
           "div",
           {
             staticClass:
-              "\n            dropdown-toggle\n            w-8\n            h-8\n            rounded-full\n            overflow-hidden\n            shadow-lg\n            image-fit\n            zoom-in\n          ",
+              "\n          dropdown-toggle\n          w-8\n          h-8\n          rounded-full\n          overflow-hidden\n          shadow-lg\n          image-fit\n          zoom-in\n        ",
             attrs: { role: "button", "aria-expanded": "false" },
           },
           [
@@ -72202,7 +72508,7 @@ var render = function () {
             "div",
             {
               staticClass:
-                "\n              dropdown-menu__content\n              box\n              bg-theme-26\n              dark:bg-dark-6\n              text-white\n            ",
+                "\n            dropdown-menu__content\n            box\n            bg-theme-26\n            dark:bg-dark-6\n            text-white\n          ",
             },
             [
               _c(
@@ -72226,12 +72532,12 @@ var render = function () {
                     "router-link",
                     {
                       staticClass:
-                        "\n                  flex\n                  items-center\n                  block\n                  p-2\n                  transition\n                  duration-300\n                  ease-in-out\n                  hover:bg-theme-1\n                  dark:hover:bg-dark-3\n                  rounded-md\n                ",
+                        "\n                flex\n                items-center\n                block\n                p-2\n                transition\n                duration-300\n                ease-in-out\n                hover:bg-theme-1\n                dark:hover:bg-dark-3\n                rounded-md\n              ",
                       attrs: { to: "/profile" },
                     },
                     [
                       _c("i", { staticClass: "fas fa-user mr-2" }),
-                      _vm._v("Update Profile\n              "),
+                      _vm._v("Update Profile\n            "),
                     ]
                   ),
                 ],
@@ -72249,12 +72555,12 @@ var render = function () {
                     "a",
                     {
                       staticClass:
-                        "\n                  flex\n                  items-center\n                  block\n                  p-2\n                  transition\n                  duration-300\n                  ease-in-out\n                  hover:bg-theme-1\n                  dark:hover:bg-dark-3\n                  rounded-md\n                ",
+                        "\n                flex\n                items-center\n                block\n                p-2\n                transition\n                duration-300\n                ease-in-out\n                hover:bg-theme-1\n                dark:hover:bg-dark-3\n                rounded-md\n              ",
                       on: { click: _vm.logout },
                     },
                     [
                       _c("i", { staticClass: "fas fa-sign-out-alt mr-2" }),
-                      _vm._v(" Logout\n              "),
+                      _vm._v(" Logout\n            "),
                     ]
                   ),
                 ]
@@ -72269,7 +72575,36 @@ var render = function () {
     _vm._v(" "),
     _c("div", { staticClass: "intro-y chat grid grid-cols-12 gap-5 mt-5" }, [
       _c("div", { staticClass: "col-span-12 lg:col-span-4 xxl:col-span-3" }, [
-        _vm._m(2),
+        _c("div", { staticClass: "intro-y pr-1" }, [
+          _c("div", { staticClass: "box p-2" }, [
+            _c(
+              "div",
+              {
+                staticClass: "chat__tabs nav nav-tabs justify-center",
+                attrs: { role: "tablist" },
+              },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _vm._m(3),
+                _vm._v(" "),
+                _vm._m(4),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  { staticClass: "btn btn-sm btn-rounded-danger friendNotyf" },
+                  [
+                    _vm._v(
+                      "\n              " +
+                        _vm._s(_vm.notify.length) +
+                        "\n            "
+                    ),
+                  ]
+                ),
+              ]
+            ),
+          ]),
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "tab-content" }, [
           _c(
@@ -72301,7 +72636,7 @@ var render = function () {
                           },
                         ],
                         staticClass:
-                          "\n                      form-control\n                      py-3\n                      px-4\n                      border-transparent\n                      bg-gray-200\n                      pr-10\n                      placeholder-theme-13\n                    ",
+                          "\n                    form-control\n                    py-3\n                    px-4\n                    border-transparent\n                    bg-gray-200\n                    pr-10\n                    placeholder-theme-13\n                  ",
                         attrs: {
                           type: "text",
                           placeholder: "Search for users...",
@@ -72319,142 +72654,179 @@ var render = function () {
                       _vm._v(" "),
                       _c("i", {
                         staticClass:
-                          "\n                      w-4\n                      h-4\n                      hidden\n                      sm:absolute\n                      my-auto\n                      inset-y-0\n                      mr-3\n                      right-0\n                    ",
+                          "\n                    w-4\n                    h-4\n                    hidden\n                    sm:absolute\n                    my-auto\n                    inset-y-0\n                    mr-3\n                    right-0\n                  ",
                         attrs: { "data-feather": "search" },
                       }),
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(3),
+                  _vm._m(5),
                 ]),
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "parent__loop" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "\n                  chat__chat-list\n                  overflow-y-auto\n                  scrollbar-hidden\n                  pr-1\n                  pt-1\n                  mt-4\n                ",
-                  },
-                  _vm._l(_vm.users, function (person) {
-                    return _c(
+                _vm.users != ""
+                  ? _c(
                       "div",
-                      {
-                        key: person.id,
-                        staticClass: "chatloop",
-                        on: {
-                          click: function ($event) {
-                            _vm.activeuser = person.user_id
-                          },
-                        },
-                      },
-                      [
-                        _vm.currentuser.id != person.user_id
-                          ? _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "\n                      intro-x\n                      cursor-pointer\n                      box\n                      relative\n                      flex\n                      items-center\n                      p-5\n                      mt-3\n                    ",
-                                class:
-                                  _vm.activeuser == person.user_id
-                                    ? "active"
-                                    : "",
-                                staticStyle: {
-                                  "border-radius": "5px !important",
-                                },
+                      _vm._l(_vm.sortUnreadContact, function (person) {
+                        return _c(
+                          "div",
+                          {
+                            key: person.id,
+                            staticClass: "chatloop",
+                            on: {
+                              click: function ($event) {
+                                _vm.activeuser = person
                               },
-                              [
-                                _c(
+                            },
+                          },
+                          [
+                            _vm.currentuser.id != person.user_id
+                              ? _c(
                                   "div",
                                   {
                                     staticClass:
-                                      "w-12 h-12 flex-none image-fit mr-1",
+                                      "\n                    intro-x\n                    cursor-pointer\n                    box\n                    relative\n                    flex\n                    items-center\n                    p-5\n                    mt-5\n                  ",
+                                    class:
+                                      _vm.activeuser.id == person.user_id
+                                        ? "active"
+                                        : "",
+                                    staticStyle: {
+                                      "border-radius": "20px !important",
+                                    },
                                   },
                                   [
-                                    person.avatar != null
-                                      ? _c("img", {
-                                          staticClass: "rounded-full",
-                                          attrs: {
-                                            alt: "Midone Tailwind HTML Admin Template",
-                                            src:
-                                              "https://res.cloudinary.com/dtiazqxyd/image/upload/v1648964340/" +
-                                              person.avatar,
-                                          },
-                                        })
-                                      : _c("img", {
-                                          staticClass: "rounded-full",
-                                          attrs: {
-                                            alt: "Avatar",
-                                            src: "../dist2/images/avatardefault_92824-removebg.png",
-                                          },
-                                        }),
-                                    _vm._v(" "),
-                                    _c("div", {
-                                      class: _vm.onlineuser.find(function (
-                                        onlineusers
-                                      ) {
-                                        return onlineusers.id === person.user_id
-                                      })
-                                        ? "w-3 h-3 bg-theme-9 absolute right-0 bottom-0 rounded-full border-2 border-white"
-                                        : "w-3 h-3 bg-theme-6 absolute right-0 bottom-0 rounded-full border-2 border-white",
-                                    }),
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "ml-2 overflow-hidden" },
-                                  [
-                                    _c(
-                                      "div",
-                                      { staticClass: "flex items-center" },
-                                      [
-                                        _c(
-                                          "a",
-                                          {
-                                            staticClass: "font-medium",
-                                            attrs: { href: "javascript:;" },
-                                          },
-                                          [_vm._v(_vm._s(person.name))]
-                                        ),
-                                      ]
-                                    ),
-                                    _vm._v(" "),
                                     _c(
                                       "div",
                                       {
                                         staticClass:
-                                          "mt-1 text-xs text-theme-21",
+                                          "w-12 h-12 flex-none image-fit mr-1",
                                       },
                                       [
-                                        _vm._v(
-                                          "\n                        User\n                        " +
-                                            _vm._s(
-                                              _vm.onlineuser.find(function (
-                                                onlineusers
-                                              ) {
-                                                return (
-                                                  onlineusers.id ===
-                                                  _vm.userchoose.user_id
-                                                )
-                                              })
-                                                ? "Online"
-                                                : "Offline"
-                                            ) +
-                                            "\n                      "
+                                        person.avatar != null
+                                          ? _c("img", {
+                                              staticClass: "rounded-full",
+                                              attrs: {
+                                                alt: "Midone Tailwind HTML Admin Template",
+                                                src:
+                                                  "https://res.cloudinary.com/dtiazqxyd/image/upload/v1648964340/" +
+                                                  person.avatar,
+                                              },
+                                            })
+                                          : _c("img", {
+                                              staticClass: "rounded-full",
+                                              attrs: {
+                                                alt: "Avatar",
+                                                src: "../dist2/images/avatardefault_92824-removebg.png",
+                                              },
+                                            }),
+                                        _vm._v(" "),
+                                        _c("div", {
+                                          class: _vm.onlineuser.find(function (
+                                            onlineusers
+                                          ) {
+                                            return (
+                                              onlineusers.id === person.user_id
+                                            )
+                                          })
+                                            ? "w-3 h-3 bg-theme-9 absolute right-0 bottom-0 rounded-full border-2 border-white"
+                                            : "w-3 h-3 absolute right-0 bottom-0 rounded-full border-2 border-white disable-user",
+                                        }),
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "ml-2 overflow-hidden" },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "flex items-center" },
+                                          [
+                                            _c(
+                                              "a",
+                                              {
+                                                staticClass: "font-medium",
+                                                attrs: { href: "javascript:;" },
+                                              },
+                                              [_vm._v(_vm._s(person.name))]
+                                            ),
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "mt-1 text-xs text-theme-21",
+                                          },
+                                          _vm._l(
+                                            _vm.allmessage,
+                                            function (latestMsg, index) {
+                                              return _c(
+                                                "div",
+                                                { key: latestMsg.id },
+                                                [
+                                                  index ==
+                                                  _vm.allmessage.length - 1
+                                                    ? _c("div", [
+                                                        _vm._v(
+                                                          "\n                          " +
+                                                            _vm._s(
+                                                              latestMsg.receiver_id !==
+                                                                _vm.currentuser
+                                                                  .id
+                                                                ? "You: " +
+                                                                    latestMsg.message
+                                                                : latestMsg.user
+                                                                    .name +
+                                                                    ": " +
+                                                                    latestMsg.message.substring(
+                                                                      0,
+                                                                      25
+                                                                    ) +
+                                                                    " ..."
+                                                            ) +
+                                                            "\n                        "
+                                                        ),
+                                                      ])
+                                                    : _vm._e(),
+                                                ]
+                                              )
+                                            }
+                                          ),
+                                          0
                                         ),
                                       ]
                                     ),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "ml-2" }, [
+                                      person.unread
+                                        ? _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-sm btn-rounded-danger messageNotyf",
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                      " +
+                                                  _vm._s(person.unread) +
+                                                  "\n                    "
+                                              ),
+                                            ]
+                                          )
+                                        : _vm._e(),
+                                    ]),
                                   ]
-                                ),
-                              ]
-                            )
-                          : _vm._e(),
-                      ]
+                                )
+                              : _vm._e(),
+                          ]
+                        )
+                      }),
+                      0
                     )
-                  }),
-                  0
-                ),
+                  : _c("div", [_vm._m(6)]),
               ]),
             ]
           ),
@@ -72500,7 +72872,7 @@ var render = function () {
                               },
                             ],
                             staticClass:
-                              "\n                        form-control\n                        py-3\n                        px-4\n                        border-transparent\n                        bg-gray-200\n                        pr-10\n                        placeholder-theme-13\n                      ",
+                              "\n                      form-control\n                      py-3\n                      px-4\n                      border-transparent\n                      bg-gray-200\n                      pr-10\n                      placeholder-theme-13\n                    ",
                             attrs: {
                               type: "text",
                               placeholder: "Enter user's email",
@@ -72518,7 +72890,7 @@ var render = function () {
                           _vm._v(" "),
                           _c("i", {
                             staticClass:
-                              "\n                        w-4\n                        h-4\n                        hidden\n                        sm:absolute\n                        my-auto\n                        inset-y-0\n                        mr-3\n                        right-0\n                      ",
+                              "\n                      w-4\n                      h-4\n                      hidden\n                      sm:absolute\n                      my-auto\n                      inset-y-0\n                      mr-3\n                      right-0\n                    ",
                             attrs: { "data-feather": "search" },
                           }),
                         ]
@@ -72540,7 +72912,7 @@ var render = function () {
                               })
                             : _c("i", { staticClass: "fas fa-user-plus mr-1" }),
                           _vm._v(
-                            "\n                    Invite Friend\n                  "
+                            "\n                  Invite Friend\n                "
                           ),
                         ]
                       ),
@@ -72562,115 +72934,129 @@ var render = function () {
               },
             },
             [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "chat__user-list overflow-y-auto scrollbar-hidden pr-1 pt-1",
-                },
-                [
-                  _c("div", { staticClass: "mt-4 text-gray-600" }, [
-                    _vm._v("Notification"),
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.notify, function (noti, index) {
-                    return _c(
-                      "div",
-                      {
-                        key: noti.id,
-                        staticClass:
-                          "cursor-pointer box relative flex items-center p-5 mt-5",
-                        staticStyle: {
-                          "border-left": "6px solid #02de6b",
-                          "border-radius": "5px !important",
+              _c("div", { staticClass: "mt-4 text-gray-600" }, [
+                _vm._v("Notification"),
+              ]),
+              _vm._v(" "),
+              _vm.notify != ""
+                ? _c(
+                    "div",
+                    _vm._l(_vm.notify, function (noti, index) {
+                      return _c(
+                        "div",
+                        {
+                          key: noti.id,
+                          staticClass:
+                            "cursor-pointer box relative flex items-center p-5 mt-5",
+                          staticStyle: {
+                            "border-left": "6px solid #02de6b",
+                            "border-radius": "5px !important",
+                          },
                         },
-                      },
-                      [
-                        _c("div", { staticClass: "ml-2 overflow-hidden" }, [
-                          _c("div", { staticClass: "flex items-center" }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "font-medium",
-                                attrs: { href: "" },
-                              },
-                              [
-                                _vm._v(
-                                  _vm._s(noti.user.name) +
-                                    " " +
-                                    _vm._s(noti.content)
-                                ),
-                              ]
-                            ),
+                        [
+                          _c("div", { staticClass: "ml-2 overflow-hidden" }, [
+                            _c("div", { staticClass: "flex items-center" }, [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "font-medium",
+                                  attrs: { href: "" },
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fa fa-user-plus",
+                                    attrs: {
+                                      id: "user-plus",
+                                      "aria-hidden": "true",
+                                    },
+                                  }),
+                                  _vm._v(
+                                    "\n                    " +
+                                      _vm._s(noti.user.name) +
+                                      " " +
+                                      _vm._s(noti.content)
+                                  ),
+                                ]
+                              ),
+                            ]),
                           ]),
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "dropdown ml-auto" }, [
-                          _vm._m(4, true),
                           _vm._v(" "),
-                          _c("div", { staticClass: "dropdown-menu w-40" }, [
+                          _c("div", { staticClass: "dropdown ml-auto" }, [
+                            _vm._m(7, true),
+                            _vm._v(" "),
                             _c(
                               "div",
                               {
                                 staticClass:
-                                  "dropdown-menu__content box dark:bg-dark-1 p-2",
+                                  "dropdown-menu w-40 dropdown-action",
                               },
                               [
                                 _c(
-                                  "a",
+                                  "div",
                                   {
                                     staticClass:
-                                      "\n                          flex\n                          items-center\n                          block\n                          p-2\n                          transition\n                          duration-300\n                          ease-in-out\n                          bg-white\n                          dark:bg-dark-1\n                          hover:bg-gray-200\n                          dark:hover:bg-dark-2\n                          rounded-md\n                        ",
-                                    on: {
-                                      click: function ($event) {
-                                        return _vm.acceptRequest(noti, index)
-                                      },
-                                    },
+                                      "dropdown-menu__content box dark:bg-dark-1 p-2",
                                   },
                                   [
-                                    _c("i", {
-                                      staticClass: "w-4 h-4 mr-2",
-                                      attrs: { "data-feather": "share-2" },
-                                    }),
-                                    _vm._v(
-                                      "\n                        Accept\n                      "
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "\n                        flex\n                        items-center\n                        block\n                        p-2\n                        transition\n                        duration-300\n                        ease-in-out\n                        bg-white\n                        dark:bg-dark-1\n                        hover:bg-gray-200\n                        dark:hover:bg-dark-2\n                        rounded-md\n                      ",
+                                        on: {
+                                          click: function ($event) {
+                                            return _vm.acceptRequest(
+                                              noti,
+                                              index
+                                            )
+                                          },
+                                        },
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "w-4 h-4 mr-2",
+                                          attrs: { "data-feather": "share-2" },
+                                        }),
+                                        _vm._v(
+                                          "\n                      Accept\n                    "
+                                        ),
+                                      ]
                                     ),
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass:
-                                      "\n                          flex\n                          items-center\n                          block\n                          p-2\n                          transition\n                          duration-300\n                          ease-in-out\n                          bg-white\n                          dark:bg-dark-1\n                          hover:bg-gray-200\n                          dark:hover:bg-dark-2\n                          rounded-md\n                        ",
-                                    on: {
-                                      click: function ($event) {
-                                        return _vm.removeRequest(
-                                          noti.id,
-                                          noti.user_id,
-                                          index
-                                        )
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "\n                        flex\n                        items-center\n                        block\n                        p-2\n                        transition\n                        duration-300\n                        ease-in-out\n                        bg-white\n                        dark:bg-dark-1\n                        hover:bg-gray-200\n                        dark:hover:bg-dark-2\n                        rounded-md\n                      ",
+                                        on: {
+                                          click: function ($event) {
+                                            return _vm.removeRequest(
+                                              noti.id,
+                                              noti.user_id,
+                                              index
+                                            )
+                                          },
+                                        },
                                       },
-                                    },
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "w-4 h-4 mr-2",
-                                      attrs: { "data-feather": "copy" },
-                                    }),
-                                    _vm._v(" Remove\n                      "),
+                                      [
+                                        _c("i", {
+                                          staticClass: "w-4 h-4 mr-2",
+                                          attrs: { "data-feather": "copy" },
+                                        }),
+                                        _vm._v(" Remove\n                    "),
+                                      ]
+                                    ),
                                   ]
                                 ),
                               ]
                             ),
                           ]),
-                        ]),
-                      ]
-                    )
-                  }),
-                ],
-                2
-              ),
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                : _c("div", [_vm._m(8)]),
             ]
           ),
         ]),
@@ -72681,13 +73067,13 @@ var render = function () {
         { staticClass: "intro-y col-span-12 lg:col-span-8 xxl:col-span-9" },
         [
           _c("div", { staticClass: "chat__box box" }, [
-            _vm.activeuser != null
+            _vm.activeuser.length !== 0
               ? _c("div", { staticClass: "h-full flex flex-col" }, [
                   _c(
                     "div",
                     {
                       staticClass:
-                        "\n                flex flex-col\n                sm:flex-row\n                border-b border-gray-200\n                dark:border-dark-5\n                px-5\n                py-4\n              ",
+                        "\n              flex flex-col\n              sm:flex-row\n              border-b border-gray-200\n              dark:border-dark-5\n              px-5\n              py-4\n            ",
                     },
                     [
                       _c("div", { staticClass: "flex items-center" }, [
@@ -72721,9 +73107,9 @@ var render = function () {
                         _c("div", { staticClass: "ml-3 mr-auto" }, [
                           _c("div", { staticClass: "font-medium text-base" }, [
                             _vm._v(
-                              "\n                    " +
+                              "\n                  " +
                                 _vm._s(_vm.userchoose.displayName) +
-                                "\n                  "
+                                "\n                "
                             ),
                           ]),
                           _vm._v(" "),
@@ -72736,34 +73122,46 @@ var render = function () {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                    " +
+                                    "\n                  " +
                                       _vm._s(
                                         _vm.userchoose.shortDescription.substring(
                                           0,
-                                          40
+                                          50
                                         ) + "..."
                                       ) +
-                                      "\n                    "
+                                      "\n\n                  "
                                   ),
-                                  _c("span", { staticClass: "mx-1" }, [
-                                    _vm._v("•"),
+                                  _c("div", {
+                                    class: _vm.onlineuser.find(function (
+                                      onlineusers
+                                    ) {
+                                      return (
+                                        onlineusers.id ===
+                                        _vm.userchoose.user_id
+                                      )
+                                    })
+                                      ? "w-3 h-3 bg-theme-9 absolute rounded-full mt-1"
+                                      : "w-3 h-3 absolute rounded-full mt-1 disable-user",
+                                  }),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "ml-4" }, [
+                                    _vm._v(
+                                      "\n                    " +
+                                        _vm._s(
+                                          _vm.onlineuser.find(function (
+                                            onlineusers
+                                          ) {
+                                            return (
+                                              onlineusers.id ===
+                                              _vm.userchoose.user_id
+                                            )
+                                          })
+                                            ? "User Online"
+                                            : "User Offline"
+                                        ) +
+                                        "\n                  "
+                                    ),
                                   ]),
-                                  _vm._v(
-                                    "\n                    " +
-                                      _vm._s(
-                                        _vm.onlineuser.find(function (
-                                          onlineusers
-                                        ) {
-                                          return (
-                                            onlineusers.id ===
-                                            _vm.userchoose.user_id
-                                          )
-                                        })
-                                          ? "Online"
-                                          : "Offline"
-                                      ) +
-                                      "\n                  "
-                                  ),
                                 ]
                               )
                             : _c(
@@ -72774,13 +73172,13 @@ var render = function () {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                    Some quotes...\n                    "
+                                    "\n                  Some quotes...\n                  "
                                   ),
                                   _c("span", { staticClass: "mx-1" }, [
                                     _vm._v("•"),
                                   ]),
                                   _vm._v(
-                                    "\n                    " +
+                                    "\n                  " +
                                       _vm._s(
                                         _vm.onlineuser.find(function (
                                           onlineusers
@@ -72793,7 +73191,7 @@ var render = function () {
                                           ? "Online"
                                           : "Offline"
                                       ) +
-                                      "\n                  "
+                                      "\n                "
                                   ),
                                 ]
                               ),
@@ -72804,7 +73202,7 @@ var render = function () {
                         "div",
                         {
                           staticClass:
-                            "\n                  flex\n                  items-center\n                  sm:ml-auto\n                  mt-5\n                  sm:mt-0\n                  border-t\n                  sm:border-0\n                  border-gray-200\n                  pt-3\n                  sm:pt-0\n                  -mx-5\n                  sm:mx-0\n                  px-5\n                  sm:px-0\n                ",
+                            "\n                flex\n                items-center\n                sm:ml-auto\n                mt-5\n                sm:mt-0\n                border-t\n                sm:border-0\n                border-gray-200\n                pt-3\n                sm:pt-0\n                -mx-5\n                sm:mx-0\n                px-5\n                sm:px-0\n              ",
                         },
                         [
                           _c(
@@ -72828,7 +73226,7 @@ var render = function () {
                             ]
                           ),
                           _vm._v(" "),
-                          _vm._m(5),
+                          _vm._m(9),
                         ]
                       ),
                     ]
@@ -72850,7 +73248,7 @@ var render = function () {
                             "div",
                             {
                               class:
-                                _vm.activeuser !== message.user_id
+                                _vm.activeuser.id !== message.user_id
                                   ? "chat__box__text-box flex items-end float-right mb-5"
                                   : "chat__box__text-box flex items-end float-left mb-5",
                             },
@@ -72859,7 +73257,7 @@ var render = function () {
                                 "div",
                                 {
                                   staticClass:
-                                    "\n                      w-10\n                      h-10\n                      hidden\n                      sm:block\n                      flex-none\n                      image-fit\n                      relative\n                      mr-5\n                    ",
+                                    "\n                    w-10\n                    h-10\n                    hidden\n                    sm:block\n                    flex-none\n                    image-fit\n                    relative\n                    mr-5\n                  ",
                                 },
                                 [
                                   _vm.currentuser.id == message.receiver_id &&
@@ -72891,15 +73289,15 @@ var render = function () {
                                 "div",
                                 {
                                   class:
-                                    _vm.activeuser !== message.user_id
+                                    _vm.activeuser.id !== message.user_id
                                       ? "bg-theme-1 px-4 py-3 text-white rounded-l-md rounded-t-md"
                                       : "bg-gray-200 dark:bg-dark-5 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-r-md rounded-t-md",
                                 },
                                 [
                                   _vm._v(
-                                    "\n                    " +
+                                    "\n                  " +
                                       _vm._s(message.message) +
-                                      "\n                    "
+                                      "\n                  "
                                   ),
                                   _c(
                                     "div",
@@ -72908,13 +73306,13 @@ var render = function () {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                      " +
+                                        "\n                    " +
                                           _vm._s(
                                             _vm._f("formatDate")(
                                               message.created_at
                                             )
                                           ) +
-                                          "\n                    "
+                                          "\n                  "
                                       ),
                                     ]
                                   ),
@@ -72934,7 +73332,7 @@ var render = function () {
                     "div",
                     {
                       staticClass:
-                        "\n                pt-4\n                pb-10\n                sm:py-4\n                flex\n                items-center\n                border-t border-gray-200\n                dark:border-dark-5\n              ",
+                        "\n              pt-4\n              pb-10\n              sm:py-4\n              flex\n              items-center\n              border-t border-gray-200\n              dark:border-dark-5\n            ",
                     },
                     [
                       _c("textarea", {
@@ -72947,7 +73345,7 @@ var render = function () {
                           },
                         ],
                         staticClass:
-                          "\n                  chat__box__input\n                  form-control\n                  dark:bg-dark-3\n                  h-16\n                  resize-none\n                  border-transparent\n                  px-5\n                  py-3\n                  shadow-none\n                  focus:ring-0\n                ",
+                          "\n                chat__box__input\n                form-control\n                dark:bg-dark-3\n                h-16\n                resize-none\n                border-transparent\n                px-5\n                py-3\n                shadow-none\n                focus:ring-0\n              ",
                         attrs: {
                           rows: "1",
                           placeholder: "Type your message...",
@@ -72982,7 +73380,7 @@ var render = function () {
                         "div",
                         {
                           staticClass:
-                            "\n                  flex\n                  absolute\n                  sm:static\n                  left-0\n                  bottom-0\n                  ml-5\n                  sm:ml-0\n                  mb-5\n                  sm:mb-0\n                ",
+                            "\n                flex\n                absolute\n                sm:static\n                left-0\n                bottom-0\n                ml-5\n                sm:ml-0\n                mb-5\n                sm:mb-0\n              ",
                         },
                         [
                           _c("div", { staticClass: "dropdown mr-3 sm:mr-5" }, [
@@ -72990,7 +73388,7 @@ var render = function () {
                               "a",
                               {
                                 staticClass:
-                                  "\n                      dropdown-toggle\n                      w-4\n                      h-4\n                      sm:w-5 sm:h-5\n                      block\n                      text-gray-600\n                    ",
+                                  "\n                    dropdown-toggle\n                    w-4\n                    h-4\n                    sm:w-5 sm:h-5\n                    block\n                    text-gray-600\n                  ",
                                 attrs: { "aria-expanded": "false" },
                                 on: { click: _vm.ToggleEmoji },
                               },
@@ -73017,7 +73415,7 @@ var render = function () {
                         "a",
                         {
                           staticClass:
-                            "\n                  w-8\n                  h-8\n                  sm:w-10 sm:h-10\n                  block\n                  bg-theme-1\n                  text-white\n                  rounded-full\n                  flex-none flex\n                  items-center\n                  justify-center\n                  mr-5\n                ",
+                            "\n                w-8\n                h-8\n                sm:w-10 sm:h-10\n                block\n                bg-theme-1\n                text-white\n                rounded-full\n                flex-none flex\n                items-center\n                justify-center\n                mr-5\n              ",
                           attrs: { type: "button" },
                           on: { click: _vm.sendMessage },
                         },
@@ -73040,7 +73438,7 @@ var render = function () {
                       _vm._v(" "),
                       _c("div", { staticClass: "text-gray-600 mt-1" }, [
                         _vm._v(
-                          "\n                  Please select a chat to start messaging.\n                "
+                          "\n                Please select a chat to start messaging.\n              "
                         ),
                       ]),
                     ]),
@@ -73090,78 +73488,64 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "intro-y pr-1" }, [
-      _c("div", { staticClass: "box p-2" }, [
-        _c(
-          "div",
-          {
-            staticClass: "chat__tabs nav nav-tabs justify-center",
-            attrs: { role: "tablist" },
-          },
-          [
-            _c(
-              "a",
-              {
-                staticClass: "flex-1 py-2 rounded-md text-center active",
-                attrs: {
-                  id: "chats-tab",
-                  "data-toggle": "tab",
-                  "data-target": "#chats",
-                  href: "javascript:;",
-                  role: "tab",
-                  "aria-controls": "chats",
-                  "aria-selected": "true",
-                },
-              },
-              [
-                _c("i", { staticClass: "fas fa-comment-dots mr-1" }),
-                _vm._v("Chats"),
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "flex-1 py-2 rounded-md text-center",
-                attrs: {
-                  id: "friends-tab",
-                  "data-toggle": "tab",
-                  "data-target": "#friends",
-                  href: "javascript:;",
-                  role: "tab",
-                  "aria-controls": "friends",
-                  "aria-selected": "false",
-                },
-              },
-              [
-                _c("i", { staticClass: "fas fa-user-friends mr-1" }),
-                _vm._v("Friends"),
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "flex-1 py-2 rounded-md text-center",
-                attrs: {
-                  id: "profile-tab",
-                  "data-toggle": "tab",
-                  "data-target": "#profile",
-                  href: "javascript:;",
-                  role: "tab",
-                  "aria-controls": "profile",
-                  "aria-selected": "false",
-                },
-              },
-              [
-                _c("i", { staticClass: "fas fa-bell mr-1" }),
-                _vm._v("Notification"),
-              ]
-            ),
-          ]
-        ),
-      ]),
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "flex-1 py-2 rounded-md text-center active",
+        attrs: {
+          id: "chats-tab",
+          "data-toggle": "tab",
+          "data-target": "#chats",
+          href: "javascript:;",
+          role: "tab",
+          "aria-controls": "chats",
+          "aria-selected": "true",
+        },
+      },
+      [_c("i", { staticClass: "fas fa-comment-dots mr-1" }), _vm._v("Chats")]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "flex-1 py-2 rounded-md text-center",
+        attrs: {
+          id: "friends-tab",
+          "data-toggle": "tab",
+          "data-target": "#friends",
+          href: "javascript:;",
+          role: "tab",
+          "aria-controls": "friends",
+          "aria-selected": "false",
+        },
+      },
+      [_c("i", { staticClass: "fas fa-user-friends mr-1" }), _vm._v("Friends")]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "flex-1 py-2 rounded-md text-center",
+        attrs: {
+          id: "profile-tab",
+          "data-toggle": "tab",
+          "data-target": "#profile",
+          href: "javascript:;",
+          role: "tab",
+          "aria-controls": "profile",
+          "aria-selected": "false",
+        },
+      },
+      [_c("i", { staticClass: "fas fa-bell mr-1" }), _vm._v("Notification")]
+    )
   },
   function () {
     var _vm = this
@@ -73169,6 +73553,39 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "overflow-x-auto scrollbar-hidden" }, [
       _c("div", { staticClass: "flex mt-5" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c(
+        "div",
+        {
+          staticClass:
+            "\n                    intro-x\n                    cursor-pointer\n                    box\n                    relative\n                    flex\n                    items-center\n                    p-5\n                    mt-5\n                    no-user-found\n                  ",
+          staticStyle: { "border-radius": "20px !important" },
+        },
+        [
+          _c("div", { staticClass: "w-12 h-12 flex-none image-fit mr-1" }, [
+            _c("i", {
+              staticClass: "fa fa-exclamation-triangle",
+              attrs: { "aria-hidden": "true" },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "ml-2 overflow-hidden" }, [
+            _c("div", { staticClass: "flex items-center" }, [
+              _c(
+                "a",
+                { staticClass: "font-medium", attrs: { href: "javascript:;" } },
+                [_vm._v("Sorry! No user found.")]
+              ),
+            ]),
+          ]),
+        ]
+      ),
     ])
   },
   function () {
@@ -73188,6 +73605,34 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "cursor-pointer box relative flex items-center p-5 mt-5",
+        staticStyle: {
+          "border-left": "6px solid #6e6d7a",
+          "border-radius": "5px !important",
+        },
+      },
+      [
+        _c("div", { staticClass: "ml-2 overflow-hidden" }, [
+          _c("div", { staticClass: "flex items-center" }, [
+            _c("a", { staticClass: "font-medium", attrs: { href: "" } }, [
+              _c("i", {
+                staticClass: "fa fa-bell-o",
+                attrs: { "aria-hidden": "true" },
+              }),
+              _vm._v(" No\n                    Notification"),
+            ]),
+          ]),
+        ]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "dropdown-menu w-40" }, [
       _c(
         "div",
@@ -73197,7 +73642,7 @@ var staticRenderFns = [
             "a",
             {
               staticClass:
-                "\n                        flex\n                        items-center\n                        block\n                        p-2\n                        transition\n                        duration-300\n                        ease-in-out\n                        bg-white\n                        dark:bg-dark-1\n                        hover:bg-gray-200\n                        dark:hover:bg-dark-2\n                        rounded-md\n                      ",
+                "\n                      flex\n                      items-center\n                      block\n                      p-2\n                      transition\n                      duration-300\n                      ease-in-out\n                      bg-white\n                      dark:bg-dark-1\n                      hover:bg-gray-200\n                      dark:hover:bg-dark-2\n                      rounded-md\n                    ",
               attrs: { href: "" },
             },
             [
@@ -73205,7 +73650,7 @@ var staticRenderFns = [
                 staticClass: "w-4 h-4 mr-2",
                 attrs: { "data-feather": "corner-up-left" },
               }),
-              _vm._v("\n                      Reply\n                    "),
+              _vm._v("\n                    Reply\n                  "),
             ]
           ),
           _vm._v(" "),
@@ -73213,7 +73658,7 @@ var staticRenderFns = [
             "a",
             {
               staticClass:
-                "\n                        flex\n                        items-center\n                        block\n                        p-2\n                        transition\n                        duration-300\n                        ease-in-out\n                        bg-white\n                        dark:bg-dark-1\n                        hover:bg-gray-200\n                        dark:hover:bg-dark-2\n                        rounded-md\n                      ",
+                "\n                      flex\n                      items-center\n                      block\n                      p-2\n                      transition\n                      duration-300\n                      ease-in-out\n                      bg-white\n                      dark:bg-dark-1\n                      hover:bg-gray-200\n                      dark:hover:bg-dark-2\n                      rounded-md\n                    ",
               attrs: { href: "" },
             },
             [
