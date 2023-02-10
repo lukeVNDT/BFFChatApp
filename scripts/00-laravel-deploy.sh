@@ -8,9 +8,3 @@ php artisan config:cache
 
 echo "Caching routes..."
 php artisan route:cache
-
-echo "Install packages"
-npm install
-
-echo "Lauch app"
-npm run prod
