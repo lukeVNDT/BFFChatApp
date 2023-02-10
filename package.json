@@ -1,6 +1,10 @@
 {
     "private": true,
     "scripts": {
+        "cominstall": "composer install",
+        "optimizephp": "php artisan optimize",
+        "configphp": "php artisan config:clear",
+        "cachephp": "php artisan cache:clear",
         "dev": "npm run development",
         "development": "mix",
         "watch": "mix watch",
