@@ -1,3 +1,17 @@
+#Client App
+FROM node:14.15.0 as vuejs
+
+LABEL authors="Nimat Razmjo"
+
+RUN mkdir -p /app/public
+
+COPY package.json webpack.mix.js package-lock.json /app/
+COPY resources/ /app/resources/
+
+WORKDIR /app
+
+RUN npm install && npm run prod
+
 FROM richarvey/nginx-php-fpm:1.9.1
 
 COPY . .
@@ -20,21 +34,4 @@ ENV LOG_CHANNEL stderr
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
 CMD ["/start.sh"]
-
-FROM node:lts-alpine
-
-# make the 'app' folder the current working directory
-WORKDIR /app
-
-# copy both 'package.json' and 'package-lock.json' (if available)
-COPY package*.json ./
-
-# install project dependencies
-RUN npm install
-
-# copy project files and folders to the current working directory (i.e. 'app' folder)
-COPY . .
-
-# build app for production with minification
-RUN npm run prod
 
