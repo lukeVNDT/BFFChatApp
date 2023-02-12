@@ -685,6 +685,7 @@
                     />
                   </div>
                   <div
+                    style="border-radius: 15px"
                     :class="
                       activeuser.id !== message.user_id
                         ? 'bg-theme-1 px-4 py-3 text-white rounded-l-md rounded-t-md'
@@ -692,9 +693,9 @@
                     "
                   >
                     {{ message.message }}
-                    <div class="mt-1 text-xs text-theme-21">
+                    <!-- <div class="mt-1 text-xs text-theme-21">
                       {{ message.created_at | formatDate }}
-                    </div>
+                    </div> -->
                     <!-- <div v-if="activeuser.id !== message.user_id">
                       <i
                         :class="
@@ -933,10 +934,25 @@ export default {
     },
     allmessage(val) {
       this.scrollToEnd();
+      val.forEach((element) => {
+        if (element.user_id === this.activeuser.id) {
+          this.changeStateMsg(this.activeuser.id);
+        }
+      });
       // this.fetchmessage();
     },
   },
   methods: {
+    changeStateMsg(active_id){
+      axios
+        .post("/changestatemsg/"+active_id)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     saveMessage(message) {
       this.allmessage.push(message);
     },

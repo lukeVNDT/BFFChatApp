@@ -41,6 +41,7 @@ Route::post('/sendfriendrequest',[App\Http\Controllers\MessageController::class,
 Route::get('/messages', [App\Http\Controllers\MessageController::class, 'getmessage']);
 Route::post('/messages', [App\Http\Controllers\MessageController::class, 'sendmessage']);
 Route::post('/activeuser', [App\Http\Controllers\MessageController::class, 'activeuser']);
+Route::post('/changestatemsg/{active_id}', [App\Http\Controllers\MessageController::class, 'changestatemsg']);
 
 // Clear application cache:
 Route::get('/clear-cache', function() {

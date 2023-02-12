@@ -24,6 +24,11 @@ class MessageController extends Controller
     {
         $this->middleware('auth');
     }
+    public function changestatemsg($active_id)
+    {
+        // change state of message to READ
+        Message::where('user_id', $active_id)->where('receiver_id', Auth::user()->id)->update(['read' => true]);
+    }
     public function getmessage()
     {
         $message = Message::where('read', 0)->get();

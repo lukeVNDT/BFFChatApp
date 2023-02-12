@@ -6445,6 +6445,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -6532,10 +6533,24 @@ __webpack_require__.r(__webpack_exports__);
       this.searchuser();
     },
     allmessage: function allmessage(val) {
-      this.scrollToEnd(); // this.fetchmessage();
+      var _this2 = this;
+
+      this.scrollToEnd();
+      val.forEach(function (element) {
+        if (element.user_id === _this2.activeuser.id) {
+          _this2.changeStateMsg(_this2.activeuser.id);
+        }
+      }); // this.fetchmessage();
     }
   },
   methods: {
+    changeStateMsg: function changeStateMsg(active_id) {
+      axios.post("/changestatemsg/" + active_id).then(function (res) {
+        console.log(res);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
     saveMessage: function saveMessage(message) {
       this.allmessage.push(message);
     },
@@ -6556,7 +6571,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     searchuser: function searchuser() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get("/search", {
         params: {
@@ -6564,13 +6579,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         // let data = Object.assign({},res.data);
-        _this2.users = res.data;
+        _this3.users = res.data;
       })["catch"](function (err) {
         console.log(err);
       });
     },
     removeRequest: function removeRequest(id, userid, index) {
-      var _this3 = this;
+      var _this4 = this;
 
       axios["delete"]("/remove-request?noti=".concat(id, "&uid=").concat(userid)).then(function (res) {
         var actionDropdown = document.querySelector(".dropdown-menu.w-40.dropdown-action.show");
@@ -6580,13 +6595,13 @@ __webpack_require__.r(__webpack_exports__);
           title: "Friend request successfully removed!"
         });
 
-        _this3.notify.splice(index, 1);
+        _this4.notify.splice(index, 1);
       })["catch"](function (err) {
         console.log(err);
       });
     },
     acceptRequest: function acceptRequest(noti, index) {
-      var _this4 = this;
+      var _this5 = this;
 
       var userid = noti.user_id;
       var id = noti.id;
@@ -6601,13 +6616,13 @@ __webpack_require__.r(__webpack_exports__);
           title: "You have a new friend, Start a conversation!"
         });
 
-        _this4.notify.splice(index, 1);
+        _this5.notify.splice(index, 1);
       })["catch"](function (err) {
         console.log(err);
       });
     },
     invitefriend: function invitefriend() {
-      var _this5 = this;
+      var _this6 = this;
 
       if (!this.friendemail) {
         Toast.fire({
@@ -6622,36 +6637,36 @@ __webpack_require__.r(__webpack_exports__);
         setTimeout(function () {
           axios.post("/sendfriendrequest", data).then(function (res) {
             if (res.data.error) {
-              _this5.loading = !_this5.loading;
+              _this6.loading = !_this6.loading;
               Toast.fire({
                 icon: "error",
                 title: res.data.error
               });
             } else if (res.data.selferror) {
-              _this5.loading = !_this5.loading;
+              _this6.loading = !_this6.loading;
               Toast.fire({
                 icon: "error",
                 title: res.data.selferror
               });
             } else if (res.data.exist) {
-              _this5.loading = !_this5.loading;
+              _this6.loading = !_this6.loading;
               Toast.fire({
                 icon: "warning",
                 title: res.data.exist
               });
             } else if (res.data.waiting) {
-              _this5.loading = !_this5.loading;
+              _this6.loading = !_this6.loading;
               Toast.fire({
                 icon: "warning",
                 title: res.data.waiting
               });
             } else {
-              _this5.loading = !_this5.loading;
+              _this6.loading = !_this6.loading;
               Toast.fire({
                 icon: "success",
                 title: res.data.status
               });
-              _this5.friendemail = "";
+              _this6.friendemail = "";
             }
           })["catch"](function (err) {
             console.log(err);
@@ -6674,13 +6689,13 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     fetchmessage: function fetchmessage() {
-      var _this6 = this;
+      var _this7 = this;
 
       this.updateStateUnread(this.activeuser, true);
       axios.get("/private-message/".concat(this.activeuser.id)).then(function (res) {
-        _this6.allmessage = res.data.messages;
-        _this6.unread = res.data.countunread;
-        _this6.userchoose = res.data.userchat[0];
+        _this7.allmessage = res.data.messages;
+        _this7.unread = res.data.countunread;
+        _this7.userchoose = res.data.userchat[0];
       })["catch"](function (err) {
         Toast.fire({
           icon: "error",
@@ -6689,28 +6704,28 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     fetchUser: function fetchUser() {
-      var _this7 = this;
+      var _this8 = this;
 
       axios.get("/users").then(function (res) {
-        _this7.users = res.data;
+        _this8.users = res.data;
       })["catch"](function (err) {
         console.log(err);
       });
     },
     scrollToEnd: function scrollToEnd() {
-      var _this8 = this;
+      var _this9 = this;
 
       //   document.getElementById('private__message').scrollTo(0, 999999);
       setTimeout(function () {
-        _this8.$refs.privateMessage.scrollTop = _this8.$refs.privateMessage.scrollHeight - _this8.$refs.privateMessage.clientHeight;
+        _this9.$refs.privateMessage.scrollTop = _this9.$refs.privateMessage.scrollHeight - _this9.$refs.privateMessage.clientHeight;
       }, 50);
     },
     getUserProfile: function getUserProfile() {
-      var _this9 = this;
+      var _this10 = this;
 
       axios.get("/getuserprofile").then(function (res) {
-        _this9.profile = res.data.user[0];
-        _this9.currentuser = res.data.currentUser[0];
+        _this10.profile = res.data.user[0];
+        _this10.currentuser = res.data.currentUser[0];
       })["catch"](function (err) {
         Toast.fire({
           icon: "error",
@@ -6719,19 +6734,19 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteMessage: function deleteMessage(id, index) {
-      var _this10 = this;
+      var _this11 = this;
 
       axios["delete"]("/delete-message/".concat(id)).then(function (res) {
-        _this10.allmessage.splice(index, 1);
+        _this11.allmessage.splice(index, 1);
       })["catch"](function (err) {
         console.log(err);
       });
     },
     fetchDataMessage: function fetchDataMessage() {
-      var _this11 = this;
+      var _this12 = this;
 
       axios.get("/messages").then(function (res) {
-        _this11.initialMessage = res.data;
+        _this12.initialMessage = res.data;
       })["catch"](function (err) {
         // Toast.fire({
         //   icon: "error",
@@ -6741,16 +6756,16 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getnotify: function getnotify() {
-      var _this12 = this;
+      var _this13 = this;
 
       axios.get("/getallnotify").then(function (res) {
-        _this12.notify = res.data.reverse();
+        _this13.notify = res.data.reverse();
       })["catch"](function (err) {
         console.log(err);
       });
     },
     sendMessage: function sendMessage() {
-      var _this13 = this;
+      var _this14 = this;
 
       if (!this.message) {
         Toast.fire({
@@ -6763,11 +6778,11 @@ __webpack_require__.r(__webpack_exports__);
         message: this.message
       };
       axios.post("/private-message/" + this.activeuser.id, msg).then(function (res) {
-        _this13.message = null;
+        _this14.message = null;
 
-        _this13.allmessage.push(res.data.message);
+        _this14.allmessage.push(res.data.message);
 
-        setTimeout(_this13.scrollToMessage, 10);
+        setTimeout(_this14.scrollToMessage, 10);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -73292,29 +73307,13 @@ var render = function () {
                                     _vm.activeuser.id !== message.user_id
                                       ? "bg-theme-1 px-4 py-3 text-white rounded-l-md rounded-t-md"
                                       : "bg-gray-200 dark:bg-dark-5 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-r-md rounded-t-md",
+                                  staticStyle: { "border-radius": "15px" },
                                 },
                                 [
                                   _vm._v(
                                     "\n                  " +
                                       _vm._s(message.message) +
                                       "\n                  "
-                                  ),
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "mt-1 text-xs text-theme-21",
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                    " +
-                                          _vm._s(
-                                            _vm._f("formatDate")(
-                                              message.created_at
-                                            )
-                                          ) +
-                                          "\n                  "
-                                      ),
-                                    ]
                                   ),
                                 ]
                               ),
