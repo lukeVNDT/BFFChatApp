@@ -15,6 +15,7 @@ class AddReceiverIdToMessageTable extends Migration
     {
         Schema::table('messages', function (Blueprint $table) {
             $table->integer('receiver_id')->nullable();
+            $table->tinyInteger('read')->default('0');
         });
     }
 
@@ -27,6 +28,7 @@ class AddReceiverIdToMessageTable extends Migration
     {
         Schema::table('messages', function (Blueprint $table) {
             $table->dropColumn('receiver_id');
+            $table->dropColumn('read');
         });
     }
 }

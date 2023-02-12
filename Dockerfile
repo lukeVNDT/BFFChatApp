@@ -26,7 +26,7 @@ ENV REAL_IP_HEADER 1
 # Laravel config
 ENV APP_ENV production
 ENV APP_DEBUG true
-ENV DATABASE_URL postgres://ynkdn999:eYyahJpvgKpb97O7cIHCP2um04GQuNI7@dpg-cfk4af1mbjsn9eaolf70-a/bffchatapp_n9oo
+ENV DATABASE_URL postgres://ynkdn999:4S9oyuYVAnLs9BRvr6FpWBpMr6u4fCY1@dpg-cfk4i11mbjsn9eapaogg-a/bffchatapp_37ni
 ENV DB_CONNECTION pgsql
 ENV LOG_CHANNEL stderr
 ENV BROADCAST_DRIVER pusher
