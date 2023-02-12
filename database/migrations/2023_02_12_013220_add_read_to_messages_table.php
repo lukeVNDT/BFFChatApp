@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddReceiverIdToMessageTable extends Migration
+class AddReadToMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddReceiverIdToMessageTable extends Migration
     public function up()
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->integer('receiver_id')->nullable();
+            $table->tinyInteger('read')->default('0');
         });
     }
 
@@ -26,7 +26,9 @@ class AddReceiverIdToMessageTable extends Migration
     public function down()
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->dropColumn('receiver_id');
+            Schema::table('messages', function (Blueprint $table) {
+                $table->dropColumn('read');
+            });
         });
     }
 }
