@@ -83,7 +83,7 @@ class MessageController extends Controller
 
         $friend = collect($friend);
 
-        $count_unread = Message::select(DB::raw('`user_id` as sender_id, count(`user_id`) as message_count'))
+        $count_unread = Message::select(DB::raw('`user_id` as "sender_id", count(`user_id`) as "message_count"'))
         ->where('receiver_id', Auth::user()->id)
         ->where('read', false)
         ->groupBy('user_id')
