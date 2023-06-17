@@ -26,8 +26,12 @@ ENV REAL_IP_HEADER 1
 # Laravel config
 ENV APP_ENV production
 ENV APP_DEBUG true
-ENV DATABASE_URL postgres://postgres:244078Tt.#.@db.lzrwjjfrfiimsqbfidhv.supabase.co:6543/postgres
 ENV DB_CONNECTION pgsql
+ENV DB_HOST db.lzrwjjfrfiimsqbfidhv.supabase.co
+ENV DB_PORT 5432
+ENV DB_DATABASE postgres
+ENV DB_USERNAME postgres
+ENV DB_PASSWORD 244078Tt.#.
 ENV LOG_CHANNEL stderr
 ENV BROADCAST_DRIVER pusher
 ENV CACHE_DRIVER file
