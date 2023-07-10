@@ -723,17 +723,6 @@ export default {
       (e) => {
         let checkUser = this.users.find((x) => x.id == e.acceptsubuser.id);
         if (checkUser != undefined) {
-          // notyf
-          //   .success({
-          //     message: "Friend request accepted, let's start chatting.",
-          //     duration: 3000,
-          //     position: {
-          //       x: "right",
-          //       y: "top",
-          //     },
-          //     dismissible: true,
-          //   })
-          //   .on("dismiss", ({ target, event }) => foobar.retry());
           let notifyTab = document.getElementById("profile-tab");
           notifyTab.classList.remove("active");
           let notifyTabPane = document.getElementById("profile");
@@ -1096,7 +1085,7 @@ export default {
         axios
           .post("/private-message/" + this.activeuser.id, msg)
           .then((res) => {
-            let checkUser = this.users.find((x) => x.id == res.data.friend.id);
+            console.log(res);
             if (res.data.status == "failed") {
               notyf
                 .error({
@@ -1112,6 +1101,9 @@ export default {
             } else if (res.data.status == "success") {
               this.message = null;
               this.allmessage.push(res.data.message);
+              let checkUser = this.users.find(
+                (x) => x.id == res.data.friend.id
+              );
               if (checkUser == undefined) {
                 this.$forceUpdate();
               } else {
@@ -1134,11 +1126,10 @@ export default {
           singleUser.unread = 0;
         } else {
           if (typeof singleUser.unread === "number") {
-              singleUser.unread += 1;
-              if (singleUser.unread > 5)
-              {
-                singleUser.unread = "5+";
-              }
+            singleUser.unread += 1;
+            if (singleUser.unread > 5) {
+              singleUser.unread = "5+";
+            }
           }
         }
         return singleUser;

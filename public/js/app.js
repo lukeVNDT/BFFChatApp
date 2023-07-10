@@ -6507,17 +6507,6 @@ var notyf = new Notyf();
       });
 
       if (checkUser != undefined) {
-        // notyf
-        //   .success({
-        //     message: "Friend request accepted, let's start chatting.",
-        //     duration: 3000,
-        //     position: {
-        //       x: "right",
-        //       y: "top",
-        //     },
-        //     dismissible: true,
-        //   })
-        //   .on("dismiss", ({ target, event }) => foobar.retry());
         var notifyTab = document.getElementById("profile-tab");
         notifyTab.classList.remove("active");
         var notifyTabPane = document.getElementById("profile");
@@ -6866,9 +6855,7 @@ var notyf = new Notyf();
           message: this.message
         };
         axios.post("/private-message/" + this.activeuser.id, msg).then(function (res) {
-          var checkUser = _this15.users.find(function (x) {
-            return x.id == res.data.friend.id;
-          });
+          console.log(res);
 
           if (res.data.status == "failed") {
             notyf.error({
@@ -6888,6 +6875,10 @@ var notyf = new Notyf();
             _this15.message = null;
 
             _this15.allmessage.push(res.data.message);
+
+            var checkUser = _this15.users.find(function (x) {
+              return x.id == res.data.friend.id;
+            });
 
             if (checkUser == undefined) {
               _this15.$forceUpdate();
