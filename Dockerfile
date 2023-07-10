@@ -26,8 +26,12 @@ ENV REAL_IP_HEADER 1
 # Laravel config
 ENV APP_ENV production
 ENV APP_DEBUG true
-ENV DATABASE_URL postgres://ynkdn999:4S9oyuYVAnLs9BRvr6FpWBpMr6u4fCY1@dpg-cfk4i11mbjsn9eapaogg-a/bffchatapp_37ni
 ENV DB_CONNECTION pgsql
+ENV DB_HOST db.lzrwjjfrfiimsqbfidhv.supabase.co
+ENV DB_PORT 5432
+ENV DB_DATABASE postgres
+ENV DB_USERNAME postgres
+ENV DB_PASSWORD 244078Tt.#.
 ENV LOG_CHANNEL stderr
 ENV BROADCAST_DRIVER pusher
 ENV CACHE_DRIVER file
@@ -53,4 +57,3 @@ ENV MIX_PUSHER_APP_CLUSTER ap1
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
 CMD ["/start.sh"]
-

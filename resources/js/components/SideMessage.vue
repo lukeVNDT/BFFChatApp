@@ -13,16 +13,7 @@
       <!-- BEGIN: Account Menu -->
       <div class="intro-x dropdown w-8 h-8">
         <div
-          class="
-            dropdown-toggle
-            w-8
-            h-8
-            rounded-full
-            overflow-hidden
-            shadow-lg
-            image-fit
-            zoom-in
-          "
+          class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in"
           role="button"
           aria-expanded="false"
         >
@@ -44,13 +35,7 @@
         </div>
         <div class="dropdown-menu w-56">
           <div
-            class="
-              dropdown-menu__content
-              box
-              bg-theme-26
-              dark:bg-dark-6
-              text-white
-            "
+            class="dropdown-menu__content box bg-theme-26 dark:bg-dark-6 text-white"
           >
             <div class="p-4 border-b border-theme-27 dark:border-dark-3">
               <div class="font-medium">{{ currentuser.displayName }}</div>
@@ -58,18 +43,7 @@
             <div class="p-2">
               <router-link
                 to="/profile"
-                class="
-                  flex
-                  items-center
-                  block
-                  p-2
-                  transition
-                  duration-300
-                  ease-in-out
-                  hover:bg-theme-1
-                  dark:hover:bg-dark-3
-                  rounded-md
-                "
+                class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"
               >
                 <i class="fas fa-user mr-2"></i>Update Profile
               </router-link>
@@ -77,18 +51,7 @@
             <div class="p-2 border-t border-theme-27 dark:border-dark-3">
               <a
                 @click="logout"
-                class="
-                  flex
-                  items-center
-                  block
-                  p-2
-                  transition
-                  duration-300
-                  ease-in-out
-                  hover:bg-theme-1
-                  dark:hover:bg-dark-3
-                  rounded-md
-                "
+                class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"
               >
                 <i class="fas fa-sign-out-alt mr-2"></i> Logout
               </a>
@@ -160,28 +123,11 @@
                   <input
                     v-model="keywords"
                     type="text"
-                    class="
-                      form-control
-                      py-3
-                      px-4
-                      border-transparent
-                      bg-gray-200
-                      pr-10
-                      placeholder-theme-13
-                    "
+                    class="form-control py-3 px-4 border-transparent bg-gray-200 pr-10 placeholder-theme-13"
                     placeholder="Search for users..."
                   />
                   <i
-                    class="
-                      w-4
-                      h-4
-                      hidden
-                      sm:absolute
-                      my-auto
-                      inset-y-0
-                      mr-3
-                      right-0
-                    "
+                    class="w-4 h-4 hidden sm:absolute my-auto inset-y-0 mr-3 right-0"
                     data-feather="search"
                   ></i>
                 </div>
@@ -191,7 +137,7 @@
               </div>
             </div>
 
-            <div class="parent__loop">
+            <div class="parent__loop" id="parent__loop">
               <!-- <div
                 class="
                   chat__chat-list
@@ -213,16 +159,7 @@
                     v-if="currentuser.id != person.user_id"
                     :class="activeuser.id == person.user_id ? 'active' : ''"
                     style="border-radius: 20px !important"
-                    class="
-                      intro-x
-                      cursor-pointer
-                      box
-                      relative
-                      flex
-                      items-center
-                      p-5
-                      mt-5
-                    "
+                    class="intro-x cursor-pointer box relative flex items-center p-5 mt-5"
                   >
                     <div class="w-12 h-12 flex-none image-fit mr-1">
                       <img
@@ -285,27 +222,14 @@
                   </div>
                 </div>
               </div>
-              <div v-else>
+              <!-- <div v-else>
                 <div>
                   <div
                     style="border-radius: 20px !important"
-                    class="
-                      intro-x
-                      cursor-pointer
-                      box
-                      relative
-                      flex
-                      items-center
-                      p-5
-                      mt-5
-                      no-user-found
-                    "
+                    class="intro-x cursor-pointer box relative flex items-center p-5 mt-5 no-user-found"
                   >
                     <div class="w-12 h-12 flex-none image-fit mr-1">
-                      <i
-                        class="fa fa-exclamation-triangle"
-                        aria-hidden="true"
-                      ></i>
+                      <i class="fa fa-search" aria-hidden="true"></i>
                     </div>
                     <div class="ml-2 overflow-hidden">
                       <div class="flex items-center">
@@ -316,8 +240,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <!-- </div> -->
+              </div> -->
             </div>
           </div>
           <div
@@ -333,28 +256,11 @@
                     <input
                       v-model="friendemail"
                       type="text"
-                      class="
-                        form-control
-                        py-3
-                        px-4
-                        border-transparent
-                        bg-gray-200
-                        pr-10
-                        placeholder-theme-13
-                      "
+                      class="form-control py-3 px-4 border-transparent bg-gray-200 pr-10 placeholder-theme-13"
                       placeholder="Enter user's email"
                     />
                     <i
-                      class="
-                        w-4
-                        h-4
-                        hidden
-                        sm:absolute
-                        my-auto
-                        inset-y-0
-                        mr-3
-                        right-0
-                      "
+                      class="w-4 h-4 hidden sm:absolute my-auto inset-y-0 mr-3 right-0"
                       data-feather="search"
                     ></i>
                   </div>
@@ -418,40 +324,14 @@
                     <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
                       <a
                         @click="acceptRequest(noti, index)"
-                        class="
-                          flex
-                          items-center
-                          block
-                          p-2
-                          transition
-                          duration-300
-                          ease-in-out
-                          bg-white
-                          dark:bg-dark-1
-                          hover:bg-gray-200
-                          dark:hover:bg-dark-2
-                          rounded-md
-                        "
+                        class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
                       >
                         <i data-feather="share-2" class="w-4 h-4 mr-2"></i>
                         Accept
                       </a>
                       <a
                         @click="removeRequest(noti.id, noti.user_id, index)"
-                        class="
-                          flex
-                          items-center
-                          block
-                          p-2
-                          transition
-                          duration-300
-                          ease-in-out
-                          bg-white
-                          dark:bg-dark-1
-                          hover:bg-gray-200
-                          dark:hover:bg-dark-2
-                          rounded-md
-                        "
+                        class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
                       >
                         <i data-feather="copy" class="w-4 h-4 mr-2"></i> Remove
                       </a>
@@ -487,19 +367,16 @@
 
       <!-- BEGIN: Chat Content -->
       <div class="intro-y col-span-12 lg:col-span-8 xxl:col-span-9">
-        <div class="chat__box box">
+        <div class="chat__box box" id="chat-box-box">
           <!-- BEGIN: Chat Active -->
 
-          <div v-if="activeuser.length !== 0" class="h-full flex flex-col">
+          <div
+            v-if="activeuser.length !== 0"
+            class="h-full flex flex-col"
+            id="main-screen-chat"
+          >
             <div
-              class="
-                flex flex-col
-                sm:flex-row
-                border-b border-gray-200
-                dark:border-dark-5
-                px-5
-                py-4
-              "
+              class="flex flex-col sm:flex-row border-b border-gray-200 dark:border-dark-5 px-5 py-4"
             >
               <div class="flex items-center">
                 <div
@@ -564,71 +441,52 @@
                 </div>
               </div>
               <div
-                class="
-                  flex
-                  items-center
-                  sm:ml-auto
-                  mt-5
-                  sm:mt-0
-                  border-t
-                  sm:border-0
-                  border-gray-200
-                  pt-3
-                  sm:pt-0
-                  -mx-5
-                  sm:mx-0
-                  px-5
-                  sm:px-0
-                "
+                class="flex items-center sm:ml-auto mt-5 sm:mt-0 border-t sm:border-0 border-gray-200 pt-3 sm:pt-0 -mx-5 sm:mx-0 px-5 sm:px-0"
               >
-                <a
-                  @click="$router.push(`/otherprofile/${userchoose.user_id}`)"
-                  class="dropdown-toggle w-4 h-4 text-gray-600"
-                  aria-expanded="false"
-                >
-                  <i class="fas fa-info-circle fa-lg"></i>
-                </a>
-                <div class="dropdown-menu w-40">
-                  <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
-                    <a
-                      href=""
-                      class="
-                        flex
-                        items-center
-                        block
-                        p-2
-                        transition
-                        duration-300
-                        ease-in-out
-                        bg-white
-                        dark:bg-dark-1
-                        hover:bg-gray-200
-                        dark:hover:bg-dark-2
-                        rounded-md
-                      "
+                <div class="intro-x dropdown w-8 h-8">
+                  <div
+                    class="dropdown-toggle w-8 h-8"
+                    role="button"
+                    aria-expanded="false"
+                  >
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                  </div>
+                  <div class="dropdown-menu w-56">
+                    <div
+                      class="dropdown-menu__content box bg-theme-26 dark:bg-dark-6 text-white"
                     >
-                      <i data-feather="corner-up-left" class="w-4 h-4 mr-2"></i>
-                      Reply
-                    </a>
-                    <a
-                      href=""
-                      class="
-                        flex
-                        items-center
-                        block
-                        p-2
-                        transition
-                        duration-300
-                        ease-in-out
-                        bg-white
-                        dark:bg-dark-1
-                        hover:bg-gray-200
-                        dark:hover:bg-dark-2
-                        rounded-md
-                      "
-                    >
-                      <i class="fas fa-trash"></i> <span>Delete</span>
-                    </a>
+                      <div class="p-2">
+                        <a
+                          @click="
+                            $router.push(`/otherprofile/${userchoose.user_id}`)
+                          "
+                          class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"
+                        >
+                          <i class="fas fa-user mr-2"></i>View Profile
+                        </a>
+                      </div>
+                      <div
+                        class="p-2 border-t border-theme-27 dark:border-dark-3"
+                      >
+                        <a
+                          @click="DeleteConversation(userchoose.user_id)"
+                          class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"
+                        >
+                          <i
+                            style="color: #e3175b"
+                            v-if="loading"
+                            class="fas fa-circle-notch fa-spin mr-1"
+                          ></i>
+                          <i
+                            v-else
+                            style="color: #e3175b"
+                            class="fa fa-trash-o mr-2"
+                            aria-hidden="true"
+                          ></i>
+                          <p style="color: #e3175b">Delete Conversation</p>
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -651,16 +509,7 @@
                   "
                 >
                   <div
-                    class="
-                      w-10
-                      h-10
-                      hidden
-                      sm:block
-                      flex-none
-                      image-fit
-                      relative
-                      mr-5
-                    "
+                    class="w-10 h-10 hidden sm:block flex-none image-fit relative mr-5"
                   >
                     <img
                       v-if="
@@ -693,9 +542,9 @@
                     "
                   >
                     {{ message.message }}
-                    <!-- <div class="mt-1 text-xs text-theme-21">
-                      {{ message.created_at | formatDate }}
-                    </div> -->
+                    <div class="mt-1 text-xs text-theme-21">
+                      {{ formatDate(message.created_at) }}
+                    </div>
                     <!-- <div v-if="activeuser.id !== message.user_id">
                       <i
                         :class="
@@ -716,58 +565,22 @@
             </div>
 
             <div
-              class="
-                pt-4
-                pb-10
-                sm:py-4
-                flex
-                items-center
-                border-t border-gray-200
-                dark:border-dark-5
-              "
+              class="pt-4 pb-10 sm:py-4 flex items-center border-t border-gray-200 dark:border-dark-5"
             >
               <textarea
                 v-model="message"
                 @keyup.enter="sendMessage"
-                class="
-                  chat__box__input
-                  form-control
-                  dark:bg-dark-3
-                  h-16
-                  resize-none
-                  border-transparent
-                  px-5
-                  py-3
-                  shadow-none
-                  focus:ring-0
-                "
+                class="chat__box__input form-control dark:bg-dark-3 h-16 resize-none border-transparent px-5 py-3 shadow-none focus:ring-0"
                 rows="1"
                 placeholder="Type your message..."
               ></textarea>
               <div
-                class="
-                  flex
-                  absolute
-                  sm:static
-                  left-0
-                  bottom-0
-                  ml-5
-                  sm:ml-0
-                  mb-5
-                  sm:mb-0
-                "
+                class="flex absolute sm:static left-0 bottom-0 ml-5 sm:ml-0 mb-5 sm:mb-0"
               >
                 <div class="dropdown mr-3 sm:mr-5">
                   <a
                     @click="ToggleEmoji"
-                    class="
-                      dropdown-toggle
-                      w-4
-                      h-4
-                      sm:w-5 sm:h-5
-                      block
-                      text-gray-600
-                    "
+                    class="dropdown-toggle w-4 h-4 sm:w-5 sm:h-5 block text-gray-600"
                     aria-expanded="false"
                   >
                     <i class="fas fa-laugh fa-lg"></i>
@@ -787,19 +600,7 @@
               <a
                 @click="sendMessage"
                 type="button"
-                class="
-                  w-8
-                  h-8
-                  sm:w-10 sm:h-10
-                  block
-                  bg-theme-1
-                  text-white
-                  rounded-full
-                  flex-none flex
-                  items-center
-                  justify-center
-                  mr-5
-                "
+                class="w-8 h-8 sm:w-10 sm:h-10 block bg-theme-1 text-white rounded-full flex-none flex items-center justify-center mr-5"
                 ><i class="fas fa-paper-plane"></i>
               </a>
             </div>
@@ -807,7 +608,7 @@
 
           <!-- END: Chat Active -->
           <!-- BEGIN: Chat Default -->
-          <div v-else class="h-full flex items-center">
+          <div v-else class="h-full flex items-center" id="default-screen-chat">
             <div class="mx-auto text-center">
               <div class="">
                 <img
@@ -834,7 +635,7 @@
 
 <script>
 import { Picker } from "emoji-mart-vue";
-
+const notyf = new Notyf();
 export default {
   components: {
     Picker,
@@ -875,10 +676,12 @@ export default {
     Echo.private(`privatebffchat.${UserAuth.id}`).listen(
       "PrivateMessageSent",
       (e) => {
+        console.log(e.message);
         this.handleMessage(e.message);
-        // this.allmessage.push(e.message);
       }
     );
+
+    // viet them 1 event nhan thong tin user gui tin nhan cho minh
 
     Echo.private(`bffchatnotify.${UserAuth.id}`).listen("NotifyEvent", (e) => {
       this.notify.unshift(e.notify);
@@ -891,34 +694,65 @@ export default {
     Echo.private(`bffchatacceptuser.${UserAuth.id}`).listen(
       "AcceptUser",
       (e) => {
-        this.users.unshift(e.acceptuser);
-        let notifyTab = document.getElementById("profile-tab");
-        notifyTab.classList.remove("active");
-        let notifyTabPane = document.getElementById("profile");
-        notifyTabPane.classList.remove("active");
-        let chatTab = document.getElementById("chats-tab");
-        chatTab.classList.add("active");
-        let chatTabPane = document.getElementById("chats");
-        chatTabPane.classList.add("active");
+        let checkUser = this.users.find((x) => x.id == e.acceptuser.id);
+        if (checkUser != undefined) {
+          let notifyTab = document.getElementById("profile-tab");
+          notifyTab.classList.remove("active");
+          let notifyTabPane = document.getElementById("profile");
+          notifyTabPane.classList.remove("active");
+          let chatTab = document.getElementById("chats-tab");
+          chatTab.classList.add("active");
+          let chatTabPane = document.getElementById("chats");
+          chatTabPane.classList.add("active");
+        } else {
+          this.users.unshift(e.acceptuser);
+          let notifyTab = document.getElementById("profile-tab");
+          notifyTab.classList.remove("active");
+          let notifyTabPane = document.getElementById("profile");
+          notifyTabPane.classList.remove("active");
+          let chatTab = document.getElementById("chats-tab");
+          chatTab.classList.add("active");
+          let chatTabPane = document.getElementById("chats");
+          chatTabPane.classList.add("active");
+        }
       }
     );
 
     Echo.private(`bffchatacceptsubuser.${UserAuth.id}`).listen(
       "AcceptSubUser",
       (e) => {
-        this.users.unshift(e.acceptsubuser);
-        Toast.fire({
-          icon: "success",
-          title: "Friend request accepted, let's start chatting.",
-        });
-        let notifyTab = document.getElementById("profile-tab");
-        notifyTab.classList.remove("active");
-        let notifyTabPane = document.getElementById("profile");
-        notifyTabPane.classList.remove("active");
-        let chatTab = document.getElementById("chats-tab");
-        chatTab.classList.add("active");
-        let chatTabPane = document.getElementById("chats");
-        chatTabPane.classList.add("active");
+        let checkUser = this.users.find((x) => x.id == e.acceptsubuser.id);
+        if (checkUser != undefined) {
+          // notyf
+          //   .success({
+          //     message: "Friend request accepted, let's start chatting.",
+          //     duration: 3000,
+          //     position: {
+          //       x: "right",
+          //       y: "top",
+          //     },
+          //     dismissible: true,
+          //   })
+          //   .on("dismiss", ({ target, event }) => foobar.retry());
+          let notifyTab = document.getElementById("profile-tab");
+          notifyTab.classList.remove("active");
+          let notifyTabPane = document.getElementById("profile");
+          notifyTabPane.classList.remove("active");
+          let chatTab = document.getElementById("chats-tab");
+          chatTab.classList.add("active");
+          let chatTabPane = document.getElementById("chats");
+          chatTabPane.classList.add("active");
+        } else {
+          this.users.unshift(e.acceptsubuser);
+          let notifyTab = document.getElementById("profile-tab");
+          notifyTab.classList.remove("active");
+          let notifyTabPane = document.getElementById("profile");
+          notifyTabPane.classList.remove("active");
+          let chatTab = document.getElementById("chats-tab");
+          chatTab.classList.add("active");
+          let chatTabPane = document.getElementById("chats");
+          chatTabPane.classList.add("active");
+        }
       }
     );
     this.getUserProfile();
@@ -939,13 +773,55 @@ export default {
           this.changeStateMsg(this.activeuser.id);
         }
       });
-      // this.fetchmessage();
     },
   },
   methods: {
-    changeStateMsg(active_id){
+    DeleteConversation(user_id) {
+      this.loading = !this.loading;
+      let findUser = this.users.findIndex((user) => user.id == user_id);
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Delete this conversation for you and your opponent? ",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .post("/deleteconversation/" + user_id)
+            .then((res) => {
+              this.loading = !this.loading;
+              notyf
+                .success({
+                  message: res.data.message,
+                  duration: 3000,
+                  position: {
+                    x: "right",
+                    y: "top",
+                  },
+                  dismissible: true,
+                })
+                .on("dismiss", ({ target, event }) => foobar.retry());
+              this.users.splice(findUser, 1);
+              this.activeuser = "";
+              this.allmessage = "";
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else if (result.dismiss) {
+          this.loading = !this.loading;
+        }
+      });
+    },
+    formatDate(date) {
+      return moment(date).format("h:mm a");
+    },
+    changeStateMsg(active_id) {
       axios
-        .post("/changestatemsg/"+active_id)
+        .post("/changestatemsg/" + active_id)
         .then((res) => {
           console.log(res);
         })
@@ -976,10 +852,29 @@ export default {
         });
     },
     searchuser() {
+      let noUserFound = `<div v-else>
+                <div>
+                  <div
+                    style="border-radius: 20px !important"
+                    class="intro-x cursor-pointer box relative flex items-center p-5 mt-5 no-user-found"
+                  >
+                    <div class="w-12 h-12 flex-none image-fit mr-1">
+                      <i class="fa fa-search" aria-hidden="true"></i>
+                    </div>
+                    <div class="ml-2 overflow-hidden">
+                      <div class="flex items-center">
+                        <a href="javascript:;" class="font-medium"
+                          >Sorry! No user found.</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+      let parentLoop = document.getElementById("parent__loop");
       axios
         .get("/search", { params: { keywords: this.keywords } })
         .then((res) => {
-          // let data = Object.assign({},res.data);
           this.users = res.data;
         })
         .catch((err) => {
@@ -1015,10 +910,10 @@ export default {
         .then((res) => {
           let actionDropdown = document.querySelector(".dropdown-action");
           actionDropdown.classList.remove("show");
-          Toast.fire({
-            icon: "success",
-            title: "You have a new friend, Start a conversation!",
-          });
+          // Toast.fire({
+          //   icon: "success",
+          //   title: "You have a new friend, Start a conversation!",
+          // });
           this.notify.splice(index, 1);
         })
         .catch((err) => {
@@ -1027,10 +922,17 @@ export default {
     },
     invitefriend() {
       if (!this.friendemail) {
-        Toast.fire({
-          icon: "error",
-          title: "Enter your friend email first and then submit",
-        });
+        notyf
+          .error({
+            message: "You must enter your friend email first!",
+            duration: 3000,
+            position: {
+              x: "right",
+              y: "top",
+            },
+            dismissible: true,
+          })
+          .on("dismiss", ({ target, event }) => foobar.retry());
       } else {
         const data = {
           email: this.friendemail,
@@ -1104,10 +1006,7 @@ export default {
           this.userchoose = res.data.userchat[0];
         })
         .catch((err) => {
-          Toast.fire({
-            icon: "error",
-            title: "Something went wrong!",
-          });
+          console.log(err);
         });
     },
     fetchUser() {
@@ -1115,6 +1014,7 @@ export default {
         .get("/users")
         .then((res) => {
           this.users = res.data;
+          console.log(this.users);
         })
         .catch((err) => {
           console.log(err);
@@ -1178,25 +1078,52 @@ export default {
     },
     sendMessage() {
       if (!this.message) {
-        Toast.fire({
-          icon: "error",
-          title: "You need to fill your message first!",
-        });
+        notyf
+          .error({
+            message: "You must enter your message first!",
+            duration: 3000,
+            position: {
+              x: "right",
+              y: "top",
+            },
+            dismissible: true,
+          })
+          .on("dismiss", ({ target, event }) => foobar.retry());
+      } else {
+        const msg = {
+          message: this.message,
+        };
+        axios
+          .post("/private-message/" + this.activeuser.id, msg)
+          .then((res) => {
+            let checkUser = this.users.find((x) => x.id == res.data.friend.id);
+            if (res.data.status == "failed") {
+              notyf
+                .error({
+                  message: res.data.message,
+                  duration: 3000,
+                  position: {
+                    x: "right",
+                    y: "top",
+                  },
+                  dismissible: true,
+                })
+                .on("dismiss", ({ target, event }) => foobar.retry());
+            } else if (res.data.status == "success") {
+              this.message = null;
+              this.allmessage.push(res.data.message);
+              if (checkUser == undefined) {
+                this.$forceUpdate();
+              } else {
+                console.log("dont do anything");
+              }
+              setTimeout(this.scrollToMessage, 10);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
-      const msg = {
-        message: this.message,
-      };
-      axios
-        .post("/private-message/" + this.activeuser.id, msg)
-        .then((res) => {
-          this.message = null;
-          this.allmessage.push(res.data.message);
-
-          setTimeout(this.scrollToMessage, 10);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     },
     updateStateUnread(user, reset) {
       this.users = this.users.map((singleUser) => {
@@ -1206,7 +1133,13 @@ export default {
         if (reset) {
           singleUser.unread = 0;
         } else {
-          singleUser.unread += 1;
+          if (typeof singleUser.unread === "number") {
+              singleUser.unread += 1;
+              if (singleUser.unread > 5)
+              {
+                singleUser.unread = "5+";
+              }
+          }
         }
         return singleUser;
       });
@@ -1216,6 +1149,7 @@ export default {
     sortUnreadContact() {
       return _.sortBy(this.users, [
         (contact) => {
+          console.log(contact.unread);
           return contact.unread;
         },
       ]).reverse();
@@ -1233,10 +1167,11 @@ export default {
 }
 
 .box.active {
-  border-left: 6px solid #02de6b !important;
+  /* border-left: 6px solid #02de6b !important; */
+  background-color: #766ac8;
 }
 .no-user-found {
-  border-left: 6px solid #e3175b !important;
+  border-left: 6px solid #1d90f4 !important;
 }
 .box {
   border-radius: 20px;
@@ -1284,9 +1219,9 @@ export default {
 .disable-user {
   background-color: #6e6d7a;
 }
-.fa-exclamation-triangle {
+.fa-search {
   font-size: 50px;
-  color: #e3175b;
+  color: #1d90f4;
 }
 .fa-check {
   font-size: 10px;

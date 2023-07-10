@@ -42,7 +42,7 @@ Route::get('/messages', [App\Http\Controllers\MessageController::class, 'getmess
 Route::post('/messages', [App\Http\Controllers\MessageController::class, 'sendmessage']);
 Route::post('/activeuser', [App\Http\Controllers\MessageController::class, 'activeuser']);
 Route::post('/changestatemsg/{active_id}', [App\Http\Controllers\MessageController::class, 'changestatemsg']);
-
+Route::post('/deleteconversation/{id}', [App\Http\Controllers\MessageController::class, 'deleteconversation']);
 // Clear application cache:
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');

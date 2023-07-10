@@ -5132,11 +5132,102 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var notyf = new Notyf();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       profile: {},
-      currentuser: {}
+      currentuser: {},
+      friendCheck: [],
+      loading: false,
+      email: ""
     };
   },
   created: function created() {
@@ -5144,11 +5235,76 @@ __webpack_require__.r(__webpack_exports__);
     this.getotherprofile();
   },
   methods: {
-    getUserProfile: function getUserProfile() {
+    invitefriend: function invitefriend() {
       var _this = this;
 
-      axios.get('/getuserprofile').then(function (res) {
-        _this.currentuser = res.data.currentUser[0];
+      var data = {
+        email: this.email
+      };
+      this.loading = !this.loading;
+      setTimeout(function () {
+        axios.post("/sendfriendrequest", data).then(function (res) {
+          console.log(res);
+
+          if (res.data.error) {
+            _this.loading = !_this.loading;
+            Toast.fire({
+              icon: "error",
+              title: res.data.error
+            });
+          } else if (res.data.selferror) {
+            _this.loading = !_this.loading;
+            Toast.fire({
+              icon: "error",
+              title: res.data.selferror
+            });
+          } else if (res.data.exist) {
+            _this.loading = !_this.loading;
+            Toast.fire({
+              icon: "warning",
+              title: res.data.exist
+            });
+          } else if (res.data.waiting) {
+            _this.loading = !_this.loading;
+            notyf.error({
+              message: res.data.waiting,
+              duration: 3000,
+              position: {
+                x: "right",
+                y: "top"
+              },
+              dismissible: true
+            }).on("dismiss", function (_ref) {
+              var target = _ref.target,
+                  event = _ref.event;
+              return foobar.retry();
+            });
+          } else {
+            _this.loading = !_this.loading;
+            notyf.success({
+              message: res.data.status,
+              duration: 3000,
+              position: {
+                x: "right",
+                y: "top"
+              },
+              dismissible: true
+            }).on("dismiss", function (_ref2) {
+              var target = _ref2.target,
+                  event = _ref2.event;
+              return foobar.retry();
+            });
+          }
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }, 2000);
+    },
+    getUserProfile: function getUserProfile() {
+      var _this2 = this;
+
+      axios.get("/getuserprofile").then(function (res) {
+        _this2.currentuser = res.data.currentUser[0];
       })["catch"](function (err) {
         Toast.fire({
           icon: "error",
@@ -5157,22 +5313,34 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     removeFriend: function removeFriend() {
-      var _this2 = this;
+      var _this3 = this;
 
       var id = this.$route.params.id;
-      axios["delete"]("/delete-friend/".concat(id)).then(function (res) {
-        Toast.fire({
-          icon: "success",
-          title: "Unfriend successfully!"
-        });
+      this.loading = !this.loading;
+      setTimeout(function () {
+        axios["delete"]("/delete-friend/".concat(id)).then(function (res) {
+          notyf.success({
+            message: 'Unfriend successfully',
+            duration: 3000,
+            position: {
+              x: "right",
+              y: "top"
+            },
+            dismissible: true
+          }).on("dismiss", function (_ref3) {
+            var target = _ref3.target,
+                event = _ref3.event;
+            return foobar.retry();
+          });
 
-        _this2.$router.push('/');
-      })["catch"](function (err) {
-        console.log(err);
-      });
+          _this3.$router.push("/");
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      }, 2000);
     },
     logout: function logout() {
-      axios.get('/logout').then(function (res) {
+      axios.get("/logout").then(function (res) {
         Toast.fire({
           icon: "success",
           title: "Logout successfully!"
@@ -5182,11 +5350,13 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getotherprofile: function getotherprofile() {
-      var _this3 = this;
+      var _this4 = this;
 
-      axios.get('/getotherprofile/' + this.$route.params.id).then(function (res) {
-        _this3.profile = res.data[0];
-        console.log(_this3.profile);
+      axios.get("/getotherprofile/" + this.$route.params.id).then(function (res) {
+        _this4.profile = res.data.profile[0];
+        _this4.friendCheck = res.data.friendCheck;
+        _this4.email = res.data.profile[0].email;
+        console.log(_this4.profile);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -6247,206 +6417,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
+var notyf = new Notyf();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     Picker: emoji_mart_vue__WEBPACK_IMPORTED_MODULE_0__.Picker
@@ -6482,9 +6454,11 @@ __webpack_require__.r(__webpack_exports__);
       console.error(error);
     });
     Echo["private"]("privatebffchat.".concat(UserAuth.id)).listen("PrivateMessageSent", function (e) {
-      _this.handleMessage(e.message); // this.allmessage.push(e.message);
+      console.log(e.message);
 
-    });
+      _this.handleMessage(e.message);
+    }); // viet them 1 event nhan thong tin user gui tin nhan cho minh
+
     Echo["private"]("bffchatnotify.".concat(UserAuth.id)).listen("NotifyEvent", function (e) {
       _this.notify.unshift(e.notify);
 
@@ -6494,32 +6468,83 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
     Echo["private"]("bffchatacceptuser.".concat(UserAuth.id)).listen("AcceptUser", function (e) {
-      _this.users.unshift(e.acceptuser);
+      var checkUser = _this.users.find(function (x) {
+        return x.id == e.acceptuser.id;
+      });
 
-      var notifyTab = document.getElementById("profile-tab");
-      notifyTab.classList.remove("active");
-      var notifyTabPane = document.getElementById("profile");
-      notifyTabPane.classList.remove("active");
-      var chatTab = document.getElementById("chats-tab");
-      chatTab.classList.add("active");
-      var chatTabPane = document.getElementById("chats");
-      chatTabPane.classList.add("active");
+      if (checkUser != undefined) {
+        var notifyTab = document.getElementById("profile-tab");
+        notifyTab.classList.remove("active");
+        var notifyTabPane = document.getElementById("profile");
+        notifyTabPane.classList.remove("active");
+        var chatTab = document.getElementById("chats-tab");
+        chatTab.classList.add("active");
+        var chatTabPane = document.getElementById("chats");
+        chatTabPane.classList.add("active");
+      } else {
+        _this.users.unshift(e.acceptuser);
+
+        var _notifyTab = document.getElementById("profile-tab");
+
+        _notifyTab.classList.remove("active");
+
+        var _notifyTabPane = document.getElementById("profile");
+
+        _notifyTabPane.classList.remove("active");
+
+        var _chatTab = document.getElementById("chats-tab");
+
+        _chatTab.classList.add("active");
+
+        var _chatTabPane = document.getElementById("chats");
+
+        _chatTabPane.classList.add("active");
+      }
     });
     Echo["private"]("bffchatacceptsubuser.".concat(UserAuth.id)).listen("AcceptSubUser", function (e) {
-      _this.users.unshift(e.acceptsubuser);
-
-      Toast.fire({
-        icon: "success",
-        title: "Friend request accepted, let's start chatting."
+      var checkUser = _this.users.find(function (x) {
+        return x.id == e.acceptsubuser.id;
       });
-      var notifyTab = document.getElementById("profile-tab");
-      notifyTab.classList.remove("active");
-      var notifyTabPane = document.getElementById("profile");
-      notifyTabPane.classList.remove("active");
-      var chatTab = document.getElementById("chats-tab");
-      chatTab.classList.add("active");
-      var chatTabPane = document.getElementById("chats");
-      chatTabPane.classList.add("active");
+
+      if (checkUser != undefined) {
+        // notyf
+        //   .success({
+        //     message: "Friend request accepted, let's start chatting.",
+        //     duration: 3000,
+        //     position: {
+        //       x: "right",
+        //       y: "top",
+        //     },
+        //     dismissible: true,
+        //   })
+        //   .on("dismiss", ({ target, event }) => foobar.retry());
+        var notifyTab = document.getElementById("profile-tab");
+        notifyTab.classList.remove("active");
+        var notifyTabPane = document.getElementById("profile");
+        notifyTabPane.classList.remove("active");
+        var chatTab = document.getElementById("chats-tab");
+        chatTab.classList.add("active");
+        var chatTabPane = document.getElementById("chats");
+        chatTabPane.classList.add("active");
+      } else {
+        _this.users.unshift(e.acceptsubuser);
+
+        var _notifyTab2 = document.getElementById("profile-tab");
+
+        _notifyTab2.classList.remove("active");
+
+        var _notifyTabPane2 = document.getElementById("profile");
+
+        _notifyTabPane2.classList.remove("active");
+
+        var _chatTab2 = document.getElementById("chats-tab");
+
+        _chatTab2.classList.add("active");
+
+        var _chatTabPane2 = document.getElementById("chats");
+
+        _chatTabPane2.classList.add("active");
+      }
     });
     this.getUserProfile();
     this.fetchUser();
@@ -6540,10 +6565,58 @@ __webpack_require__.r(__webpack_exports__);
         if (element.user_id === _this2.activeuser.id) {
           _this2.changeStateMsg(_this2.activeuser.id);
         }
-      }); // this.fetchmessage();
+      });
     }
   },
   methods: {
+    DeleteConversation: function DeleteConversation(user_id) {
+      var _this3 = this;
+
+      this.loading = !this.loading;
+      var findUser = this.users.findIndex(function (user) {
+        return user.id == user_id;
+      });
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Delete this conversation for you and your opponent? ",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          axios.post("/deleteconversation/" + user_id).then(function (res) {
+            _this3.loading = !_this3.loading;
+            notyf.success({
+              message: res.data.message,
+              duration: 3000,
+              position: {
+                x: "right",
+                y: "top"
+              },
+              dismissible: true
+            }).on("dismiss", function (_ref) {
+              var target = _ref.target,
+                  event = _ref.event;
+              return foobar.retry();
+            });
+
+            _this3.users.splice(findUser, 1);
+
+            _this3.activeuser = "";
+            _this3.allmessage = "";
+          })["catch"](function (err) {
+            console.log(err);
+          });
+        } else if (result.dismiss) {
+          _this3.loading = !_this3.loading;
+        }
+      });
+    },
+    formatDate: function formatDate(date) {
+      return moment(date).format("h:mm a");
+    },
     changeStateMsg: function changeStateMsg(active_id) {
       axios.post("/changestatemsg/" + active_id).then(function (res) {
         console.log(res);
@@ -6571,21 +6644,22 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     searchuser: function searchuser() {
-      var _this3 = this;
+      var _this4 = this;
 
+      var noUserFound = "<div v-else>\n                <div>\n                  <div\n                    style=\"border-radius: 20px !important\"\n                    class=\"intro-x cursor-pointer box relative flex items-center p-5 mt-5 no-user-found\"\n                  >\n                    <div class=\"w-12 h-12 flex-none image-fit mr-1\">\n                      <i class=\"fa fa-search\" aria-hidden=\"true\"></i>\n                    </div>\n                    <div class=\"ml-2 overflow-hidden\">\n                      <div class=\"flex items-center\">\n                        <a href=\"javascript:;\" class=\"font-medium\"\n                          >Sorry! No user found.</a\n                        >\n                      </div>\n                    </div>\n                  </div>\n                </div>\n              </div>";
+      var parentLoop = document.getElementById("parent__loop");
       axios.get("/search", {
         params: {
           keywords: this.keywords
         }
       }).then(function (res) {
-        // let data = Object.assign({},res.data);
-        _this3.users = res.data;
+        _this4.users = res.data;
       })["catch"](function (err) {
         console.log(err);
       });
     },
     removeRequest: function removeRequest(id, userid, index) {
-      var _this4 = this;
+      var _this5 = this;
 
       axios["delete"]("/remove-request?noti=".concat(id, "&uid=").concat(userid)).then(function (res) {
         var actionDropdown = document.querySelector(".dropdown-menu.w-40.dropdown-action.show");
@@ -6595,13 +6669,13 @@ __webpack_require__.r(__webpack_exports__);
           title: "Friend request successfully removed!"
         });
 
-        _this4.notify.splice(index, 1);
+        _this5.notify.splice(index, 1);
       })["catch"](function (err) {
         console.log(err);
       });
     },
     acceptRequest: function acceptRequest(noti, index) {
-      var _this5 = this;
+      var _this6 = this;
 
       var userid = noti.user_id;
       var id = noti.id;
@@ -6610,24 +6684,32 @@ __webpack_require__.r(__webpack_exports__);
       };
       axios.post("/accept-request/" + id, data).then(function (res) {
         var actionDropdown = document.querySelector(".dropdown-action");
-        actionDropdown.classList.remove("show");
-        Toast.fire({
-          icon: "success",
-          title: "You have a new friend, Start a conversation!"
-        });
+        actionDropdown.classList.remove("show"); // Toast.fire({
+        //   icon: "success",
+        //   title: "You have a new friend, Start a conversation!",
+        // });
 
-        _this5.notify.splice(index, 1);
+        _this6.notify.splice(index, 1);
       })["catch"](function (err) {
         console.log(err);
       });
     },
     invitefriend: function invitefriend() {
-      var _this6 = this;
+      var _this7 = this;
 
       if (!this.friendemail) {
-        Toast.fire({
-          icon: "error",
-          title: "Enter your friend email first and then submit"
+        notyf.error({
+          message: "You must enter your friend email first!",
+          duration: 3000,
+          position: {
+            x: "right",
+            y: "top"
+          },
+          dismissible: true
+        }).on("dismiss", function (_ref2) {
+          var target = _ref2.target,
+              event = _ref2.event;
+          return foobar.retry();
         });
       } else {
         var data = {
@@ -6637,36 +6719,36 @@ __webpack_require__.r(__webpack_exports__);
         setTimeout(function () {
           axios.post("/sendfriendrequest", data).then(function (res) {
             if (res.data.error) {
-              _this6.loading = !_this6.loading;
+              _this7.loading = !_this7.loading;
               Toast.fire({
                 icon: "error",
                 title: res.data.error
               });
             } else if (res.data.selferror) {
-              _this6.loading = !_this6.loading;
+              _this7.loading = !_this7.loading;
               Toast.fire({
                 icon: "error",
                 title: res.data.selferror
               });
             } else if (res.data.exist) {
-              _this6.loading = !_this6.loading;
+              _this7.loading = !_this7.loading;
               Toast.fire({
                 icon: "warning",
                 title: res.data.exist
               });
             } else if (res.data.waiting) {
-              _this6.loading = !_this6.loading;
+              _this7.loading = !_this7.loading;
               Toast.fire({
                 icon: "warning",
                 title: res.data.waiting
               });
             } else {
-              _this6.loading = !_this6.loading;
+              _this7.loading = !_this7.loading;
               Toast.fire({
                 icon: "success",
                 title: res.data.status
               });
-              _this6.friendemail = "";
+              _this7.friendemail = "";
             }
           })["catch"](function (err) {
             console.log(err);
@@ -6689,43 +6771,41 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     fetchmessage: function fetchmessage() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.updateStateUnread(this.activeuser, true);
       axios.get("/private-message/".concat(this.activeuser.id)).then(function (res) {
-        _this7.allmessage = res.data.messages;
-        _this7.unread = res.data.countunread;
-        _this7.userchoose = res.data.userchat[0];
+        _this8.allmessage = res.data.messages;
+        _this8.unread = res.data.countunread;
+        _this8.userchoose = res.data.userchat[0];
       })["catch"](function (err) {
-        Toast.fire({
-          icon: "error",
-          title: "Something went wrong!"
-        });
+        console.log(err);
       });
     },
     fetchUser: function fetchUser() {
-      var _this8 = this;
+      var _this9 = this;
 
       axios.get("/users").then(function (res) {
-        _this8.users = res.data;
+        _this9.users = res.data;
+        console.log(_this9.users);
       })["catch"](function (err) {
         console.log(err);
       });
     },
     scrollToEnd: function scrollToEnd() {
-      var _this9 = this;
+      var _this10 = this;
 
       //   document.getElementById('private__message').scrollTo(0, 999999);
       setTimeout(function () {
-        _this9.$refs.privateMessage.scrollTop = _this9.$refs.privateMessage.scrollHeight - _this9.$refs.privateMessage.clientHeight;
+        _this10.$refs.privateMessage.scrollTop = _this10.$refs.privateMessage.scrollHeight - _this10.$refs.privateMessage.clientHeight;
       }, 50);
     },
     getUserProfile: function getUserProfile() {
-      var _this10 = this;
+      var _this11 = this;
 
       axios.get("/getuserprofile").then(function (res) {
-        _this10.profile = res.data.user[0];
-        _this10.currentuser = res.data.currentUser[0];
+        _this11.profile = res.data.user[0];
+        _this11.currentuser = res.data.currentUser[0];
       })["catch"](function (err) {
         Toast.fire({
           icon: "error",
@@ -6734,19 +6814,19 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteMessage: function deleteMessage(id, index) {
-      var _this11 = this;
+      var _this12 = this;
 
       axios["delete"]("/delete-message/".concat(id)).then(function (res) {
-        _this11.allmessage.splice(index, 1);
+        _this12.allmessage.splice(index, 1);
       })["catch"](function (err) {
         console.log(err);
       });
     },
     fetchDataMessage: function fetchDataMessage() {
-      var _this12 = this;
+      var _this13 = this;
 
       axios.get("/messages").then(function (res) {
-        _this12.initialMessage = res.data;
+        _this13.initialMessage = res.data;
       })["catch"](function (err) {
         // Toast.fire({
         //   icon: "error",
@@ -6756,36 +6836,71 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getnotify: function getnotify() {
-      var _this13 = this;
+      var _this14 = this;
 
       axios.get("/getallnotify").then(function (res) {
-        _this13.notify = res.data.reverse();
+        _this14.notify = res.data.reverse();
       })["catch"](function (err) {
         console.log(err);
       });
     },
     sendMessage: function sendMessage() {
-      var _this14 = this;
+      var _this15 = this;
 
       if (!this.message) {
-        Toast.fire({
-          icon: "error",
-          title: "You need to fill your message first!"
+        notyf.error({
+          message: "You must enter your message first!",
+          duration: 3000,
+          position: {
+            x: "right",
+            y: "top"
+          },
+          dismissible: true
+        }).on("dismiss", function (_ref3) {
+          var target = _ref3.target,
+              event = _ref3.event;
+          return foobar.retry();
+        });
+      } else {
+        var msg = {
+          message: this.message
+        };
+        axios.post("/private-message/" + this.activeuser.id, msg).then(function (res) {
+          var checkUser = _this15.users.find(function (x) {
+            return x.id == res.data.friend.id;
+          });
+
+          if (res.data.status == "failed") {
+            notyf.error({
+              message: res.data.message,
+              duration: 3000,
+              position: {
+                x: "right",
+                y: "top"
+              },
+              dismissible: true
+            }).on("dismiss", function (_ref4) {
+              var target = _ref4.target,
+                  event = _ref4.event;
+              return foobar.retry();
+            });
+          } else if (res.data.status == "success") {
+            _this15.message = null;
+
+            _this15.allmessage.push(res.data.message);
+
+            if (checkUser == undefined) {
+              _this15.$forceUpdate();
+            } else {
+              console.log("dont do anything");
+            }
+
+            setTimeout(_this15.scrollToMessage, 10);
+          }
+        })["catch"](function (err) {
+          console.log(err);
         });
       }
-
-      var msg = {
-        message: this.message
-      };
-      axios.post("/private-message/" + this.activeuser.id, msg).then(function (res) {
-        _this14.message = null;
-
-        _this14.allmessage.push(res.data.message);
-
-        setTimeout(_this14.scrollToMessage, 10);
-      })["catch"](function (err) {
-        console.log(err);
-      });
     },
     updateStateUnread: function updateStateUnread(user, reset) {
       this.users = this.users.map(function (singleUser) {
@@ -6796,7 +6911,13 @@ __webpack_require__.r(__webpack_exports__);
         if (reset) {
           singleUser.unread = 0;
         } else {
-          singleUser.unread += 1;
+          if (typeof singleUser.unread === "number") {
+            singleUser.unread += 1;
+
+            if (singleUser.unread > 5) {
+              singleUser.unread = "5+";
+            }
+          }
         }
 
         return singleUser;
@@ -6806,6 +6927,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     sortUnreadContact: function sortUnreadContact() {
       return _.sortBy(this.users, [function (contact) {
+        console.log(contact.unread);
         return contact.unread;
       }]).reverse();
     }
@@ -11999,7 +12121,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.line[data-v-b141c038]{\r\n    display: inline-block !important;\r\n    white-space: nowrap !important;\n}\n.box[data-v-b141c038]{\r\n    border-radius: 20px;\n}\n.btn-primary[data-v-b141c038]{\r\n    background-color: #e3175b !important;\r\n    border-color: #e3175b !important;\r\n    color: #fff;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.line[data-v-b141c038] {\r\n  display: inline-block !important;\r\n  white-space: nowrap !important;\n}\n.box[data-v-b141c038] {\r\n  border-radius: 20px;\n}\n.btn-primary[data-v-b141c038] {\r\n  background-color: #e3175b !important;\r\n  border-color: #e3175b !important;\r\n  color: #fff;\n}\n#btn-add-friend[data-v-b141c038] {\r\n  background-color: #766ac8 !important;\r\n  border-color: #766ac8 !important;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -12047,7 +12169,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.chat .chat__tabs a.active[data-v-4fc77d95] {\r\n  background-color: #3e94da !important;\n}\n.bg-theme-1[data-v-4fc77d95] {\r\n  background-color: #1d90f4 !important;\n}\n.box.active[data-v-4fc77d95] {\r\n  border-left: 6px solid #02de6b !important;\n}\n.no-user-found[data-v-4fc77d95] {\r\n  border-left: 6px solid #e3175b !important;\n}\n.box[data-v-4fc77d95] {\r\n  border-radius: 20px;\n}\n.emoji-mart[data-v-7bc71df8][data-v-4fc77d95] {\r\n  font-family: -apple-system, BlinkMacSystemFont, \"Helvetica Neue\", sans-serif;\r\n  font-size: 16px;\r\n  display: -ms-flexbox;\r\n  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,\r\n    rgba(0, 0, 0, 0.05) 0px 5px 10px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 420px;\r\n  color: #222427;\r\n  border: 1px solid #293145;\r\n  border-radius: 20px;\r\n  background-color: #293145;\n}\n.emoji-mart-category-label[data-v-4fc77d95] {\r\n  border-radius: 20px !important;\n}\r\n/* .emoji-mart-category-label span {\r\n    background-color: #3e94da !important;\r\n    color: #293145 !important;\r\n    border-radius: 10px !important;\r\n} */\n.friendNotyf[data-v-4fc77d95] {\r\n  height: 20px;\r\n  position: relative;\r\n  right: 5px;\r\n  background-color: #e3175b;\r\n  border-color: #e3175b;\n}\n.messageNotyf[data-v-4fc77d95] {\r\n  height: 20px;\r\n  background-color: #e3175b;\r\n  border-color: #e3175b;\n}\n#user-plus[data-v-4fc77d95] {\r\n  color: #02dc6b;\n}\n.disable-user[data-v-4fc77d95] {\r\n  background-color: #6e6d7a;\n}\n.fa-exclamation-triangle[data-v-4fc77d95] {\r\n  font-size: 50px;\r\n  color: #e3175b;\n}\n.fa-check[data-v-4fc77d95] {\r\n  font-size: 10px;\n}\n.fa-eye[data-v-4fc77d95] {\r\n  font-size: 10px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.chat .chat__tabs a.active[data-v-4fc77d95] {\r\n  background-color: #3e94da !important;\n}\n.bg-theme-1[data-v-4fc77d95] {\r\n  background-color: #1d90f4 !important;\n}\n.box.active[data-v-4fc77d95] {\r\n  /* border-left: 6px solid #02de6b !important; */\r\n  background-color: #766ac8;\n}\n.no-user-found[data-v-4fc77d95] {\r\n  border-left: 6px solid #1d90f4 !important;\n}\n.box[data-v-4fc77d95] {\r\n  border-radius: 20px;\n}\n.emoji-mart[data-v-7bc71df8][data-v-4fc77d95] {\r\n  font-family: -apple-system, BlinkMacSystemFont, \"Helvetica Neue\", sans-serif;\r\n  font-size: 16px;\r\n  display: -ms-flexbox;\r\n  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,\r\n    rgba(0, 0, 0, 0.05) 0px 5px 10px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 420px;\r\n  color: #222427;\r\n  border: 1px solid #293145;\r\n  border-radius: 20px;\r\n  background-color: #293145;\n}\n.emoji-mart-category-label[data-v-4fc77d95] {\r\n  border-radius: 20px !important;\n}\r\n/* .emoji-mart-category-label span {\r\n    background-color: #3e94da !important;\r\n    color: #293145 !important;\r\n    border-radius: 10px !important;\r\n} */\n.friendNotyf[data-v-4fc77d95] {\r\n  height: 20px;\r\n  position: relative;\r\n  right: 5px;\r\n  background-color: #e3175b;\r\n  border-color: #e3175b;\n}\n.messageNotyf[data-v-4fc77d95] {\r\n  height: 20px;\r\n  background-color: #e3175b;\r\n  border-color: #e3175b;\n}\n#user-plus[data-v-4fc77d95] {\r\n  color: #02dc6b;\n}\n.disable-user[data-v-4fc77d95] {\r\n  background-color: #6e6d7a;\n}\n.fa-search[data-v-4fc77d95] {\r\n  font-size: 50px;\r\n  color: #1d90f4;\n}\n.fa-check[data-v-4fc77d95] {\r\n  font-size: 10px;\n}\n.fa-eye[data-v-4fc77d95] {\r\n  font-size: 10px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -71553,7 +71675,7 @@ var render = function () {
                     },
                     [
                       _c("i", { staticClass: "fas fa-user mr-2" }),
-                      _vm._v(" Profile "),
+                      _vm._v(" Profile\n            "),
                     ]
                   ),
                   _vm._v(" "),
@@ -71566,7 +71688,7 @@ var render = function () {
                     },
                     [
                       _c("i", { staticClass: "fab fa-rocketchat mr-2" }),
-                      _vm._v(" Return to Chats "),
+                      _vm._v(" Return to Chats\n            "),
                     ]
                   ),
                 ],
@@ -71589,7 +71711,7 @@ var render = function () {
                     },
                     [
                       _c("i", { staticClass: "fas fa-sign-out-alt mr-2" }),
-                      _vm._v(" Logout "),
+                      _vm._v(" Logout\n            "),
                     ]
                   ),
                 ]
@@ -71637,7 +71759,13 @@ var render = function () {
                               staticClass:
                                 "text-gray-600 font-medium leading-none mt-3",
                             },
-                            [_vm._v(_vm._s(_vm.profile.displayName))]
+                            [
+                              _vm._v(
+                                "\n                      " +
+                                  _vm._s(_vm.profile.displayName) +
+                                  "\n                    "
+                              ),
+                            ]
                           ),
                         ]),
                       ]),
@@ -71659,7 +71787,13 @@ var render = function () {
                               staticClass:
                                 "text-gray-600 font-medium leading-none mt-3",
                             },
-                            [_vm._v(_vm._s(_vm.profile.phoneNumber))]
+                            [
+                              _vm._v(
+                                "\n                      " +
+                                  _vm._s(_vm.profile.phoneNumber) +
+                                  "\n                    "
+                              ),
+                            ]
                           ),
                         ]),
                       ]),
@@ -71681,7 +71815,13 @@ var render = function () {
                               staticClass:
                                 "text-gray-600 font-medium leading-none mt-3",
                             },
-                            [_vm._v(_vm._s(_vm.profile.country))]
+                            [
+                              _vm._v(
+                                "\n                      " +
+                                  _vm._s(_vm.profile.country) +
+                                  "\n                    "
+                              ),
+                            ]
                           ),
                         ]),
                       ]),
@@ -71703,7 +71843,13 @@ var render = function () {
                               staticClass:
                                 "text-gray-600 font-medium leading-none mt-3",
                             },
-                            [_vm._v(_vm._s(_vm.profile.address))]
+                            [
+                              _vm._v(
+                                "\n                      " +
+                                  _vm._s(_vm.profile.address) +
+                                  "\n                    "
+                              ),
+                            ]
                           ),
                         ]),
                       ]),
@@ -71725,7 +71871,13 @@ var render = function () {
                               staticClass:
                                 "text-gray-600 font-medium leading-none mt-3",
                             },
-                            [_vm._v(_vm._s(_vm.profile.shortDescription))]
+                            [
+                              _vm._v(
+                                "\n                      " +
+                                  _vm._s(_vm.profile.shortDescription) +
+                                  "\n                    "
+                              ),
+                            ]
                           ),
                         ]),
                       ]),
@@ -71786,15 +71938,41 @@ var render = function () {
               { staticClass: "flex flex-col-reverse xl:flex-row flex-col" },
               [
                 _c("div", { staticClass: "flex-1 mt-6 xl:mt-0" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary w-20 mt-1",
-                      attrs: { type: "button" },
-                      on: { click: _vm.removeFriend },
-                    },
-                    [_vm._v("Unfriend")]
-                  ),
+                  _vm.friendCheck != ""
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary w-22 mt-1",
+                          attrs: { type: "button" },
+                          on: { click: _vm.removeFriend },
+                        },
+                        [
+                          _vm.loading
+                            ? _c("i", {
+                                staticClass: "fas fa-circle-notch fa-spin mr-1",
+                              })
+                            : _c("i", {
+                                staticClass: "fas fa-user-minus mr-1",
+                              }),
+                          _vm._v("\n                Unfriend\n              "),
+                        ]
+                      )
+                    : _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary w-20 mt-1",
+                          attrs: { id: "btn-add-friend", type: "button" },
+                          on: { click: _vm.invitefriend },
+                        },
+                        [
+                          _vm.loading
+                            ? _c("i", {
+                                staticClass: "fas fa-circle-notch fa-spin mr-1",
+                              })
+                            : _c("i", { staticClass: "fas fa-user-plus mr-1" }),
+                          _vm._v("\n                Add\n              "),
+                        ]
+                      ),
                 ]),
               ]
             ),
@@ -71832,7 +72010,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "intro-y flex items-center mt-8" }, [
       _c("h2", { staticClass: "text-lg font-medium mr-auto" }, [
-        _vm._v("\n                    User Profile\n                "),
+        _vm._v("User Profile"),
       ]),
     ])
   },
@@ -71861,9 +72039,7 @@ var staticRenderFns = [
       },
       [
         _c("h2", { staticClass: "font-medium text-base mr-auto" }, [
-          _vm._v(
-            "\n                                Action\n                            "
-          ),
+          _vm._v("Action"),
         ]),
       ]
     )
@@ -72494,7 +72670,7 @@ var render = function () {
           "div",
           {
             staticClass:
-              "\n          dropdown-toggle\n          w-8\n          h-8\n          rounded-full\n          overflow-hidden\n          shadow-lg\n          image-fit\n          zoom-in\n        ",
+              "dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in",
             attrs: { role: "button", "aria-expanded": "false" },
           },
           [
@@ -72523,7 +72699,7 @@ var render = function () {
             "div",
             {
               staticClass:
-                "\n            dropdown-menu__content\n            box\n            bg-theme-26\n            dark:bg-dark-6\n            text-white\n          ",
+                "dropdown-menu__content box bg-theme-26 dark:bg-dark-6 text-white",
             },
             [
               _c(
@@ -72547,7 +72723,7 @@ var render = function () {
                     "router-link",
                     {
                       staticClass:
-                        "\n                flex\n                items-center\n                block\n                p-2\n                transition\n                duration-300\n                ease-in-out\n                hover:bg-theme-1\n                dark:hover:bg-dark-3\n                rounded-md\n              ",
+                        "flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md",
                       attrs: { to: "/profile" },
                     },
                     [
@@ -72570,7 +72746,7 @@ var render = function () {
                     "a",
                     {
                       staticClass:
-                        "\n                flex\n                items-center\n                block\n                p-2\n                transition\n                duration-300\n                ease-in-out\n                hover:bg-theme-1\n                dark:hover:bg-dark-3\n                rounded-md\n              ",
+                        "flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md",
                       on: { click: _vm.logout },
                     },
                     [
@@ -72651,7 +72827,7 @@ var render = function () {
                           },
                         ],
                         staticClass:
-                          "\n                    form-control\n                    py-3\n                    px-4\n                    border-transparent\n                    bg-gray-200\n                    pr-10\n                    placeholder-theme-13\n                  ",
+                          "form-control py-3 px-4 border-transparent bg-gray-200 pr-10 placeholder-theme-13",
                         attrs: {
                           type: "text",
                           placeholder: "Search for users...",
@@ -72669,7 +72845,7 @@ var render = function () {
                       _vm._v(" "),
                       _c("i", {
                         staticClass:
-                          "\n                    w-4\n                    h-4\n                    hidden\n                    sm:absolute\n                    my-auto\n                    inset-y-0\n                    mr-3\n                    right-0\n                  ",
+                          "w-4 h-4 hidden sm:absolute my-auto inset-y-0 mr-3 right-0",
                         attrs: { "data-feather": "search" },
                       }),
                     ]
@@ -72679,170 +72855,181 @@ var render = function () {
                 ]),
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "parent__loop" }, [
-                _vm.users != ""
-                  ? _c(
-                      "div",
-                      _vm._l(_vm.sortUnreadContact, function (person) {
-                        return _c(
-                          "div",
-                          {
-                            key: person.id,
-                            staticClass: "chatloop",
-                            on: {
-                              click: function ($event) {
-                                _vm.activeuser = person
+              _c(
+                "div",
+                { staticClass: "parent__loop", attrs: { id: "parent__loop" } },
+                [
+                  _vm.users != ""
+                    ? _c(
+                        "div",
+                        _vm._l(_vm.sortUnreadContact, function (person) {
+                          return _c(
+                            "div",
+                            {
+                              key: person.id,
+                              staticClass: "chatloop",
+                              on: {
+                                click: function ($event) {
+                                  _vm.activeuser = person
+                                },
                               },
                             },
-                          },
-                          [
-                            _vm.currentuser.id != person.user_id
-                              ? _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "\n                    intro-x\n                    cursor-pointer\n                    box\n                    relative\n                    flex\n                    items-center\n                    p-5\n                    mt-5\n                  ",
-                                    class:
-                                      _vm.activeuser.id == person.user_id
-                                        ? "active"
-                                        : "",
-                                    staticStyle: {
-                                      "border-radius": "20px !important",
-                                    },
-                                  },
-                                  [
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "w-12 h-12 flex-none image-fit mr-1",
+                            [
+                              _vm.currentuser.id != person.user_id
+                                ? _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "intro-x cursor-pointer box relative flex items-center p-5 mt-5",
+                                      class:
+                                        _vm.activeuser.id == person.user_id
+                                          ? "active"
+                                          : "",
+                                      staticStyle: {
+                                        "border-radius": "20px !important",
                                       },
-                                      [
-                                        person.avatar != null
-                                          ? _c("img", {
-                                              staticClass: "rounded-full",
-                                              attrs: {
-                                                alt: "Midone Tailwind HTML Admin Template",
-                                                src:
-                                                  "https://res.cloudinary.com/dtiazqxyd/image/upload/v1648964340/" +
-                                                  person.avatar,
-                                              },
-                                            })
-                                          : _c("img", {
-                                              staticClass: "rounded-full",
-                                              attrs: {
-                                                alt: "Avatar",
-                                                src: "../dist2/images/avatardefault_92824-removebg.png",
-                                              },
-                                            }),
-                                        _vm._v(" "),
-                                        _c("div", {
-                                          class: _vm.onlineuser.find(function (
-                                            onlineusers
-                                          ) {
-                                            return (
-                                              onlineusers.id === person.user_id
+                                    },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "w-12 h-12 flex-none image-fit mr-1",
+                                        },
+                                        [
+                                          person.avatar != null
+                                            ? _c("img", {
+                                                staticClass: "rounded-full",
+                                                attrs: {
+                                                  alt: "Midone Tailwind HTML Admin Template",
+                                                  src:
+                                                    "https://res.cloudinary.com/dtiazqxyd/image/upload/v1648964340/" +
+                                                    person.avatar,
+                                                },
+                                              })
+                                            : _c("img", {
+                                                staticClass: "rounded-full",
+                                                attrs: {
+                                                  alt: "Avatar",
+                                                  src: "../dist2/images/avatardefault_92824-removebg.png",
+                                                },
+                                              }),
+                                          _vm._v(" "),
+                                          _c("div", {
+                                            class: _vm.onlineuser.find(
+                                              function (onlineusers) {
+                                                return (
+                                                  onlineusers.id ===
+                                                  person.user_id
+                                                )
+                                              }
                                             )
-                                          })
-                                            ? "w-3 h-3 bg-theme-9 absolute right-0 bottom-0 rounded-full border-2 border-white"
-                                            : "w-3 h-3 absolute right-0 bottom-0 rounded-full border-2 border-white disable-user",
-                                        }),
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      { staticClass: "ml-2 overflow-hidden" },
-                                      [
-                                        _c(
-                                          "div",
-                                          { staticClass: "flex items-center" },
-                                          [
-                                            _c(
-                                              "a",
-                                              {
-                                                staticClass: "font-medium",
-                                                attrs: { href: "javascript:;" },
-                                              },
-                                              [_vm._v(_vm._s(person.name))]
-                                            ),
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "mt-1 text-xs text-theme-21",
-                                          },
-                                          _vm._l(
-                                            _vm.allmessage,
-                                            function (latestMsg, index) {
-                                              return _c(
-                                                "div",
-                                                { key: latestMsg.id },
-                                                [
-                                                  index ==
-                                                  _vm.allmessage.length - 1
-                                                    ? _c("div", [
-                                                        _vm._v(
-                                                          "\n                          " +
-                                                            _vm._s(
-                                                              latestMsg.receiver_id !==
-                                                                _vm.currentuser
-                                                                  .id
-                                                                ? "You: " +
-                                                                    latestMsg.message
-                                                                : latestMsg.user
-                                                                    .name +
-                                                                    ": " +
-                                                                    latestMsg.message.substring(
-                                                                      0,
-                                                                      25
-                                                                    ) +
-                                                                    " ..."
-                                                            ) +
-                                                            "\n                        "
-                                                        ),
-                                                      ])
-                                                    : _vm._e(),
-                                                ]
-                                              )
-                                            }
-                                          ),
-                                          0
-                                        ),
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "ml-2" }, [
-                                      person.unread
-                                        ? _c(
-                                            "button",
+                                              ? "w-3 h-3 bg-theme-9 absolute right-0 bottom-0 rounded-full border-2 border-white"
+                                              : "w-3 h-3 absolute right-0 bottom-0 rounded-full border-2 border-white disable-user",
+                                          }),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "ml-2 overflow-hidden" },
+                                        [
+                                          _c(
+                                            "div",
                                             {
-                                              staticClass:
-                                                "btn btn-sm btn-rounded-danger messageNotyf",
+                                              staticClass: "flex items-center",
                                             },
                                             [
-                                              _vm._v(
-                                                "\n                      " +
-                                                  _vm._s(person.unread) +
-                                                  "\n                    "
+                                              _c(
+                                                "a",
+                                                {
+                                                  staticClass: "font-medium",
+                                                  attrs: {
+                                                    href: "javascript:;",
+                                                  },
+                                                },
+                                                [_vm._v(_vm._s(person.name))]
                                               ),
                                             ]
-                                          )
-                                        : _vm._e(),
-                                    ]),
-                                  ]
-                                )
-                              : _vm._e(),
-                          ]
-                        )
-                      }),
-                      0
-                    )
-                  : _c("div", [_vm._m(6)]),
-              ]),
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "mt-1 text-xs text-theme-21",
+                                            },
+                                            _vm._l(
+                                              _vm.allmessage,
+                                              function (latestMsg, index) {
+                                                return _c(
+                                                  "div",
+                                                  { key: latestMsg.id },
+                                                  [
+                                                    index ==
+                                                    _vm.allmessage.length - 1
+                                                      ? _c("div", [
+                                                          _vm._v(
+                                                            "\n                          " +
+                                                              _vm._s(
+                                                                latestMsg.receiver_id !==
+                                                                  _vm
+                                                                    .currentuser
+                                                                    .id
+                                                                  ? "You: " +
+                                                                      latestMsg.message
+                                                                  : latestMsg
+                                                                      .user
+                                                                      .name +
+                                                                      ": " +
+                                                                      latestMsg.message.substring(
+                                                                        0,
+                                                                        25
+                                                                      ) +
+                                                                      " ..."
+                                                              ) +
+                                                              "\n                        "
+                                                          ),
+                                                        ])
+                                                      : _vm._e(),
+                                                  ]
+                                                )
+                                              }
+                                            ),
+                                            0
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("div", { staticClass: "ml-2" }, [
+                                        person.unread
+                                          ? _c(
+                                              "button",
+                                              {
+                                                staticClass:
+                                                  "btn btn-sm btn-rounded-danger messageNotyf",
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                      " +
+                                                    _vm._s(person.unread) +
+                                                    "\n                    "
+                                                ),
+                                              ]
+                                            )
+                                          : _vm._e(),
+                                      ]),
+                                    ]
+                                  )
+                                : _vm._e(),
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    : _vm._e(),
+                ]
+              ),
             ]
           ),
           _vm._v(" "),
@@ -72887,7 +73074,7 @@ var render = function () {
                               },
                             ],
                             staticClass:
-                              "\n                      form-control\n                      py-3\n                      px-4\n                      border-transparent\n                      bg-gray-200\n                      pr-10\n                      placeholder-theme-13\n                    ",
+                              "form-control py-3 px-4 border-transparent bg-gray-200 pr-10 placeholder-theme-13",
                             attrs: {
                               type: "text",
                               placeholder: "Enter user's email",
@@ -72905,7 +73092,7 @@ var render = function () {
                           _vm._v(" "),
                           _c("i", {
                             staticClass:
-                              "\n                      w-4\n                      h-4\n                      hidden\n                      sm:absolute\n                      my-auto\n                      inset-y-0\n                      mr-3\n                      right-0\n                    ",
+                              "w-4 h-4 hidden sm:absolute my-auto inset-y-0 mr-3 right-0",
                             attrs: { "data-feather": "search" },
                           }),
                         ]
@@ -72997,7 +73184,7 @@ var render = function () {
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "dropdown ml-auto" }, [
-                            _vm._m(7, true),
+                            _vm._m(6, true),
                             _vm._v(" "),
                             _c(
                               "div",
@@ -73017,7 +73204,7 @@ var render = function () {
                                       "a",
                                       {
                                         staticClass:
-                                          "\n                        flex\n                        items-center\n                        block\n                        p-2\n                        transition\n                        duration-300\n                        ease-in-out\n                        bg-white\n                        dark:bg-dark-1\n                        hover:bg-gray-200\n                        dark:hover:bg-dark-2\n                        rounded-md\n                      ",
+                                          "flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md",
                                         on: {
                                           click: function ($event) {
                                             return _vm.acceptRequest(
@@ -73042,7 +73229,7 @@ var render = function () {
                                       "a",
                                       {
                                         staticClass:
-                                          "\n                        flex\n                        items-center\n                        block\n                        p-2\n                        transition\n                        duration-300\n                        ease-in-out\n                        bg-white\n                        dark:bg-dark-1\n                        hover:bg-gray-200\n                        dark:hover:bg-dark-2\n                        rounded-md\n                      ",
+                                          "flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md",
                                         on: {
                                           click: function ($event) {
                                             return _vm.removeRequest(
@@ -73071,7 +73258,7 @@ var render = function () {
                     }),
                     0
                   )
-                : _c("div", [_vm._m(8)]),
+                : _c("div", [_vm._m(7)]),
             ]
           ),
         ]),
@@ -73081,121 +73268,86 @@ var render = function () {
         "div",
         { staticClass: "intro-y col-span-12 lg:col-span-8 xxl:col-span-9" },
         [
-          _c("div", { staticClass: "chat__box box" }, [
-            _vm.activeuser.length !== 0
-              ? _c("div", { staticClass: "h-full flex flex-col" }, [
-                  _c(
+          _c(
+            "div",
+            { staticClass: "chat__box box", attrs: { id: "chat-box-box" } },
+            [
+              _vm.activeuser.length !== 0
+                ? _c(
                     "div",
                     {
-                      staticClass:
-                        "\n              flex flex-col\n              sm:flex-row\n              border-b border-gray-200\n              dark:border-dark-5\n              px-5\n              py-4\n            ",
+                      staticClass: "h-full flex flex-col",
+                      attrs: { id: "main-screen-chat" },
                     },
                     [
-                      _c("div", { staticClass: "flex items-center" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "w-10 h-10 sm:w-12 sm:h-12 flex-none image-fit relative",
-                          },
-                          [
-                            _vm.userchoose.avatar != null
-                              ? _c("img", {
-                                  staticClass: "rounded-full",
-                                  attrs: {
-                                    alt: "Midone Tailwind HTML Admin Template",
-                                    src:
-                                      "https://res.cloudinary.com/dtiazqxyd/image/upload/v1648964340/" +
-                                      _vm.userchoose.avatar,
-                                  },
-                                })
-                              : _c("img", {
-                                  staticClass: "rounded-full",
-                                  attrs: {
-                                    alt: "Avatar",
-                                    src: "../dist2/images/avatardefault_92824-removebg.png",
-                                  },
-                                }),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "ml-3 mr-auto" }, [
-                          _c("div", { staticClass: "font-medium text-base" }, [
-                            _vm._v(
-                              "\n                  " +
-                                _vm._s(_vm.userchoose.displayName) +
-                                "\n                "
-                            ),
-                          ]),
-                          _vm._v(" "),
-                          _vm.userchoose.shortDescription != null
-                            ? _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "text-gray-600 text-xs sm:text-sm",
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                  " +
-                                      _vm._s(
-                                        _vm.userchoose.shortDescription.substring(
-                                          0,
-                                          50
-                                        ) + "..."
-                                      ) +
-                                      "\n\n                  "
-                                  ),
-                                  _c("div", {
-                                    class: _vm.onlineuser.find(function (
-                                      onlineusers
-                                    ) {
-                                      return (
-                                        onlineusers.id ===
-                                        _vm.userchoose.user_id
-                                      )
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "flex flex-col sm:flex-row border-b border-gray-200 dark:border-dark-5 px-5 py-4",
+                        },
+                        [
+                          _c("div", { staticClass: "flex items-center" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "w-10 h-10 sm:w-12 sm:h-12 flex-none image-fit relative",
+                              },
+                              [
+                                _vm.userchoose.avatar != null
+                                  ? _c("img", {
+                                      staticClass: "rounded-full",
+                                      attrs: {
+                                        alt: "Midone Tailwind HTML Admin Template",
+                                        src:
+                                          "https://res.cloudinary.com/dtiazqxyd/image/upload/v1648964340/" +
+                                          _vm.userchoose.avatar,
+                                      },
                                     })
-                                      ? "w-3 h-3 bg-theme-9 absolute rounded-full mt-1"
-                                      : "w-3 h-3 absolute rounded-full mt-1 disable-user",
-                                  }),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "ml-4" }, [
-                                    _vm._v(
-                                      "\n                    " +
-                                        _vm._s(
-                                          _vm.onlineuser.find(function (
-                                            onlineusers
-                                          ) {
-                                            return (
-                                              onlineusers.id ===
-                                              _vm.userchoose.user_id
-                                            )
-                                          })
-                                            ? "User Online"
-                                            : "User Offline"
-                                        ) +
-                                        "\n                  "
-                                    ),
-                                  ]),
-                                ]
-                              )
-                            : _c(
+                                  : _c("img", {
+                                      staticClass: "rounded-full",
+                                      attrs: {
+                                        alt: "Avatar",
+                                        src: "../dist2/images/avatardefault_92824-removebg.png",
+                                      },
+                                    }),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "ml-3 mr-auto" }, [
+                              _c(
                                 "div",
-                                {
-                                  staticClass:
-                                    "text-gray-600 text-xs sm:text-sm",
-                                },
+                                { staticClass: "font-medium text-base" },
                                 [
                                   _vm._v(
-                                    "\n                  Some quotes...\n                  "
-                                  ),
-                                  _c("span", { staticClass: "mx-1" }, [
-                                    _vm._v("•"),
-                                  ]),
-                                  _vm._v(
                                     "\n                  " +
-                                      _vm._s(
-                                        _vm.onlineuser.find(function (
+                                      _vm._s(_vm.userchoose.displayName) +
+                                      "\n                "
+                                  ),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm.userchoose.shortDescription != null
+                                ? _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "text-gray-600 text-xs sm:text-sm",
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  " +
+                                          _vm._s(
+                                            _vm.userchoose.shortDescription.substring(
+                                              0,
+                                              50
+                                            ) + "..."
+                                          ) +
+                                          "\n\n                  "
+                                      ),
+                                      _c("div", {
+                                        class: _vm.onlineuser.find(function (
                                           onlineusers
                                         ) {
                                           return (
@@ -73203,247 +73355,416 @@ var render = function () {
                                             _vm.userchoose.user_id
                                           )
                                         })
-                                          ? "Online"
-                                          : "Offline"
-                                      ) +
-                                      "\n                "
-                                  ),
-                                ]
-                              ),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "\n                flex\n                items-center\n                sm:ml-auto\n                mt-5\n                sm:mt-0\n                border-t\n                sm:border-0\n                border-gray-200\n                pt-3\n                sm:pt-0\n                -mx-5\n                sm:mx-0\n                px-5\n                sm:px-0\n              ",
-                        },
-                        [
-                          _c(
-                            "a",
-                            {
-                              staticClass:
-                                "dropdown-toggle w-4 h-4 text-gray-600",
-                              attrs: { "aria-expanded": "false" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.$router.push(
-                                    "/otherprofile/" + _vm.userchoose.user_id
+                                          ? "w-3 h-3 bg-theme-9 absolute rounded-full mt-1"
+                                          : "w-3 h-3 absolute rounded-full mt-1 disable-user",
+                                      }),
+                                      _vm._v(" "),
+                                      _c("div", { staticClass: "ml-4" }, [
+                                        _vm._v(
+                                          "\n                    " +
+                                            _vm._s(
+                                              _vm.onlineuser.find(function (
+                                                onlineusers
+                                              ) {
+                                                return (
+                                                  onlineusers.id ===
+                                                  _vm.userchoose.user_id
+                                                )
+                                              })
+                                                ? "User Online"
+                                                : "User Offline"
+                                            ) +
+                                            "\n                  "
+                                        ),
+                                      ]),
+                                    ]
                                   )
-                                },
-                              },
-                            },
-                            [
-                              _c("i", {
-                                staticClass: "fas fa-info-circle fa-lg",
-                              }),
-                            ]
-                          ),
+                                : _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "text-gray-600 text-xs sm:text-sm",
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  Some quotes...\n                  "
+                                      ),
+                                      _c("span", { staticClass: "mx-1" }, [
+                                        _vm._v("•"),
+                                      ]),
+                                      _vm._v(
+                                        "\n                  " +
+                                          _vm._s(
+                                            _vm.onlineuser.find(function (
+                                              onlineusers
+                                            ) {
+                                              return (
+                                                onlineusers.id ===
+                                                _vm.userchoose.user_id
+                                              )
+                                            })
+                                              ? "Online"
+                                              : "Offline"
+                                          ) +
+                                          "\n                "
+                                      ),
+                                    ]
+                                  ),
+                            ]),
+                          ]),
                           _vm._v(" "),
-                          _vm._m(9),
-                        ]
-                      ),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      ref: "privateMessage",
-                      staticClass:
-                        "overflow-y-scroll scrollbar-hidden px-5 pt-5 flex-1",
-                    },
-                    _vm._l(_vm.allmessage, function (message) {
-                      return _c(
-                        "div",
-                        { key: message.id, staticClass: "yourchat_loop" },
-                        [
                           _c(
                             "div",
                             {
-                              class:
-                                _vm.activeuser.id !== message.user_id
-                                  ? "chat__box__text-box flex items-end float-right mb-5"
-                                  : "chat__box__text-box flex items-end float-left mb-5",
+                              staticClass:
+                                "flex items-center sm:ml-auto mt-5 sm:mt-0 border-t sm:border-0 border-gray-200 pt-3 sm:pt-0 -mx-5 sm:mx-0 px-5 sm:px-0",
                             },
                             [
                               _c(
                                 "div",
-                                {
-                                  staticClass:
-                                    "\n                    w-10\n                    h-10\n                    hidden\n                    sm:block\n                    flex-none\n                    image-fit\n                    relative\n                    mr-5\n                  ",
-                                },
+                                { staticClass: "intro-x dropdown w-8 h-8" },
                                 [
-                                  _vm.currentuser.id == message.receiver_id &&
-                                  _vm.userchoose.avatar != null
-                                    ? _c("img", {
-                                        staticClass: "rounded-full",
-                                        attrs: {
-                                          alt: "Midone Tailwind HTML Admin Template",
-                                          src:
-                                            "https://res.cloudinary.com/dtiazqxyd/image/upload/v1648964340/" +
-                                            _vm.userchoose.avatar,
+                                  _vm._m(8),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "dropdown-menu w-56" },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "dropdown-menu__content box bg-theme-26 dark:bg-dark-6 text-white",
                                         },
-                                      })
-                                    : _vm.currentuser.id ==
-                                        message.receiver_id &&
-                                      _vm.userchoose.avatar == null
-                                    ? _c("img", {
-                                        staticClass: "rounded-full",
-                                        attrs: {
-                                          alt: "",
-                                          src: "../dist2/images/avatardefault_92824-removebg.png",
-                                        },
-                                      })
-                                    : _vm._e(),
+                                        [
+                                          _c("div", { staticClass: "p-2" }, [
+                                            _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md",
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.$router.push(
+                                                      "/otherprofile/" +
+                                                        _vm.userchoose.user_id
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass:
+                                                    "fas fa-user mr-2",
+                                                }),
+                                                _vm._v(
+                                                  "View Profile\n                      "
+                                                ),
+                                              ]
+                                            ),
+                                          ]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "p-2 border-t border-theme-27 dark:border-dark-3",
+                                            },
+                                            [
+                                              _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md",
+                                                  on: {
+                                                    click: function ($event) {
+                                                      return _vm.DeleteConversation(
+                                                        _vm.userchoose.user_id
+                                                      )
+                                                    },
+                                                  },
+                                                },
+                                                [
+                                                  _vm.loading
+                                                    ? _c("i", {
+                                                        staticClass:
+                                                          "fas fa-circle-notch fa-spin mr-1",
+                                                        staticStyle: {
+                                                          color: "#e3175b",
+                                                        },
+                                                      })
+                                                    : _c("i", {
+                                                        staticClass:
+                                                          "fa fa-trash-o mr-2",
+                                                        staticStyle: {
+                                                          color: "#e3175b",
+                                                        },
+                                                        attrs: {
+                                                          "aria-hidden": "true",
+                                                        },
+                                                      }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "p",
+                                                    {
+                                                      staticStyle: {
+                                                        color: "#e3175b",
+                                                      },
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "Delete Conversation"
+                                                      ),
+                                                    ]
+                                                  ),
+                                                ]
+                                              ),
+                                            ]
+                                          ),
+                                        ]
+                                      ),
+                                    ]
+                                  ),
                                 ]
                               ),
-                              _vm._v(" "),
+                            ]
+                          ),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          ref: "privateMessage",
+                          staticClass:
+                            "overflow-y-scroll scrollbar-hidden px-5 pt-5 flex-1",
+                        },
+                        _vm._l(_vm.allmessage, function (message) {
+                          return _c(
+                            "div",
+                            { key: message.id, staticClass: "yourchat_loop" },
+                            [
                               _c(
                                 "div",
                                 {
                                   class:
                                     _vm.activeuser.id !== message.user_id
-                                      ? "bg-theme-1 px-4 py-3 text-white rounded-l-md rounded-t-md"
-                                      : "bg-gray-200 dark:bg-dark-5 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-r-md rounded-t-md",
-                                  staticStyle: { "border-radius": "15px" },
+                                      ? "chat__box__text-box flex items-end float-right mb-5"
+                                      : "chat__box__text-box flex items-end float-left mb-5",
                                 },
                                 [
-                                  _vm._v(
-                                    "\n                  " +
-                                      _vm._s(message.message) +
-                                      "\n                  "
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "w-10 h-10 hidden sm:block flex-none image-fit relative mr-5",
+                                    },
+                                    [
+                                      _vm.currentuser.id ==
+                                        message.receiver_id &&
+                                      _vm.userchoose.avatar != null
+                                        ? _c("img", {
+                                            staticClass: "rounded-full",
+                                            attrs: {
+                                              alt: "Midone Tailwind HTML Admin Template",
+                                              src:
+                                                "https://res.cloudinary.com/dtiazqxyd/image/upload/v1648964340/" +
+                                                _vm.userchoose.avatar,
+                                            },
+                                          })
+                                        : _vm.currentuser.id ==
+                                            message.receiver_id &&
+                                          _vm.userchoose.avatar == null
+                                        ? _c("img", {
+                                            staticClass: "rounded-full",
+                                            attrs: {
+                                              alt: "",
+                                              src: "../dist2/images/avatardefault_92824-removebg.png",
+                                            },
+                                          })
+                                        : _vm._e(),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      class:
+                                        _vm.activeuser.id !== message.user_id
+                                          ? "bg-theme-1 px-4 py-3 text-white rounded-l-md rounded-t-md"
+                                          : "bg-gray-200 dark:bg-dark-5 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-r-md rounded-t-md",
+                                      staticStyle: { "border-radius": "15px" },
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  " +
+                                          _vm._s(message.message) +
+                                          "\n                  "
+                                      ),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "mt-1 text-xs text-theme-21",
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                    " +
+                                              _vm._s(
+                                                _vm.formatDate(
+                                                  message.created_at
+                                                )
+                                              ) +
+                                              "\n                  "
+                                          ),
+                                        ]
+                                      ),
+                                    ]
+                                  ),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "clear-both" }),
+                            ]
+                          )
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "pt-4 pb-10 sm:py-4 flex items-center border-t border-gray-200 dark:border-dark-5",
+                        },
+                        [
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.message,
+                                expression: "message",
+                              },
+                            ],
+                            staticClass:
+                              "chat__box__input form-control dark:bg-dark-3 h-16 resize-none border-transparent px-5 py-3 shadow-none focus:ring-0",
+                            attrs: {
+                              rows: "1",
+                              placeholder: "Type your message...",
+                            },
+                            domProps: { value: _vm.message },
+                            on: {
+                              keyup: function ($event) {
+                                if (
+                                  !$event.type.indexOf("key") &&
+                                  _vm._k(
+                                    $event.keyCode,
+                                    "enter",
+                                    13,
+                                    $event.key,
+                                    "Enter"
+                                  )
+                                ) {
+                                  return null
+                                }
+                                return _vm.sendMessage.apply(null, arguments)
+                              },
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.message = $event.target.value
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "flex absolute sm:static left-0 bottom-0 ml-5 sm:ml-0 mb-5 sm:mb-0",
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "dropdown mr-3 sm:mr-5" },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "dropdown-toggle w-4 h-4 sm:w-5 sm:h-5 block text-gray-600",
+                                      attrs: { "aria-expanded": "false" },
+                                      on: { click: _vm.ToggleEmoji },
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-laugh fa-lg",
+                                      }),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "floating-div" },
+                                    [
+                                      _vm.emoStatus
+                                        ? _c("picker", {
+                                            on: { select: _vm.addEmoji },
+                                          })
+                                        : _vm._e(),
+                                    ],
+                                    1
                                   ),
                                 ]
                               ),
                             ]
                           ),
                           _vm._v(" "),
-                          _c("div", { staticClass: "clear-both" }),
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "w-8 h-8 sm:w-10 sm:h-10 block bg-theme-1 text-white rounded-full flex-none flex items-center justify-center mr-5",
+                              attrs: { type: "button" },
+                              on: { click: _vm.sendMessage },
+                            },
+                            [_c("i", { staticClass: "fas fa-paper-plane" })]
+                          ),
                         ]
-                      )
-                    }),
-                    0
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "\n              pt-4\n              pb-10\n              sm:py-4\n              flex\n              items-center\n              border-t border-gray-200\n              dark:border-dark-5\n            ",
-                    },
-                    [
-                      _c("textarea", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.message,
-                            expression: "message",
-                          },
-                        ],
-                        staticClass:
-                          "\n                chat__box__input\n                form-control\n                dark:bg-dark-3\n                h-16\n                resize-none\n                border-transparent\n                px-5\n                py-3\n                shadow-none\n                focus:ring-0\n              ",
-                        attrs: {
-                          rows: "1",
-                          placeholder: "Type your message...",
-                        },
-                        domProps: { value: _vm.message },
-                        on: {
-                          keyup: function ($event) {
-                            if (
-                              !$event.type.indexOf("key") &&
-                              _vm._k(
-                                $event.keyCode,
-                                "enter",
-                                13,
-                                $event.key,
-                                "Enter"
-                              )
-                            ) {
-                              return null
-                            }
-                            return _vm.sendMessage.apply(null, arguments)
-                          },
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.message = $event.target.value
-                          },
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "\n                flex\n                absolute\n                sm:static\n                left-0\n                bottom-0\n                ml-5\n                sm:ml-0\n                mb-5\n                sm:mb-0\n              ",
-                        },
-                        [
-                          _c("div", { staticClass: "dropdown mr-3 sm:mr-5" }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass:
-                                  "\n                    dropdown-toggle\n                    w-4\n                    h-4\n                    sm:w-5 sm:h-5\n                    block\n                    text-gray-600\n                  ",
-                                attrs: { "aria-expanded": "false" },
-                                on: { click: _vm.ToggleEmoji },
-                              },
-                              [_c("i", { staticClass: "fas fa-laugh fa-lg" })]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "floating-div" },
-                              [
-                                _vm.emoStatus
-                                  ? _c("picker", {
-                                      on: { select: _vm.addEmoji },
-                                    })
-                                  : _vm._e(),
-                              ],
-                              1
-                            ),
-                          ]),
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "\n                w-8\n                h-8\n                sm:w-10 sm:h-10\n                block\n                bg-theme-1\n                text-white\n                rounded-full\n                flex-none flex\n                items-center\n                justify-center\n                mr-5\n              ",
-                          attrs: { type: "button" },
-                          on: { click: _vm.sendMessage },
-                        },
-                        [_c("i", { staticClass: "fas fa-paper-plane" })]
                       ),
                     ]
-                  ),
-                ])
-              : _c("div", { staticClass: "h-full flex items-center" }, [
-                  _c("div", { staticClass: "mx-auto text-center" }, [
-                    _c("div", {}, [
-                      _c("img", {
-                        staticClass: "emptychatimg",
-                        staticStyle: { height: "400px", width: "400px" },
-                        attrs: {
-                          alt: "Midone Tailwind HTML Admin Template",
-                          src: "dist2/images/messagingcp.png",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "text-gray-600 mt-1" }, [
-                        _vm._v(
-                          "\n                Please select a chat to start messaging.\n              "
-                        ),
+                  )
+                : _c(
+                    "div",
+                    {
+                      staticClass: "h-full flex items-center",
+                      attrs: { id: "default-screen-chat" },
+                    },
+                    [
+                      _c("div", { staticClass: "mx-auto text-center" }, [
+                        _c("div", {}, [
+                          _c("img", {
+                            staticClass: "emptychatimg",
+                            staticStyle: { height: "400px", width: "400px" },
+                            attrs: {
+                              alt: "Midone Tailwind HTML Admin Template",
+                              src: "dist2/images/messagingcp.png",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "text-gray-600 mt-1" }, [
+                            _vm._v(
+                              "\n                Please select a chat to start messaging.\n              "
+                            ),
+                          ]),
+                        ]),
                       ]),
-                    ]),
-                  ]),
-                ]),
-          ]),
+                    ]
+                  ),
+            ]
+          ),
         ]
       ),
     ]),
@@ -73558,39 +73879,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "div",
-        {
-          staticClass:
-            "\n                    intro-x\n                    cursor-pointer\n                    box\n                    relative\n                    flex\n                    items-center\n                    p-5\n                    mt-5\n                    no-user-found\n                  ",
-          staticStyle: { "border-radius": "20px !important" },
-        },
-        [
-          _c("div", { staticClass: "w-12 h-12 flex-none image-fit mr-1" }, [
-            _c("i", {
-              staticClass: "fa fa-exclamation-triangle",
-              attrs: { "aria-hidden": "true" },
-            }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "ml-2 overflow-hidden" }, [
-            _c("div", { staticClass: "flex items-center" }, [
-              _c(
-                "a",
-                { staticClass: "font-medium", attrs: { href: "javascript:;" } },
-                [_vm._v("Sorry! No user found.")]
-              ),
-            ]),
-          ]),
-        ]
-      ),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "a",
       {
@@ -73632,43 +73920,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "dropdown-menu w-40" }, [
-      _c(
-        "div",
-        { staticClass: "dropdown-menu__content box dark:bg-dark-1 p-2" },
-        [
-          _c(
-            "a",
-            {
-              staticClass:
-                "\n                      flex\n                      items-center\n                      block\n                      p-2\n                      transition\n                      duration-300\n                      ease-in-out\n                      bg-white\n                      dark:bg-dark-1\n                      hover:bg-gray-200\n                      dark:hover:bg-dark-2\n                      rounded-md\n                    ",
-              attrs: { href: "" },
-            },
-            [
-              _c("i", {
-                staticClass: "w-4 h-4 mr-2",
-                attrs: { "data-feather": "corner-up-left" },
-              }),
-              _vm._v("\n                    Reply\n                  "),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass:
-                "\n                      flex\n                      items-center\n                      block\n                      p-2\n                      transition\n                      duration-300\n                      ease-in-out\n                      bg-white\n                      dark:bg-dark-1\n                      hover:bg-gray-200\n                      dark:hover:bg-dark-2\n                      rounded-md\n                    ",
-              attrs: { href: "" },
-            },
-            [
-              _c("i", { staticClass: "fas fa-trash" }),
-              _vm._v(" "),
-              _c("span", [_vm._v("Delete")]),
-            ]
-          ),
-        ]
-      ),
-    ])
+    return _c(
+      "div",
+      {
+        staticClass: "dropdown-toggle w-8 h-8",
+        attrs: { role: "button", "aria-expanded": "false" },
+      },
+      [
+        _c("i", {
+          staticClass: "fa fa-ellipsis-v",
+          attrs: { "aria-hidden": "true" },
+        }),
+      ]
+    )
   },
 ]
 render._withStripped = true

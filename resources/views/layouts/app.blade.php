@@ -19,6 +19,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta name="author" content="LEFT4CODE">
         <title>BFFChat</title>
         <!-- BEGIN: CSS Assets-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
         <link rel="stylesheet" href="../dist2/css/app.css" />
         <link rel="stylesheet" href="../dist/css/custom.css" />
         <!-- END: CSS Assets-->
@@ -76,6 +77,8 @@ License: You must have a valid license purchased only from themeforest(the above
         
 </div>
         <!-- BEGIN: JS Assets-->
+        <script src="https://unpkg.com/moment@2.26.0/moment.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
         <script src="../dist2/js/app.js"></script>

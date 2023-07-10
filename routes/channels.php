@@ -29,6 +29,10 @@ Broadcast::channel('bffchatacceptsubuser.{receiver_id}', function ($user, $recei
     return auth()->check();
 });
 
+Broadcast::channel('bffchatreceivesender.{receiver_id}', function ($user, $receiverid) {
+    return auth()->check();
+});
+
 Broadcast::channel('privatebffchat.{receiverid}', function ($user, $receiverid) {
     return auth()->check();
 });
